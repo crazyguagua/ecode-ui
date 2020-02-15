@@ -15,7 +15,7 @@ vue 组件库
 
 #### 使用说明
 
-1.  xxxx
+1.  使用本ui库需要在css中开启 border-box
 2.  xxxx
 3.  xxxx
 
