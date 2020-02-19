@@ -64,6 +64,7 @@ export default {
     }
     &:hover{
          background: var(--button-hover-bg);
+         border:1px solid var(--border-active-color);
     }
     &.icon-left .icon{
         order:1;
