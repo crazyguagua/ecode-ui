@@ -6,7 +6,17 @@
 
 <script>
 export default {
-    name:'buttonGroup'
+    name:'buttonGroup',
+    mounted(){
+        //用户可能会在buttonGroup组件内放入别的元素，需要检测slot
+       let children =  this.$el.children
+       for(let p of children){
+           let nodeName = p.nodeName.toLowerCase()
+           if(nodeName!=='button'){
+               console.warn('e-button-group 的插槽必须是 e-button ，您当前的插槽是['+nodeName+']')
+           }
+       }
+    }
 }
 </script>
 
