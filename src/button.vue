@@ -66,18 +66,18 @@ export default {
          background: var(--button-hover-bg);
          border:1px solid var(--border-active-color);
     }
-    &.icon-left .icon{
+    &.icon-left > .icon{
         order:1;
         margin-right:.3em;
     }
-    &.icon-left .content{
+    &.icon-left > .content{
         order:2;
     }
-    &.icon-right .icon{
+    &.icon-right > .icon{
         order:2;
         margin-left:.3em; /** 如果长度和字体大小相同 推荐用em */
     }
-    &.icon-right .content{
+    &.icon-right > .content{
         order:1;
     }
 }
