@@ -1,7 +1,7 @@
 # vue-comp
 
 #### 介绍
-vue 组件库
+vue 组件库 [![Build Status](https://www.travis-ci.org/crazyguagua/ecode-ui.svg?branch=master)](https://www.travis-ci.org/crazyguagua/ecode-ui)
 
 #### 软件架构
 软件架构说明
