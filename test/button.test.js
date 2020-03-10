@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import EButton from '../src/button'
 import chai from 'chai'
-import spies from 'chai-spies'
-chai.use(spies)
+Vue.config.productionTip = false
+Vue.config.devtools = false
 const expect = chai.expect
 //BDD 行为驱动测试
 describe('EButton',()=>{
@@ -37,7 +37,27 @@ describe('EButton',()=>{
         button.$destroy()
     })
 
-    it('可以设置图标位置.',()=>{
+    it('默认图标位置在左侧.',()=>{
+        const div = document.createElement('div')
+        document.body.appendChild(div);// 少了这句 没有加载到页面上导致 computedeStyle 获取不到内容
+        const Ctor = Vue.extend(EButton)
+        const button = new Ctor({
+            propsData:{
+                icon:'ecode-download',
+            }
+        })
+       
+        button.$mount(div)
+        let  svg = button.$el.querySelector('svg');
+        const order = window.getComputedStyle(svg).order
+        expect(order).to.eq('1');
+        button.$el.remove()
+        button.$destroy()
+    })
+
+    it('可以设置图标到右侧.',()=>{
+        const div = document.createElement('div')
+        document.body.appendChild(div);// 少了这句 没有加载到页面上导致 computedeStyle 获取不到内容
         const Ctor = Vue.extend(EButton)
         const button = new Ctor({
             propsData:{
@@ -45,14 +65,32 @@ describe('EButton',()=>{
                 iconPosition:'right'
             }
         })
-        const div = document.createElement('div')
+       
         button.$mount(div)
         let  svg = button.$el.querySelector('svg');
-        console.log(svg)
-        const order = getComputedStyle(svg).order
-        expect(order).to.eq('right');
+        const order = window.getComputedStyle(svg).order
+        expect(order).to.eq('2');
         button.$el.remove()
         button.$destroy()
+    })
+
+    it('按钮可以有点击事件.',()=>{
+        //这里不需要挂在到页面上
+        const Ctor = Vue.extend(EButton)
+        const vm = new Ctor({
+            propsData:{
+                icon:'ecode-download',
+                iconPosition:'right'
+            }
+        })
+       
+        vm.$mount()
+        const callback = sinon.fake()
+        vm.$on('click',callback)
+        vm.$el.click()
+
+        expect(callback.called)
+
     })
 })
 //单元测试
