@@ -1,7 +1,7 @@
 module.exports=function(config){
     config.set({
         basePath:'',
-        browsers: ['Chrome'],
+        browsers: ['ChromeHeadless'],
         frameworks: ['mocha', 'sinon-chai'],
         files: ['dist/**/*.js','dist/**/*.css'],
         singleRun:false,
