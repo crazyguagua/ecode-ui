@@ -1,5 +1,5 @@
 <template>
-  <button class="ecode-button" :class={[`icon-${iconPosition}`]:true} @click="$emit('click')">
+  <button class="ecode-button" :class="{[`icon-${iconPosition}`]:true}" @click="$emit('click')">
       <!-- {[`icon-${iconPosition}`]:true}   会把 icon-left icon-right 添加到 class上 -->
       <!--这里通过样式来控制按钮的位置，通过 display:inline-flex; order:1;order；2;决定icon的位置 -->
     <EIcon class="loading icon" name="ecode-loading" v-if="loading"></EIcon> <!-- 保证loading 在 icon原来的位置上 加上icon的样式-->
