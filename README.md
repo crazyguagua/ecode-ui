@@ -1,33 +1,50 @@
-# vue-comp
+# ecode UI vue组件库
+[![Build Status](https://www.travis-ci.org/crazyguagua/ecode-ui.svg?branch=master)](https://www.travis-ci.org/crazyguagua/ecode-ui)
+## 这是我个人学习其他vue组件库，自己维护的ui库，学习别人的，提高自己。
 
-#### 介绍
-vue 组件库 [![Build Status](https://www.travis-ci.org/crazyguagua/ecode-ui.svg?branch=master)](https://www.travis-ci.org/crazyguagua/ecode-ui)
+## 开始使用
+1. ie8 及以上版本
+2. 需要开启 box-sizing:border-box;
+``` css
+*{
+    box-sizing:border-box;
+    *::after{
+        box-sizing:border-box;
+    }
+    *::before{
+        box-sizing:border-box;
+    }
+} 
+```
+3. 还需要设置默认样式的变量（后续会修复）
+``` css
+    html{
+        --font-size:14px;
+        --button-height:32px;
+        --button-bg:#fff;
+        --button-active-bg:rgb(158, 158, 158);
+        --button-hover-bg:rgb(192, 192, 192);
+        --button-color:#000;
+        --border-radius:5px;
+        --border-color:#333;
+        --border-active-color:rgb(22, 21, 21);
+    }
+```
+4. 安装组件
+``` bash
+    npm install ecode-ui -S
+```
+5. 引入 EcodeUI
+```
+import  {EButton,EButtonGroup,EIcon} from 'ecode-ui'
+import 'ecode-ui/dist/index.css'
+```
+## 文档
 
-#### 软件架构
-软件架构说明
+## 提问
 
+## 修改记录
 
-#### 安装教程
+## 联系方式
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 使用说明
-
-1.  使用本ui库需要在css中开启 border-box
-2.  
-3.  xxxx
-
-#### 测试代码
-1. npm i -D karma karma-chrome-launcher karma-mocha karma-sinon-chai mocha sinon sinon-chai karma-chai karma-chai-spies
-2. karma 相当于一个可以打开浏览器的工具。测试步骤：1打开游览器2执行测试用例3输出测试结果4关闭浏览器
-3. win系统 命令行命令快速移动到首部按home键，mac 按comman+left ctrl+a ctrl+e
-4. 单元测试需要变量作用域隔离和断言
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+## 贡献代码
