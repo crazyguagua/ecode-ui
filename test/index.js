@@ -1,1 +1,1 @@
-require('./button.test')
+require('./input.test')
