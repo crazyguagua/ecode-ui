@@ -1,5 +1,15 @@
-module.exports = { 
-    plugins: { 
-      'autoprefixer': {browsers: 'last 5 version'} 
-    } 
+
+//更改后
+module.exports = {
+  plugins: {
+    'autoprefixer': {
+      overrideBrowserslist: [
+        "Android 4.1",
+        "iOS 7.1",
+        "Chrome > 31",
+        "ff > 31",
+        "ie >= 8"
+      ]
+    }
   }
+}

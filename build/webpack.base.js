@@ -1,10 +1,11 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin'); //引入清除文件插件
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const devMode = process.env.NODE_ENV === 'development'; // 是否是开发模式
 module.exports = {
     entry: {
-        index: path.resolve(__dirname, '../src/app.js')
+        index: path.resolve(__dirname, '../src/example.js')
     },
     output: {
         path: path.resolve(__dirname, '../dist'),
@@ -38,16 +39,23 @@ module.exports = {
             },
             /**** dev.js ****/
             {
-                test: /\.scss$/,
-                use: ['style-loader', 'css-loader',{loader: 'postcss-loader',options: { sourceMap: devMode?'inline':false}}, 'sass-loader']
-            }
+                test: /\.(sa|sc)ss$/,
+                  use: [
+                    devMode ? 'style-loader' :  MiniCssExtractPlugin.loader,
+                      'css-loader',
+                      'postcss-loader',
+                      'sass-loader',
+                  ]
+              }
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../index.html')
-        }),
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),new CleanWebpackPlugin(),
+        new MiniCssExtractPlugin({
+            　　filename: "[name].[chunkhash:8].css",
+           　　 chunkFilename: "[id].css"
+         })
+
     ],
     resolve: {
         extensions: ['.js', '.vue', '.json'],

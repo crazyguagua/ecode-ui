@@ -1,18 +1,23 @@
-const path = require('path')
+const path = require('path');
 const merge = require('webpack-merge');
 const baseConfig = require('./webpack.base.js');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const package = require('../package.json')
 module.exports = merge(baseConfig, {
   mode: 'production',
   devtool: 'source-map',
+  entry: {
+    index: path.resolve(__dirname, '../src/index.js')
+  },
+  output:{
+    path: path.resolve(__dirname, '../pub'),
+    filename: '[name].js'
+  },
   module: {
     rules: [
      
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, '../index.html')
-    }),
+
   ]
 });

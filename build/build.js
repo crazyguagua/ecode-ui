@@ -1,5 +1,5 @@
 const webpack = require('webpack');
-const config = require('./webpack.prod.js');
+const config = require('./webpack.build.js');
 
 webpack(config, (err, stats) => {
   if (err || stats.hasErrors()) {

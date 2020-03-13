@@ -1,0 +1,16 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+:root{
+    --font-size:14px;
+    --button-height:32px;
+    --button-bg:#fff;
+    --button-active-bg:rgb(158, 158, 158);
+    --button-hover-bg:rgb(192, 192, 192);
+    --button-color:#000;
+    --border-radius:5px;
+    --border-color:#333;
+    --border-active-color:rgb(22, 21, 21);
+}
