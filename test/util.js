@@ -14,10 +14,17 @@ const destroyVM = (vm)=> {
     vm.$el.parentNode.removeChild(vm.$el);
 };
 
-const createVm = (comp,propsData={},isMount=false)=>{
-    const Ctor = Vue.extend(comp)
-    const vm = new Ctor(propsData)
-    const elm = createElm();
+const createVm = (comp,cfg={},isMount=false)=>{
+    let vm = null
+    if (Object.prototype.toString.call(comp) === '[object String]') {
+        comp = { template: comp };
+        vm = new Vue(comp)
+    }else{
+        const Ctor = Vue.extend(comp)
+        vm = new Ctor(cfg)
+        const elm = createElm();
+    }
+   
     vm.$mount(isMount?elm:null)
     return vm
 }

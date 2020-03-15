@@ -1,9 +1,9 @@
 import Vue from 'vue'
-import {createVm,destroyVM,waitImmediate} from './util'
+import {createVm,destroyVM,waitImmediate,wait} from './util'
 import {
     EInput
 } from '@/index.js'
-
+Vue.component('EInput',EInput)
 import chai from 'chai'
 Vue.config.productionTip = false
 Vue.config.devtools = false
@@ -74,7 +74,26 @@ describe('EInput', () => {
             input.dispatchEvent(event)
             await waitImmediate()
             expect(callback.calledWith('change')).to.be.true //被触发同时传递event事件对象
-            vm.$destroy()
+            destroyVM(vm)
+        })
+    })
+
+    describe('支持v-model：',()=>{
+        it('change事件',async ()=>{
+            const vm = createVm({
+                template:'<e-input v-model="value"> </e-input>',
+                data(){
+                   return{
+                       value:'abc'
+                   }
+                }
+            })
+            const input = vm.$el.querySelector('input')
+            input.value = 'cba'
+            input.dispatchEvent(new Event('input')) //触发事件才可以
+            await wait(300)
+            expect(vm.value).to.eq('cba') //被触发同时传递event事件对象
+            destroyVM(vm)
         })
     })
 })
