@@ -76,10 +76,7 @@ describe('EInput', () => {
             expect(callback.calledWith('change')).to.be.true //被触发同时传递event事件对象
             destroyVM(vm)
         })
-    })
-
-    describe('支持v-model：',()=>{
-        it('change事件',async ()=>{
+        it('支持v-model',async ()=>{
             const vm = createVm({
                 template:'<e-input v-model="value"> </e-input>',
                 data(){
