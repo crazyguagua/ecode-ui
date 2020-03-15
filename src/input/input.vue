@@ -1,6 +1,6 @@
 <template>
   <div class="eocde-inputWrapper" :class="{error}">
-      <input type="text" :readonly="readonly" :disabled="disabled" v-model="value"  v-bind="$attrs" />
+      <input type="text" @change="onChange" :readonly="readonly" :disabled="disabled" v-model="value"  v-bind="$attrs" />
       <div class="message" v-if="error">
          <e-icon name="ecode-Fail" /> <span>{{error}}</span>
       </div>
@@ -18,6 +18,11 @@ export default {
         warning:String,
         disabled:Boolean,
         readonly:Boolean
+    },
+    methods:{
+        onChange(ev){
+            this.$emit('change',ev.target.value)
+        }
     }
 }
 </script>

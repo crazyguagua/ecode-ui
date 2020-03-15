@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import {createVm,destroyVM} from './util'
+import {createVm,destroyVM,waitImmediate} from './util'
 import {
     EInput
 } from '@/index.js'
@@ -8,7 +8,7 @@ import chai from 'chai'
 Vue.config.productionTip = false
 Vue.config.devtools = false
 const expect = chai.expect
-
+//describe和it 是mocha提供的  expect chai
 describe('EInput', () => {
 
     it('存在', () => {
@@ -62,5 +62,19 @@ describe('EInput', () => {
             destroyVM(vm)
         })
     })
-
+    describe('支持事件：',()=>{
+        it('change事件',async ()=>{
+            const vm = createVm(EInput)
+            const callback = sinon.spy()
+            const input = vm.$el.querySelector('input')
+            vm.$on('change',callback)
+            //触发input的change事件
+            const event = new Event('change')
+            input.value = 'change'
+            input.dispatchEvent(event)
+            await waitImmediate()
+            expect(callback.calledWith('change')).to.be.true //被触发同时传递event事件对象
+            vm.$destroy()
+        })
+    })
 })

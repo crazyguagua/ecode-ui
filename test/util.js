@@ -22,7 +22,19 @@ const createVm = (comp,propsData={},isMount=false)=>{
     return vm
 }
 
+/**
+ * 等待 ms 毫秒，返回 Promise
+ * @param {Number} ms
+ */
+const wait = function(ms = 50) {
+    return new Promise(resolve => setTimeout(() => resolve(), ms));
+  };
+  
+  /**
+   * 等待一个 Tick，代替 Vue.nextTick，返回 Promise
+   */
+const waitImmediate = () => wait(0);
 export {
 
-    createElm,destroyVM,createVm
+    createElm,destroyVM,createVm,waitImmediate,wait
 }

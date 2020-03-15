@@ -4,6 +4,7 @@ module.exports=function(config){
         basePath:'',
         browsers: ['ChromeHeadless'],
         frameworks: ['mocha', 'sinon-chai'],
+        reporters: ['spec', 'coverage'],
         files: ['./test/index.js'],
         preprocessors: {
           './test/index.js': ['webpack', 'sourcemap']
