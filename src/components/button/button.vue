@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import EIcon from './icon'
+import EIcon from '@/components/icon/icon'
 export default {
     name:'EButton',
     components:{EIcon},

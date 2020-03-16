@@ -1,7 +1,7 @@
-import EButton from './button'
-import EIcon from './icon'
-import EButtonGroup from './buttonGroup'
-import EInput from './input/input'
+import EButton from '@/components/button/button'
+import EIcon from '@/components/icon/icon'
+import EButtonGroup from '@/components/button/buttonGroup'
+import EInput from '@/components/input/input'
 import './style/index.scss'
 import './style/fonts/iconfont.js'
 

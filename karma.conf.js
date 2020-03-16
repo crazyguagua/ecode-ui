@@ -5,9 +5,16 @@ module.exports=function(config){
         browsers: ['ChromeHeadless'],
         frameworks: ['mocha', 'sinon-chai'],
         reporters: ['spec', 'coverage'],
+        coverageReporter: {
+          dir: './test/coverage',
+          reporters: [
+            { type: 'lcov', subdir: '.' },
+            { type: 'text-summary' }
+          ]
+        },
         files: ['./test/index.js'],
         preprocessors: {
-          './test/index.js': ['webpack', 'sourcemap']
+          './test/index.js': ['webpack', 'sourcemap', 'coverage']
         },
         webpack: webpackConfig,
         webpackMiddleware: {
