@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import EButton from './button'
-import EIcon from './icon'
-import EButtonGroup from './buttonGroup'
-import EInput from './input/input'
+import EButton from '@/components/button/button'
+import EIcon from '@/components/icon/icon'
+import EButtonGroup from '@/components/button/buttonGroup'
+import EInput from '@/components/input/input'
 import App from './App'
 import './style/index.scss'
 Vue.component('e-button',EButton)

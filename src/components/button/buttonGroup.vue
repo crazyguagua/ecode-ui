@@ -6,7 +6,7 @@
 
 <script>
 export default {
-    name:'buttonGroup',
+    name:'ecodeButtonGroup',
     mounted(){
         //用户可能会在buttonGroup组件内放入别的元素，需要检测slot
        let children =  this.$el.children

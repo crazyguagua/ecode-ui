@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import EIcon from '../icon'
+import EIcon from '@/components/icon/icon'
 export default {
     name:'ecode-input',
     components:{EIcon},
@@ -25,7 +25,6 @@ export default {
             this.$emit('change',ev.target.value)
         },
         onInput(ev){
-            console.log('onInput'+ev.target.value)
              this.$emit('input', ev.target.value);
         }
     }
@@ -33,7 +32,7 @@ export default {
 </script>
 
 <style lang="scss" >
-@import '../style/var/var.scss';
+@import '../../style/var/var.scss';
 .eocde-inputWrapper{
     display:inline-block;
     vertical-align: top;
