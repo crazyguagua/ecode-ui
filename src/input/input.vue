@@ -1,8 +1,8 @@
 <template>
   <div class="eocde-inputWrapper" :class="{error}">
-      <input type="text" v-model="value"  v-bind="$attrs"></input>
+      <input type="text" :readonly="readonly" :disabled="disabled" v-model="value"  v-bind="$attrs" />
       <div class="message" v-if="error">
-         <e-icon name="ecode-Fail"/> <span>{{error}}</span>
+         <e-icon name="ecode-Fail" /> <span>{{error}}</span>
       </div>
   </div>
 </template>
@@ -15,12 +15,14 @@ export default {
     props:{
         value:String,
         error:String,
-        warning:String
+        warning:String,
+        disabled:Boolean,
+        readonly:Boolean
     }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" >
 @import '../style/var/var.scss';
 .eocde-inputWrapper{
     display:inline-block;
@@ -28,7 +30,7 @@ export default {
     &.error {
         > input,> input:focus,>input:hover{
             border:1px solid $error-color;
-            box-shadow: inset 0 0 1px $error-color;
+            box-shadow: inset 0 0 3px $error-color;
         }
         .message{
             color:$error-color;
@@ -50,7 +52,7 @@ export default {
         }
         &:focus{
              outline: none;
-            box-shadow: inset 0 1px 4px $shadow-color;
+            box-shadow: inset 0 0px 3px $shadow-color;
         }
         &[disabled]{
            border-color:$disabled-border-color;
