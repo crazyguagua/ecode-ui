@@ -14,15 +14,34 @@ const destroyVM = (vm)=> {
     vm.$el.parentNode.removeChild(vm.$el);
 };
 
-const createVm = (comp,propsData={},isMount=false)=>{
-    const Ctor = Vue.extend(comp)
-    const vm = new Ctor(propsData)
-    const elm = createElm();
+const createVm = (comp,cfg={},isMount=false)=>{
+    let vm = null
+    if (Object.prototype.toString.call(comp) === '[object String]') {
+        comp = { template: comp };
+        vm = new Vue(comp)
+    }else{
+        const Ctor = Vue.extend(comp)
+        vm = new Ctor(cfg)
+        const elm = createElm();
+    }
+   
     vm.$mount(isMount?elm:null)
     return vm
 }
 
+/**
+ * 等待 ms 毫秒，返回 Promise
+ * @param {Number} ms
+ */
+const wait = function(ms = 50) {
+    return new Promise(resolve => setTimeout(() => resolve(), ms));
+  };
+  
+  /**
+   * 等待一个 Tick，代替 Vue.nextTick，返回 Promise
+   */
+const waitImmediate = () => wait(0);
 export {
 
-    createElm,destroyVM,createVm
+    createElm,destroyVM,createVm,waitImmediate,wait
 }

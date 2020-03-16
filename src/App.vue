@@ -16,6 +16,7 @@
             <e-input v-model="text2" disabled placeholder="请输入" ></e-input>
             <e-input v-model="text3" readonly placeholder="请输入" ></e-input>
             <e-input v-model="text3"  placeholder="请输入" error="用户已存在"></e-input>
+            <e-input v-model="text4"  placeholder="请输入" ></e-input> {{text4}}
         </div>
    </div>
 </template>
@@ -30,7 +31,8 @@ export default {
             loading3:false,
             text1:'张三',
             text2:'李斯',
-            text3:'王五'
+            text3:'王五',
+            text4:'11111'
 
         }
     }
