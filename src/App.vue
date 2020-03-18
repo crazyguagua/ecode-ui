@@ -18,6 +18,29 @@
             <e-input v-model="text3"  placeholder="请输入" error="用户已存在"></e-input>
             <e-input v-model="text4"  placeholder="请输入" ></e-input>
         </div>
+
+        <div style="margin-top:20px;" >
+            <e-row >
+                <e-col :span="12">1</e-col>
+                <e-col :span="12">2</e-col>
+                <e-col :span="12">3</e-col>
+                 <e-col :span="12">4</e-col>
+            </e-row>
+        </div>
+        <div style="margin-top:20px;" >
+            <e-row >
+                <e-col :span="2">1</e-col>
+                <e-col :span="20">2</e-col>
+            </e-row>
+        </div>
+         <div style="margin-top:20px;" >
+            <e-row >
+                <e-col :span="2">1</e-col>
+                <e-col :span="10" :offset="2">2</e-col>
+                 <e-col :span="3" :offset="2">3</e-col>
+            </e-row>
+        </div>
+
    </div>
 </template>
 
