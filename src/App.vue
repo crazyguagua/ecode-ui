@@ -21,23 +21,30 @@
 
         <div style="margin-top:20px;" >
             <e-row >
-                <e-col :span="12">1</e-col>
-                <e-col :span="12">2</e-col>
-                <e-col :span="12">3</e-col>
-                 <e-col :span="12">4</e-col>
+                <e-col :span="12"><div class="gridDem">1</div></e-col>
+                <e-col :span="12"><div class="gridDem">1</div></e-col>
+                <e-col :span="12"><div class="gridDem">1</div></e-col>
+                 <e-col :span="12"><div class="gridDem">1</div></e-col>
             </e-row>
         </div>
         <div style="margin-top:20px;" >
             <e-row >
-                <e-col :span="2">1</e-col>
-                <e-col :span="20">2</e-col>
+                <e-col :span="2"><div class="gridDem">1</div></e-col>
+                <e-col :span="20"><div class="gridDem">1</div></e-col>
             </e-row>
         </div>
          <div style="margin-top:20px;" >
             <e-row >
-                <e-col :span="2">1</e-col>
-                <e-col :span="10" :offset="2">2</e-col>
-                 <e-col :span="3" :offset="2">3</e-col>
+                <e-col :span="2"><div class="gridDem">1</div></e-col>
+                <e-col :span="10" :offset="2"><div class="gridDem">1</div></e-col>
+                 <e-col :span="3" :offset="2"><div class="gridDem">1</div></e-col>
+            </e-row>
+        </div>
+
+        <div style="margin-top:20px;" >
+            <e-row :gutter="20">
+                <e-col :span="2"><div class="gridDem">1</div></e-col>
+                <e-col :span="22" ><div class="gridDem">1</div></e-col>
             </e-row>
         </div>
 
@@ -65,5 +72,10 @@ export default {
 <style lang="scss">
 .example{
     padding:10px;
+    .gridDem{
+        height:100px;
+        background: #2d89f3;  
+        border:1px solid #fff;
+    }
 }
 </style>

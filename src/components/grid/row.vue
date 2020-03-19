@@ -1,12 +1,30 @@
 <template>
-  <div class="ecode-row">
+  <div class="ecode-row" :style="{'margin-left':`${marginValue}`,'margin-right':`${marginValue}`,}">
       <slot />
   </div>
 </template>
 
 <script>
 export default {
-    name:'ecodeRow'
+    name:'ecodeRow',
+    props:{
+        gutter:{
+            type:[String,Number]
+        }
+    },
+    created(){
+
+    },
+    mounted(){
+        this.$children.forEach(item=>{
+            item.gutter = this.gutter
+        })
+    },
+    computed:{
+        marginValue(){
+            return this.gutter?-1*this.gutter/2+'px':'0px'
+        }
+    }
 }
 </script>
 
