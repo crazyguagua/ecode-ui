@@ -1,5 +1,5 @@
 <template>
-  <div class="ecode-col" :style="{'padding':`0 ${padding}px`}" :class="{[`ecode-col-${span}`]:true,[`ecode-col-offset-${offset}`]:offset!=undefined}">
+  <div class="ecode-col" :style="styles" :class="colCls">
       <slot></slot>
   </div>
 </template>
@@ -14,6 +14,7 @@ export default {
         },
         offset:{
             type:[Number,String],
+            default:0
         }
     },
     data(){
@@ -22,8 +23,15 @@ export default {
         }
     },
     computed:{
-        padding(){
-            return this.gutter?this.gutter * .5:0
+        styles(){
+            let padding = this.gutter?this.gutter * .5:0
+            return {
+                padding:`0 ${padding}px`
+            }
+        },
+        colCls(){
+            let {span,offset} = this
+            return [`ecode-col-${span}`,`ecode-col-offset-${offset}`]
         }
     }
 }

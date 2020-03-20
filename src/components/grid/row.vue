@@ -1,5 +1,5 @@
 <template>
-  <div class="ecode-row" :style="{'margin-left':`${marginValue}`,'margin-right':`${marginValue}`,}">
+  <div class="ecode-row" :style="styles">
       <slot />
   </div>
 </template>
@@ -21,8 +21,9 @@ export default {
         })
     },
     computed:{
-        marginValue(){
-            return this.gutter?-1*this.gutter/2+'px':'0px'
+        styles(){
+            let marginValue =  this.gutter?-1*this.gutter/2+'px':'0px'
+            return {'margin-left':`${marginValue}`,'margin-right':`${marginValue}`,}
         }
     }
 }
