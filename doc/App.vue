@@ -1,6 +1,15 @@
 <template>
    <div class="example">
-       <div class="button">
+       <Doc-header>
+       </Doc-header>
+       <div class="doc-content">
+           <Doc-Nav />
+              <router-view>
+             </router-view>
+       </div>
+     
+       <Doc-footer />
+       <!-- <div class="button">
         <e-button icon="ecode-downlaod" :loading="loading1" @click="loading1 = !loading1"> 按钮1 </e-button>
         <e-button  :loading="loading2" @click="loading2 = !loading2"> 按钮2 </e-button>
         <e-button icon="ecode-downlaod" icon-position="right" :loading="loading3" @click="loading3 = !loading3"> 按钮3 </e-button>
@@ -41,28 +50,25 @@
         </div>
 
          <div style="margin-top:20px;" >
-            <e-row :gutter="20" >
+            <e-row :gutter="20"  >
                 <e-col :span="2"><div class="gridDem" style="height:50px;">1</div></e-col>
                 <e-col :span="2" ><div class="gridDem" style="height:100px;">2</div></e-col>
                 <e-col :span="2" ><div class="gridDem" style="height:80px;">3</div></e-col>
             </e-row>
-        </div>
+        </div> -->
 
    </div>
 </template>
 
 <script>
+import DocHeader from './doc-header'
+import DocFooter from './doc-footer'
+import DocNav from './doc-nav'
 export default {
-    name:'app',
+    name:'doc',
+    components:{DocHeader,DocFooter,DocNav},
     data(){
         return {
-            loading1:false,
-            loading2:false,
-            loading3:false,
-            text1:'张三',
-            text2:'李斯',
-            text3:'王五',
-            text4:'11111'
 
         }
     }
@@ -70,8 +76,13 @@ export default {
 </script>
 
 <style lang="scss">
+.doc-content{
+    padding-top:68px;
+    padding-left:200px;
+    padding:68px 10px 0 200px;
+}
 .example{
-    padding:10px;
+    
     .gridDemo{
          background: #c3c5c7;  
     }

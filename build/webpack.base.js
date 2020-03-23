@@ -1,5 +1,7 @@
 const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin'); //引入清除文件插件
+const {
+    CleanWebpackPlugin
+} = require('clean-webpack-plugin'); //引入清除文件插件
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const devMode = process.env.NODE_ENV === 'development'; // 是否是开发模式
@@ -30,6 +32,21 @@ module.exports = {
                 ]
             },
             {
+                test: /\.md$/,
+                use: [{
+                        loader: 'vue-loader',
+                        options: {
+                            compilerOptions: {
+                                preserveWhitespace: false
+                            }
+                        }
+                    },
+                    {
+                        loader: path.resolve(__dirname, '../md-loader/index.js')
+                    }
+                ]
+            },
+            {
                 test: /\.vue$/,
                 loader: 'vue-loader'
             },
@@ -40,21 +57,21 @@ module.exports = {
             /**** dev.js ****/
             {
                 test: /\.(sa|sc)ss$/,
-                  use: [
-                    devMode ? 'style-loader' :  MiniCssExtractPlugin.loader,
-                      'css-loader',
-                      'postcss-loader',
-                      'sass-loader',
-                  ]
-              }
+                use: [
+                    devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'postcss-loader',
+                    'sass-loader',
+                ]
+            }
         ]
     },
     plugins: [
-        new VueLoaderPlugin(),new CleanWebpackPlugin(),
+        new VueLoaderPlugin(), new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
-            　　filename: "[name].[chunkhash:8].css",
-           　　 chunkFilename: "[id].css"
-         })
+            filename: "[name].[chunkhash:8].css",
+            chunkFilename: "[id].css"
+        })
 
     ],
     resolve: {

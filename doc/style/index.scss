@@ -1,0 +1,30 @@
+.ecode-doc{
+    padding-top:30px;
+    h2,h3{
+        font-weight: 400;
+        color: #1f2f3d;
+        a{
+            opacity: 0;
+        }
+        a:hover{
+            opacity: .4;
+        }
+        margin:20px 0 20px;
+    }
+    p{
+        padding-top:20px;
+        margin:0 0 20px 0 ;
+        color: #616164;
+    }
+    .hljs{
+        line-height: 1.8;
+        font-family: Menlo,Monaco,Consolas,Courier,monospace;
+        font-size: 12px;
+        padding: 18px 24px;
+        background-color: #fafafa;
+        border: 1px solid #eaeefb;
+        margin-bottom: 25px;
+        border-radius: 4px;
+        -webkit-font-smoothing: auto;
+    }
+}
