@@ -21,14 +21,6 @@
 
         <div style="margin-top:20px;" >
             <e-row >
-                <e-col :span="12"><div class="gridDem">1</div></e-col>
-                <e-col :span="12"><div class="gridDem">1</div></e-col>
-                <e-col :span="12"><div class="gridDem">1</div></e-col>
-                 <e-col :span="12"><div class="gridDem">1</div></e-col>
-            </e-row>
-        </div>
-        <div style="margin-top:20px;" >
-            <e-row >
                 <e-col :span="2"><div class="gridDem">1</div></e-col>
                 <e-col :span="20"><div class="gridDem">1</div></e-col>
             </e-row>
@@ -45,6 +37,14 @@
             <e-row :gutter="20">
                 <e-col :span="2"><div class="gridDem">1</div></e-col>
                 <e-col :span="22" ><div class="gridDem">1</div></e-col>
+            </e-row>
+        </div>
+
+         <div style="margin-top:20px;" >
+            <e-row :gutter="20" >
+                <e-col :span="2"><div class="gridDem" style="height:50px;">1</div></e-col>
+                <e-col :span="2" ><div class="gridDem" style="height:100px;">2</div></e-col>
+                <e-col :span="2" ><div class="gridDem" style="height:80px;">3</div></e-col>
             </e-row>
         </div>
 
