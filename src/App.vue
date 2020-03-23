@@ -72,10 +72,16 @@ export default {
 <style lang="scss">
 .example{
     padding:10px;
+    .gridDemo{
+         background: #c3c5c7;  
+    }
     .gridDem{
-        height:100px;
+        height:50px;
+        line-height: 50px;
+        box-sizing: border-box;
+        text-align: center;
         background: #2d89f3;  
-        border:1px solid #fff;
+        border:1px solid #f12222;
     }
 }
 </style>
