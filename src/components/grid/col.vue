@@ -25,7 +25,7 @@ export default {
   props: {
     span: {
       type: [Number, String],
-      default: 24 //不写就默认24格
+      default: 1 //不写就默认24格
     },
     offset: {
       type: [Number, String]

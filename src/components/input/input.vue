@@ -61,7 +61,7 @@ export default {
         }
         &:focus{
              outline: none;
-            box-shadow: inset 0 0px 3px $shadow-color;
+            box-shadow: inset 0 1px 2px $shadow-color, 0 0 0 0.2em $shadow-color;
         }
         &[disabled]{
            border-color:$disabled-border-color;

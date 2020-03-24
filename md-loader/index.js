@@ -56,6 +56,23 @@ module.exports = function(source) {
   }
 
   output.push(content.slice(start));
+
+  // const content = '<style>.demo-grid{min-height:30px;}</style>'
+  const regex = /<style[^>]*>([^<]+)<\/style>/gm
+  let styleStr = '';
+  let arr =[]
+  while( tempR = regex.exec(content))
+  {
+    arr.push(tempR[1])
+  }
+  if(arr.length>0){
+    let str = arr.join('')
+    styleStr = `<style lang="scss">
+      ${str}
+     </style>
+    `
+    console.log(styleStr)
+  }
   return `
     <template>
       <section class="content ecode-doc">
@@ -63,5 +80,6 @@ module.exports = function(source) {
       </section>
     </template>
     ${pageScript}
+    ${styleStr}
   `;
 };

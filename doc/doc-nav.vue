@@ -2,8 +2,8 @@
   <div class="doc-nav">
     <div class="empty"></div>
     <ul class="nav-list">
-      <li class="nav-list-item" v-for="(l,index) in list" :key="l.name">
-        <a @click="go(l.name)">
+      <li class="nav-list-item" :class="{'active':$route.name=== l.name}" v-for="(l,index) in list" :key="l.name">
+        <a @click="go(l.name)" >
           <span>{{l.title}}</span>
         </a>
       </li>
@@ -23,6 +23,9 @@ export default {
         {
           title: "输入框",
           name:'input'
+        },{
+            title:'栅格',
+            name:'grid'
         }
       ]
     };
@@ -30,6 +33,13 @@ export default {
   methods:{
       go(name){
           this.$router.push({name:name})
+      }
+  },
+  watch:{
+      $route:{
+          handler(newVal){
+         
+          }
       }
   }
 };
@@ -47,6 +57,9 @@ export default {
   .nav-list {
     list-style: none;
   }
+  .nav-list-item.active > a{
+    color: #343caa;
+  }
   .nav-list-item > a {
     line-height: 50px;
     height: 50px;
@@ -56,6 +69,7 @@ export default {
     &:hover {
       color: #343caa;
     }
+
   }
 }
 </style>

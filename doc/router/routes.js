@@ -1,8 +1,9 @@
 const defaultPath = '/guide'
 import GUIDE from '../guide.md'
 const COMP_MAP={
-    'input':import(/* webpackChunkName: "input" */ '../pages/input.md'),
-    'button':import(/* webpackChunkName: "button" */ '../pages/button.md')
+    'input': () =>import(/* webpackChunkName: "input" */ '../pages/input.md'),
+    'button': () =>import(/* webpackChunkName: "button" */ '../pages/button.md'),
+    'grid': () =>import(/* webpackChunkName: "grid" */ '../pages/grid.md')
 }
 let routes = [
     {

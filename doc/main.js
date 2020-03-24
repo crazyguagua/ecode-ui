@@ -4,7 +4,9 @@ import App from './App'
 import ECodeUI from '@/index'
 import router from './router'
 import './style/index.scss'
+import DemoBlock from './components/demo-block'
 
+Vue.component('demo-block',DemoBlock)
 Vue.use(ECodeUI)
 
 const hljsFn = () => {
