@@ -24,7 +24,7 @@ new Vue({
 hljsFn()
 
 router.afterEach((to, from, next) => {
-    Vue.$nextTick(() => {
+    Vue.nextTick(() => {
         hljsFn()
     })
 })

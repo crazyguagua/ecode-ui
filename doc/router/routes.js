@@ -1,9 +1,10 @@
 const defaultPath = '/guide'
 import GUIDE from '../guide.md'
 const COMP_MAP={
-    'input':import(/* webpackChunkName: "input" */ '../pages/input.md')
+    'input':import(/* webpackChunkName: "input" */ '../pages/input.md'),
+    'button':import(/* webpackChunkName: "button" */ '../pages/button.md')
 }
-const routes = [
+let routes = [
     {
         path: '/',
         redirect: defaultPath
@@ -12,9 +13,19 @@ const routes = [
         redirect: defaultPath
       },{
           path:'/guide',
+          name:'guide',
           component:GUIDE
       }
 
 ]
-
+const addRoute=()=>{
+   Object.keys(COMP_MAP).forEach(item=>{
+     routes.push({
+       path:`/${item}`,
+       name:item,
+       component:COMP_MAP[item]
+     })
+   })
+}
+addRoute()
 export default routes
