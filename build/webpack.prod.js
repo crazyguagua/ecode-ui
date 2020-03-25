@@ -4,7 +4,13 @@ const baseConfig = require('./webpack.base.js');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = merge(baseConfig, {
   mode: 'production',
-  devtool: 'source-map',
+  entry: {
+    index: path.resolve(__dirname, '../doc/main.js')
+ },
+ output: {
+  path: path.resolve(__dirname, '../demo'),
+  filename: '[name].[hash].js'
+},
   module: {
     rules: [
      
@@ -12,7 +18,7 @@ module.exports = merge(baseConfig, {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, '../index.html')
+      template: path.resolve(__dirname, '../doc/index.html')
     }),
   ]
 });
