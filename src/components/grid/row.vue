@@ -19,10 +19,11 @@ export default {
             default:'top'
         },
         justify:{
-            type:Object,
+            type:String,
             validator:(value)=>{
                 return ['start','center','end','space-between','space-arround']
-            }
+            },
+            default:'start'
         }
     },
     created(){

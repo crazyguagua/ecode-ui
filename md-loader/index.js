@@ -54,7 +54,6 @@ module.exports = function(source) {
     start = content.indexOf('</script>') + '</script>'.length;
     pageScript = content.slice(0, start);
   }
-
   output.push(content.slice(start));
 
   // const content = '<style>.demo-grid{min-height:30px;}</style>'
@@ -71,9 +70,9 @@ module.exports = function(source) {
       ${str}
      </style>
     `
-    console.log(styleStr)
   }
-  return `
+  
+  let ret =  `
     <template>
       <section class="content ecode-doc">
         ${output.join('')}
@@ -82,4 +81,7 @@ module.exports = function(source) {
     ${pageScript}
     ${styleStr}
   `;
+
+  // console.log(pageScript)
+  return ret
 };
