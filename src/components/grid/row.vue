@@ -43,8 +43,8 @@ export default {
         classList(){
 
             return [
-                `ecode-row-${this.align}`,
-                 `ecode-row-${this.justify}`,
+                `ecode-row-align-${this.align}`,
+                 `ecode-row-justify-${this.justify}`,
             ]
         }
     }
@@ -55,27 +55,31 @@ export default {
 .ecode-row{
     display: flex;
     // flex-wrap: nowrap;
-   flex-wrap: wrap; // 控制flex是否换行，默认不敢换行  span 12 的三个col 如果不设置这个属性它就不会换行
+    flex-wrap:wrap;
+//    flex-wrap: wrap; // 控制flex是否换行，默认不敢换行  span 12 的三个col 如果不设置这个属性它就不会换行
 
-   &.ecode-row-top{
+   &.ecode-row-align-top{
        align-items: flex-start;
    }
-   &.ecode-row-middle{
+   &.ecode-row-align-middle{
        align-items: center;
    }
-   &.ecode-row-bottom{
+   &.ecode-row-align-bottom{
        align-items: flex-end;
    }
-   &.ecode-row-start{
+   &.ecode-row-align-start{
        justify-content: flex-start;
    }
-   &.ecode-row-center{
+   &.ecode-row-justify-end{
+       justify-content: flex-end;
+   }
+   &.ecode-row-justify-center{
        justify-content: center;
    }
-   &.ecode-row-space-between{
+   &.ecode-row-justify-space-between{
        justify-content: space-between;
    }
-   &.ecode-row-space-arround{
+   &.ecode-row-justify-space-arround{
       justify-content: space-around;
    }
 }

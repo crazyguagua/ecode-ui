@@ -25,5 +25,26 @@
         border-radius: 4px;
         -webkit-font-smoothing: auto;
     }
+    table{
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom:40px;
+        line-height: 1.5em;
+        th{
+            text-align: center;
+            white-space: nowrap;
+            color: #909399;
+            font-weight: 400;
+            padding: 15px;
+            background: #ebeaef;
+        }
+        td{
+            border-bottom: 1px solid #dcdfe6;
+            padding: 15px;
+            max-width: 250px;
+            color:#616164;
+            text-align: center;
+        }
+    }
 }
 

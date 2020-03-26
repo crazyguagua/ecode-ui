@@ -2,14 +2,18 @@
   <div
     class="ecode-col"
     :style="{'padding':`0 ${padding}px`}"
-    :class="{[`ecode-col-${span}`]:true,[`ecode-col-offset-${offset}`]:offset!=undefined}"
+    :class="classList"
   >
     <slot></slot>
   </div>
 </template>
 
 <script>
+const colprefix = 'ecode-col'
 const Validator = value => {
+  if(typeof value == 'number'){
+    return true
+  }
   // {span:1,offset:1}
   let keys = Object.keys(value);
   let valid = true;
@@ -31,19 +35,19 @@ export default {
       type: [Number, String]
     },
     phone: {
-      type: Object,
+      type: [Number,Object],
       validator: Validator
     },
     pad: {
-      type: Object,
+      type: [Number,Object],
       validator: Validator
     },
     pc: {
-      type: Object,
+      type:[Number,Object],
       validator: Validator
     },
-    large: {
-      type: Object,
+    narrowPc: {
+      type: [Number,Object],
       validator: Validator
     }
   },
@@ -55,6 +59,27 @@ export default {
   computed: {
     padding() {
       return this.gutter ? this.gutter * 0.5 : 0;
+    },
+    classList(){
+      let clsArr = []
+      let a = ['phone','pad','pc','narrow-pc']
+      a.forEach(item=>{
+          let val = this[item]
+          if(typeof val ==='number'){
+            clsArr.push(`${colprefix}-${item}-${val}`)
+          }else if(typeof val === 'object'){
+             let {offset,span=1} = val
+             if(offset){
+               clsArr.push(`${colprefix}-${item}-offset-${offset}`)
+             }
+              clsArr.push(`${colprefix}-${item}-${span}`)
+          }
+      })
+      let array = [
+        {[`${colprefix}-${this.span}`]:true,[`${colprefix}-offset-${this.offset}`]:this.offset!=undefined},
+
+      ].concat(clsArr)
+      return array
     }
   }
 };
@@ -75,8 +100,8 @@ $prefix: ecode-col;
   }
 }
 
-@mixin breakPoint($name,$breakpoint){
-    @media (max-width: $breakpoint) {
+@mixin breakPoint($name,$w,$px){
+    @media only screen and ($w: $px) {
         @for $i from 0 through $totalCols {
             .#{$prefix}-#{$name}-#{$i} {
                 width: ($i/$totalCols) * 100%;
@@ -87,9 +112,9 @@ $prefix: ecode-col;
         }
     }
 }
-@include breakPoint(phone,576px);
-@include breakPoint(pad,992px);
-@include breakPoint(pc,1200px);
-@include breakPoint(large,1600px);
+@include breakPoint(phone,max-width,767px);
+@include breakPoint(pad,min-width,768px);
+@include breakPoint(narrow-pc,min-width,992px);
+@include breakPoint(pc,min-width,1200px);
 
 </style>

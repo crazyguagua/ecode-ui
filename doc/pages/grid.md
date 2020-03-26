@@ -52,6 +52,7 @@
             border-radius:4px;
             min-height:50px;
             background:#ccc;
+            margin-bottom:5px;
             &.block1{
                 background:#3a3a3a;
             }
@@ -114,3 +115,41 @@
     </style>
 ```
 :::
+
+### 响应式
+:::demo  分为4个屏幕尺寸：手机，pad,窄屏幕电脑，宽屏幕电脑
+```html
+    <e-row gutter="20" justify="end">
+        <e-col :phone="24" :pad="8" :narrow-pc="3" :pc="5">
+            <div class="demo"   ></div>
+        </e-col >
+        <e-col :phone="23" :pad="8" :narrow-pc="4" :pc="6" >
+            <div class="demo" ></div>
+        </e-col >
+        <e-col :phone="{span:22,offset:2}" :pad="8" :narrow-pc="5" :pc="7" >
+            <div class="demo"  ></div>
+        </e-col >
+    </e-row>
+    <style>
+        .demo-grid{
+        }
+    </style>
+```
+
+:::
+
+### e-row 属性
+
+| 参数      | 说明          | 类型      | 可选值                           | 默认值  |
+|---------- |-------------- |---------- |--------------------------------  |-------- |
+| gutter | 栅格间隔 | number | — | 0 |
+| justify | flex 布局下的水平对齐方式 | string | start/end/center/space-around/space-between | start |
+| align | flex 布局下的垂直对齐方式 | string | top/middle/bottom | top |
+
+### e-col 属性
+
+| 参数      | 说明          | 类型      | 可选值                           | 默认值  |
+|---------- |-------------- |---------- |--------------------------------  |-------- |
+| span | 栅格个数 | number | — | 0 |
+| offset | 栅格偏移量  | number | 1-24 | 0 |
+| phone | 手机端 栅格和偏移量设置 | number,object | {span:11,offset:1} | - |
