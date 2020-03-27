@@ -19,13 +19,12 @@ export default {
         {
           title: "入门",
           name:'guide'
-        },
-        {
-          title: "输入框",
-          name:'input'
         },{
             title:'栅格',
             name:'grid'
+        },{
+          title: "布局",
+          name:'layout'
         }
       ]
     };

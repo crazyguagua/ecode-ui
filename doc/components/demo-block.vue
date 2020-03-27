@@ -4,7 +4,7 @@
       <slot></slot>
     </div>
     <div class="source" ref="showDemo">
-      <div style="padding:10px"  > 
+      <div class="demo-wrapper"style="padding:10px"  > 
         <slot name="source"></slot>
       </div>
       <div class="highlight" v-if="showCode" ref="highlight">

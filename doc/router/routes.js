@@ -3,7 +3,8 @@ import GUIDE from '../guide.md'
 const COMP_MAP={
     'input': () =>import(/* webpackChunkName: "input" */ '../pages/input.md'),
     'button': () =>import(/* webpackChunkName: "button" */ '../pages/button.md'),
-    'grid': () =>import(/* webpackChunkName: "grid" */ '../pages/grid.md')
+    'grid': () =>import(/* webpackChunkName: "grid" */ '../pages/grid.md'),
+    'layout': () =>import(/* webpackChunkName: "layout" */ '../pages/layout.md')
 }
 let routes = [
     {

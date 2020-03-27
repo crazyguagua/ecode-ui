@@ -1,0 +1,21 @@
+.demo-layout{
+    .ecode-header{
+        background: #7dbcea;
+        color: #fff;
+    }
+    .ecode-content{
+        line-height: 150px;
+        height: 150px;
+    }
+    .ecode-footer{
+        padding: 20px;
+    }
+    .demo-wrapper > div > .ecode-layout {
+        margin-bottom:32px;
+    }
+    .ecode-sider{
+        background: #3ba0e9;
+        color: #fff;
+        padding: 20px;
+    }
+}
