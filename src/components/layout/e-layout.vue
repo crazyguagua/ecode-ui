@@ -40,6 +40,7 @@ export default {
 .ecode-layout{
     display: flex;
     flex-direction: column;
+    flex:auto;
     &.ecode-layout-hasSider{
         flex-direction: row;
     }

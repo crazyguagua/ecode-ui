@@ -26,6 +26,10 @@ export default {
           title: "布局",
           name:'layout'
         }
+        ,{
+          title: "吐司",
+          name:'toast'
+        }
       ]
     };
   },

@@ -36,5 +36,16 @@
         </e-layout>
         <e-footer>底部</e-footer>
     </e-layout>
+
+     <e-layout>
+       <e-sider>导航菜单</e-sider> 
+        
+        <e-layout>
+            <e-header>xxx管理系统</e-header>
+             <e-content>内容</e-content>
+             <e-footer>底部</e-footer>
+        </e-layout>
+       
+    </e-layout>
 ```
 :::
