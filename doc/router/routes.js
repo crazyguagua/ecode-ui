@@ -4,7 +4,8 @@ const COMP_MAP={
     'input': () =>import(/* webpackChunkName: "input" */ '../pages/input.md'),
     'button': () =>import(/* webpackChunkName: "button" */ '../pages/button.md'),
     'grid': () =>import(/* webpackChunkName: "grid" */ '../pages/grid.md'),
-    'layout': () =>import(/* webpackChunkName: "layout" */ '../pages/layout.md')
+    'layout': () =>import(/* webpackChunkName: "layout" */ '../pages/layout.md'),
+    'tab': () =>import(/* webpackChunkName: "layout" */ '../pages/tab.md')
 }
 let routes = [
     {

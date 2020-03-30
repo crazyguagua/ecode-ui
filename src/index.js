@@ -9,6 +9,8 @@ import EHeader from '@/components/layout/e-header'
 import EContent from '@/components/layout/e-content'
 import EFooter from '@/components/layout/e-footer'
 import ESider from '@/components/layout/e-sider'
+import ETabs from '@/components/tabs/e-tabs'
+import ETab from '@/components/tabs/e-tab'
 import './style/index.scss'
 import './style/fonts/iconfont.js'
 
@@ -24,6 +26,8 @@ const install = (Vue)=>{
     Vue.component('EContent',EContent)
     Vue.component('EFooter',EFooter)
     Vue.component('ESider',ESider)
+    Vue.component('ETabs',ETabs)
+    Vue.component('ETab',ETab)
     
 }
 

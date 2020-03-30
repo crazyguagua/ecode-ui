@@ -25,6 +25,9 @@ export default {
         },{
           title: "布局",
           name:'layout'
+        },{
+          title:'选项卡',
+          name:'tab'
         }
       ]
     };
@@ -57,7 +60,7 @@ export default {
     list-style: none;
   }
   .nav-list-item.active > a{
-    color: #343caa;
+    color: #3f7fde;
   }
   .nav-list-item > a {
     line-height: 50px;
