@@ -23,6 +23,9 @@ export default {
             title:'栅格',
             name:'grid'
         },{
+            title:'图标',
+            name:'icon'
+        },{
           title: "布局",
           name:'layout'
         },{
