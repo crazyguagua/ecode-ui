@@ -20,7 +20,7 @@ export default {
 .doc-header{
     position: fixed;
     height: 68px;
-    z-index: 1000;
+    z-index: 100;
     width: 100%;
     padding: 0 10px;
     background:#fff;

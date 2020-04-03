@@ -12,7 +12,7 @@ export default {
 
 <style lang="scss">
     .ecode-content{
-        background: rgba(16, 142, 233, 1);
+        background: #2b2626;
         min-height: 150px;
         color: #fff;
         padding: 0 20px;

@@ -46,7 +46,7 @@ export default {
     justify-content: center;
     align-items: center;
     vertical-align: middle;//让按钮和外面的元素水平对齐
-    padding:0 10px;
+    padding:4px 15px;
     font-size:var(--font-size);
     background:var(--button-bg);
     height: var(--button-height);

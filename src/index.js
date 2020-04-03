@@ -27,9 +27,9 @@ const install = (Vue)=>{
     Vue.component('EContent',EContent)
     Vue.component('EFooter',EFooter)
     Vue.component('ESider',ESider)
-    Vue.use(Toast)
     Vue.component('ETabs',ETabs)
     Vue.component('ETab',ETab)
+    Vue.prototype.eToast = Toast
     
 }
 
@@ -37,5 +37,5 @@ if (typeof window !== 'undefined' && window.Vue) {
     install(window.Vue);
 }
 export default {
-    EButton,EIcon,EButtonGroup,install,EInput
+    EButton,EIcon,EButtonGroup,install,EInput,Toast
 }

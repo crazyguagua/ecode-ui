@@ -12,7 +12,7 @@ export default {
 
 <style lang="scss">
 .ecode-footer{
-    background: #7dbcea;
+    background: #ccc;
     color:#fff;
     padding: 0 20px;
 }
