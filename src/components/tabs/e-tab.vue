@@ -1,6 +1,6 @@
 <template>
   <div class="ecode-tab" :style="styles">
-      <slot></slot>
+      <slot ></slot>
   </div>
 </template>
 
@@ -22,6 +22,9 @@ export default {
         styles(){
             return {visibility:this.isCurrent?'visible':'hidden'}
         }
+    },
+    mounted(){
+        
     }
 }
 </script>

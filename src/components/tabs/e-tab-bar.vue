@@ -18,6 +18,7 @@ export default {
             let left=0
             let currentIndex =-1
             console.log('计算')
+            console.log(this.currentName)
             this.tabs.forEach((item,index)=>{
                 let name = item.name
                 let dom 
