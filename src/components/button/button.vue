@@ -1,5 +1,5 @@
 <template>
-  <button class="ecode-button" :class="{[`icon-${iconPosition}`]:true}" @click="$emit('click')">
+  <button class="ecode-button" :class="{[`icon-${iconPosition}`]:true,[`ecode-button-${size}`]:true}" @click="$emit('click')">
       <!-- {[`icon-${iconPosition}`]:true}   会把 icon-left icon-right 添加到 class上 -->
       <!--这里通过样式来控制按钮的位置，通过 display:inline-flex; order:1;order；2;决定icon的位置 -->
     <EIcon class="loading icon" name="ecode-loading" v-if="loading"></EIcon> <!-- 保证loading 在 icon原来的位置上 加上icon的样式-->
@@ -27,6 +27,10 @@ export default {
         loading:{
             type:Boolean,
             default:false
+        },
+        size:{
+            type:String,
+            default:'normal'
         }
     }
 }
@@ -52,6 +56,7 @@ export default {
     height: var(--button-height);
     border-radius: var(--border-radius);
     border:1px solid var(--border-color);
+    text-shadow: 0 -1px 0 rgba(0,0,0,.12);
     cursor: pointer;
     .loading{
         animation: spin 2s linear infinite;
@@ -68,7 +73,7 @@ export default {
     }
     &.icon-left > .icon{
         order:1;
-        margin-right:.3em;
+        // margin-right:.3em;
     }
     &.icon-left > .content{
         order:2;
@@ -79,6 +84,11 @@ export default {
     }
     &.icon-right > .content{
         order:1;
+    }
+    &.ecode-button-small{
+        padding:0 7px;
+        height: 24px;
+        line-height: 22px;
     }
 }
 

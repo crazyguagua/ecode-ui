@@ -17,13 +17,11 @@ export default {
             let width = 0
             let left=0
             let currentIndex =-1
-            console.log('计算')
-            console.log(this.currentName)
             this.tabs.forEach((item,index)=>{
                 let name = item.name
                 let dom 
-                let tabHeaderWrapper = this.$parent.$refs.tabHeaderWrapper
-                let children = tabHeaderWrapper.childNodes
+                let tagList = this.$parent.$refs.tagChildren
+                let children = tagList.querySelectorAll('.tab-header')
                 // for(let i=0;i<children.length;i++){
                 //     if(children[i].dataset.tabName == name){
                 //         dom = children[i]
@@ -56,6 +54,8 @@ $tab-active-color:#3c5ed8;
     position: absolute;
     background: $tab-active-color;
     height: 2px;
+    left:0;
+    bottom:0;
     transition: transform .3s cubic-bezier(.645,.045,.355,1),width .2s cubic-bezier(.645,.045,.355,1),left .3s cubic-bezier(.645,.045,.355,1);
 }
 </style>

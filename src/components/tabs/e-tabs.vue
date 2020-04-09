@@ -14,10 +14,11 @@ export default {
     },
     props:{
         direction:{type:String,default:'horizontal'},
-        value:{type:String}
+        value:{type:String},
+        editable:{type:Boolean,default:false}
     },
     mounted(){
-        this.setTabHeader()
+        this.updateTab()
     },
     data(){
         return {
@@ -41,16 +42,30 @@ export default {
             return index
         }
     },
+    updated(){  //动态根据数据渲染tab时候触发
+        // this.updateTab()
+        console.log('updated')
+        this.updateTab()
+    },
     methods:{
-        setTabHeader(){
+        updateTab(){
             let arr =[]
-            this.$children.forEach(child=>{
-                if(child.$options.name =='eTab'){
-                     arr.push(child)
+            if(this.$slots.default){
+                this.$children.forEach(child=>{
+                    if(child.$options.name =='eTab'){
+                        arr.push(child)
+                    }
+                
+                })
+                //这里面不能直接赋值 this.tabs = arr，否则就一直updateTab，死循环了。
+                let noChange = (this.tabs.length === arr.length && arr.every((item,index)=>{ return item === this.tabs[index]}))
+                if(!noChange){
+                    this.tabs = arr
                 }
-               
-            })
-            this.tabs = arr
+            }else if(this.tabs.length!=0){
+                this.tabs = []
+            }
+           
         },
         change(item){
             this.$emit('input',item.name)
@@ -64,13 +79,11 @@ export default {
 //       </div>
 //       <slot name="action"/>
 //   </div>
-         const {
-             tabs 
-         } = this
          const navProp={
              props:{
                  currentName:this.value,
-                 tabs:tabs
+                 tabs:this.tabs,
+                 editable:this.editable
              },
              on:{
                 change:this.change,
@@ -81,9 +94,6 @@ export default {
                 <ETabNav {...navProp}> </ETabNav>
                 <div class="tab-content" style={this.tabContentStyle} >
                     {this.$slots.default}
-                </div>
-                <div class="tab-action">
-                    {this.$slots.action}
                 </div>
               </div>
           )
