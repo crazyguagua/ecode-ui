@@ -56,7 +56,10 @@
 ### 新增和关闭标签页
 :::demo
 ```html
-     <e-tabs v-model="current" @editTab="handleEditTab" :editable="true" style="width:200px;">
+    <div>
+        <e-button size="small" @click="backToOne">回到第一个</e-button>
+    </div>
+     <e-tabs v-model="current" @editTab="handleEditTab" :editable="true" style="max-width:500px;">
         <e-tab  v-for="t in tabs" :name="t.name" :key="t.name" :label="t.title">
                 {{t.content}}
         </e-tab>
@@ -81,6 +84,9 @@
                         title:'title   '+id,content:'content    '+id,name:'tab_'+id
                    })
                    this.current = 'tab_'+id
+                },
+                backToOne(){
+                    this.current = 'liverpool'
                 }
             }
         }

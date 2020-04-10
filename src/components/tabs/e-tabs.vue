@@ -72,13 +72,6 @@ export default {
         }
     },
     render(h){
-//         <div class="ecode-tabs">
-//       <ETabNav :tabs="tabs" @change="change" :currentName="value"></ETabNav>
-//       <div class="tab-content" :style="tabContentStyle">
-//           <slot ></slot>
-//       </div>
-//       <slot name="action"/>
-//   </div>
          const navProp={
              props:{
                  currentName:this.value,
@@ -87,16 +80,28 @@ export default {
              },
              on:{
                 change:this.change,
-             }
+             },
+             ref:"eTabNav"
          }
           return (
               <div class="ecode-tabs">
-                <ETabNav {...navProp}> </ETabNav>
+                <ETabNav {...navProp} > </ETabNav>
                 <div class="tab-content" style={this.tabContentStyle} >
                     {this.$slots.default}
                 </div>
               </div>
           )
+    },
+    watch:{
+        value(){
+            //监听当前激活的tab
+            this.$nextTick(()=>{
+                this.$refs.eTabNav.$nextTick(()=>{
+                    //这时dom肯定更新了
+                    this.$refs.eTabNav.scrollToActiveTab()
+                })
+            })
+        }
     }
 }
 </script>

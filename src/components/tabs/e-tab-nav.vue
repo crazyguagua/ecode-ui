@@ -45,19 +45,36 @@ export default {
             //小于容器宽度
             this.currentOffset = 0
         }else{
-            //减去一个容器的宽度
-            this.currentOffset =this.currentOffset - scrollContainerWidth
+            //左移动时currentOffset是负的，加上一个容器的宽度
+            this.currentOffset =this.currentOffset + scrollContainerWidth
         }
      },
      handleRightClick(){
         let scrollContainerWidth = this.$refs.tagList.clientWidth  //容器宽度
         let containerChildrenWidth = this.$refs.tagChildren.clientWidth  //子元素的宽度之和
         //如果 子元素的宽度之和减去平移的距离 大于2倍的容器 平移一倍容器的距离，否则 直接移动到最后
-        if((containerChildrenWidth-this.currentOffset)>scrollContainerWidth*2){
-            this.currentOffset += scrollContainerWidth
+        if((containerChildrenWidth + this.currentOffset)>scrollContainerWidth*2){
+            this.currentOffset -= scrollContainerWidth
         }else{
-            this.currentOffset = this.currentOffset + (containerChildrenWidth -this.currentOffset) - scrollContainerWidth
+            this.currentOffset = this.currentOffset - (containerChildrenWidth + this.currentOffset  - scrollContainerWidth)
         }
+     },
+     scrollToActiveTab(){
+       if(!this.isScroll){
+         return
+       }
+       let scrollContainerWidth = this.$refs.tagList.clientWidth
+       let activChild = this.$refs.tagChildren.querySelector('.tab-header.active')
+       let activeChildBounding = activChild.getBoundingClientRect()
+       let containerBounding = this.$refs.tagList.getBoundingClientRect()
+       if(activeChildBounding.left+activeChildBounding.width > containerBounding.left + containerBounding.width){
+         //当前激活的tab在容器右侧
+          this.currentOffset = this.currentOffset-((activeChildBounding.left+activeChildBounding.width )-(containerBounding.left + containerBounding.width))
+       }else if(activeChildBounding.left < containerBounding.left){
+
+         //当前激活的tab在容器的左侧
+           this.currentOffset = this.currentOffset+(containerBounding.left-activeChildBounding.left)
+       }
      },
      update(){
        console.log('updated')
@@ -70,6 +87,7 @@ export default {
           this.isScroll = true
        }else{
          this.isScroll = false
+         this.currentOffset = 0  //offset复原
        }
 
      }
@@ -105,8 +123,8 @@ export default {
             </div>
         )
     })
-    const leftNav = this.isScroll?(<div class="leftNav navArrow" on-click={this.handleLeftClick}><e-icon  name="ecode-arrow-left"/></div>):null
-    const rightNav =this.isScroll ? (<div class="rightNav navArrow" on-click={this.handleRightClick}><e-icon  name="ecode-arrow-right"/></div>):null
+    const leftNav = this.isScroll?(<div unselectable="unselectable" class="leftNav navArrow" on-click={this.handleLeftClick}><e-icon  name="ecode-arrow-left"/></div>):null
+    const rightNav =this.isScroll ? (<div unselectable="unselectable" class="rightNav navArrow" on-click={this.handleRightClick}><e-icon  name="ecode-arrow-right"/></div>):null
 
     // 判断是否需要滚动
 
@@ -115,7 +133,7 @@ export default {
             {actionDiv}
              <div class={{"tab-headerWrapper":true,"is-scroll":this.isScroll}}  ref="tabHeaderWrapper">
                 <div class={{"tag-list":true}} ref="tagList">
-                  <div class="tag-list-children" ref="tagChildren" style={{'transform':`translate(${this.currentOffset*(-1)}px,0)`}}> 
+                  <div class="tag-list-children" ref="tagChildren" style={{'transform':`translate(${this.currentOffset}px,0)`}}> 
                     {tabHeaders} 
                     <e-tab-bar tabs={this.tabs} currentName={ this.currentName } ></e-tab-bar>
                   </div>
