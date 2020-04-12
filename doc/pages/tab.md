@@ -60,7 +60,7 @@
         <e-button size="small" @click="backToOne">回到第一个</e-button>
     </div>
      <e-tabs v-model="current" @editTab="handleEditTab" :editable="true" style="max-width:500px;">
-        <e-tab  v-for="t in tabs" :name="t.name" :key="t.name" :label="t.title">
+        <e-tab  v-for="t in tabs" :name="t.name" :key="t.name" :label="t.title" :closable="true">
                 {{t.content}}
         </e-tab>
     </e-tabs>

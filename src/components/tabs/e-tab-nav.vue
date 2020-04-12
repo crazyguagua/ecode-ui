@@ -114,11 +114,13 @@ export default {
         return (
             <div class={{
                 "tab-header":true,
+                "closable":item.closable,
                 "active":item.name === this.currentName
             }} data-tab-name={item.name} 
                 on-click={()=>{this.change(item)}} 
                 key={item.name}
             >
+              {item.closable?(<e-icon name="" />):null}
               { item.$slots.label?item.$slots.label:item.label }
             </div>
         )

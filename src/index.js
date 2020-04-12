@@ -14,6 +14,7 @@ import ETabs from '@/components/tabs/e-tabs'
 import ETab from '@/components/tabs/e-tab'
 import './style/index.scss'
 import './style/fonts/iconfont.js'
+import ClipBoardDirective from '@/directive/clipboard'
 
 const install = (Vue)=>{
     Vue.component('EButton',EButton)
@@ -30,7 +31,7 @@ const install = (Vue)=>{
     Vue.component('ETabs',ETabs)
     Vue.component('ETab',ETab)
     Vue.prototype.eToast = Toast
-    
+    Vue.use(ClipBoardDirective)
 }
 
 if (typeof window !== 'undefined' && window.Vue) {

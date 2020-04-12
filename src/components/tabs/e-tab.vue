@@ -13,7 +13,8 @@ export default {
         },
         name:{
             type:String,required:true
-        }
+        },
+        closable:{type:Boolean,default:false}
     },
     computed:{
         isCurrent(){
