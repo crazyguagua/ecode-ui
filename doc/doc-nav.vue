@@ -25,6 +25,10 @@ export default {
         },{
             title:'图标',
             name:'icon'
+        },
+        {
+            title:'按钮',
+            name:'button'
         },{
           title: "布局",
           name:'layout'
