@@ -7,6 +7,9 @@
         <span>ECODE-UI</span>
       </div>
       <div class="search-bar"></div>
+      <div class="miniBar">
+          <e-icon name="ecode-hamburg" />
+      </div>
   </div>
 </template>
 

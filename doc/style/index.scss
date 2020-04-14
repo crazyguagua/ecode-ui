@@ -61,4 +61,22 @@
         }
     }
 }
+.doc-header > .miniBar{
+    display: none;
+}
 
+@media only screen and (max-width: 767.99px){
+
+    .doc-nav{
+        display: none;
+    }
+    .doc-content{
+        padding-left:10px;
+    }
+    .doc-header > .miniBar{
+        display: block;
+        position: absolute;
+        right:15px;
+        top:15px;
+    }
+}
