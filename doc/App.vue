@@ -3,7 +3,7 @@
        <Doc-header>
        </Doc-header>
        <div class="doc-content">
-           <Doc-Nav />
+           <Doc-Nav  class="leftMenu"/>
               <router-view>
              </router-view>
        </div>

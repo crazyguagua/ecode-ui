@@ -46,6 +46,7 @@ export default {
   methods:{
       go(name){
           this.$router.push({name:name})
+          this.$emit('on-click-menu',name)
       }
   },
   watch:{
@@ -59,7 +60,7 @@ export default {
 </script>
 
 <style lang="scss">
-.doc-nav {
+.doc-nav.leftMenu {
   position: fixed;
   top: 68px;
   bottom: 0;

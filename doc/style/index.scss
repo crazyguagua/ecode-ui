@@ -1,5 +1,8 @@
 @import './layout.scss';
 @import './icon.scss';
+.example{
+    width: 100%;
+}
 .ecode-doc{
     padding:30px 0 30px;
     h2,h3{
@@ -69,6 +72,9 @@
 
     .doc-nav{
         display: none;
+    }
+    .popper-content .doc-nav{
+        display: block;
     }
     .doc-content{
         padding-left:10px;
