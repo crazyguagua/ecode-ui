@@ -1,0 +1,59 @@
+@import './var/var.scss';
+@keyframes spin {
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+.ecode-button{
+    display:inline-flex;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;//让按钮和外面的元素水平对齐
+    padding:4px 15px;
+    font-size:$font-size;
+    background:$button-bg;
+    height: $button-height;
+    border-radius:$border-radius;
+    border:1px solid $border-color;
+    text-shadow: 0 -1px 0 rgba(0,0,0,.12);
+    cursor: pointer;
+    &-default{
+        background: #fff;
+        color: #333;
+    }
+    .loading{
+        animation: spin 2s linear infinite;
+    }
+    &:focus{
+        outline: none;
+    }
+    &:active{
+         background: $button-active-bg;
+    }
+    &:hover{
+         background: $button-hover-bg;
+         border:1px solid $border-active-color;
+    }
+    &.icon-left > .icon{
+        order:1;
+        // margin-right:.3em;
+    }
+    &.icon-left > .content{
+        order:2;
+    }
+    &.icon-right > .icon{
+        order:2;
+        margin-left:.3em; /** 如果长度和字体大小相同 推荐用em */
+    }
+    &.icon-right > .content{
+        order:1;
+    }
+    &.ecode-button-small{
+        padding:0 7px;
+        height: 24px;
+        line-height: 22px;
+    }
+}

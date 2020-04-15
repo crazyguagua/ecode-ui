@@ -3,6 +3,14 @@
 .example{
     width: 100%;
 }
+*{
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+}
+ul,li{
+    list-style: none;
+}
 .ecode-doc{
     padding:30px 0 30px;
     h2,h3{
@@ -38,6 +46,7 @@
         width: 100%;
         margin-bottom:40px;
         line-height: 1.5em;
+        table-layout: fixed;
         th{
             text-align: center;
             white-space: nowrap;
@@ -73,16 +82,29 @@
     .doc-nav{
         display: none;
     }
-    .popper-content .doc-nav{
+    .popper-content > .doc-nav{
         display: block;
+        padding-top: 3px;
+        height: calc( 100vh - 60px);
+        overflow: auto;
     }
     .doc-content{
         padding-left:10px;
+
+        .table{
+            overflow: auto;
+        }
     }
     .doc-header > .miniBar{
         display: block;
         position: absolute;
         right:15px;
-        top:15px;
+        top:20px;
+        width: 30px;
+        height: 30px;
+        & .ecode-icon{
+            width: 1.5em;
+            height: 1.5em;
+        }
     }
 }

@@ -31,65 +31,14 @@ export default {
         size:{
             type:String,
             default:'normal'
+        },
+        type:{
+            type:String,
+            default:'default',
+            validator(value){
+                return ['default','primary','dashed','link'].includes(value)
+            }
         }
     }
 }
 </script>
-
-<style lang="scss">
-@keyframes spin {
-    0%{
-        transform: rotate(0deg);
-    }
-    100%{
-        transform: rotate(360deg);
-    }
-}
-.ecode-button{
-    display:inline-flex;
-    justify-content: center;
-    align-items: center;
-    vertical-align: middle;//让按钮和外面的元素水平对齐
-    padding:4px 15px;
-    font-size:var(--font-size);
-    background:var(--button-bg);
-    height: var(--button-height);
-    border-radius: var(--border-radius);
-    border:1px solid var(--border-color);
-    text-shadow: 0 -1px 0 rgba(0,0,0,.12);
-    cursor: pointer;
-    .loading{
-        animation: spin 2s linear infinite;
-    }
-    &:focus{
-        outline: none;
-    }
-    &:active{
-         background: var(--button-active-bg);
-    }
-    &:hover{
-         background: var(--button-hover-bg);
-         border:1px solid var(--border-active-color);
-    }
-    &.icon-left > .icon{
-        order:1;
-        // margin-right:.3em;
-    }
-    &.icon-left > .content{
-        order:2;
-    }
-    &.icon-right > .icon{
-        order:2;
-        margin-left:.3em; /** 如果长度和字体大小相同 推荐用em */
-    }
-    &.icon-right > .content{
-        order:1;
-    }
-    &.ecode-button-small{
-        padding:0 7px;
-        height: 24px;
-        line-height: 22px;
-    }
-}
-
-</style>
