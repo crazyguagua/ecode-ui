@@ -7,12 +7,12 @@
         <span>ECODE-UI</span>
       </div>
       <div class="search-bar"></div>
-      <div class="miniBar">
-          <e-icon name="ecode-hamburg" @click.native="popperVisible = !popperVisible" />
+      <div class="miniBar" v-if="testvisible">
+          <e-icon ref="popElm" name="ecode-hamburg" @click.native.stop="popperVisible = !popperVisible" />
           <transition>
             <div class="popper-content" v-show="popperVisible">
                 <div class="arrow"></div>
-                <docNav @on-click-menu="popperVisible = false" />
+                <docNav @on-click-menu="popperVisible = false"  v-clickoutside="handleClose"/>
             </div>
           </transition>
       </div>
@@ -28,7 +28,17 @@ export default {
     },
     data(){
         return {
-            popperVisible:false
+            popperVisible:false,
+            testvisible:true
+        }
+    },
+    mounted(){
+        // this.popElm = this.$refs.popElm.$el
+        // setTimeout(()=>{this.testvisible = false},5000)
+    },
+    methods:{
+        handleClose(){
+            this.popperVisible = false
         }
     }
 }

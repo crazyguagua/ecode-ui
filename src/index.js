@@ -15,6 +15,7 @@ import ETab from '@/components/tabs/e-tab'
 import './style/index.scss'
 import './style/fonts/iconfont.js'
 import ClipBoardDirective from '@/directive/clipboard'
+import ClickOutSideDirective from '@/directive/clickoutside'
 
 const install = (Vue)=>{
     Vue.component('EButton',EButton)
@@ -32,6 +33,7 @@ const install = (Vue)=>{
     Vue.component('ETab',ETab)
     Vue.prototype.eToast = Toast
     Vue.use(ClipBoardDirective)
+    Vue.directive('clickoutside',ClickOutSideDirective)
 }
 
 if (typeof window !== 'undefined' && window.Vue) {

@@ -72,7 +72,7 @@ export default {
     list-style: none;
   }
   .nav-list-item.active > a{
-    color: #3f7fde;
+    color: #343caa;
   }
   .nav-list-item > a {
     line-height: 50px;
