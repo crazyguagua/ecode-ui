@@ -1,59 +1,177 @@
 @import './var/var.scss';
+
 @keyframes spin {
-    0%{
+    0% {
         transform: rotate(0deg);
     }
-    100%{
+
+    100% {
         transform: rotate(360deg);
     }
 }
-.ecode-button{
-    display:inline-flex;
-    justify-content: center;
-    align-items: center;
-    vertical-align: middle;//让按钮和外面的元素水平对齐
-    padding:4px 15px;
-    font-size:$font-size;
-    background:$button-bg;
+
+.ecode-button {
+    display: inline-block;
+    vertical-align: middle; //让按钮和外面的元素水平对齐
+    padding: 4px 15px;
+    font-weight: 400;
+    white-space: nowrap;
+    line-height: 1.5715;
+    font-size: $font-size;
+    background: $button-bg;
     height: $button-height;
-    border-radius:$border-radius;
-    border:1px solid $border-color;
-    text-shadow: 0 -1px 0 rgba(0,0,0,.12);
+    border-radius: $border-radius;
+    border: 1px solid $border-color;
+    user-select: none; //文本不能被选择
+    touch-action: manipulation; //浏览器只允许进行滚动和持续缩放操作
     cursor: pointer;
-    &-default{
+
+    &-default {
         background: #fff;
         color: #333;
     }
-    .loading{
+
+    .loading {
         animation: spin 2s linear infinite;
     }
-    &:focus{
+
+    &:focus {
         outline: none;
     }
-    &:active{
-         background: $button-active-bg;
+
+    &:active {
+        background: $button-active-bg;
     }
-    &:hover{
-         background: $button-hover-bg;
-         border:1px solid $border-active-color;
+
+    &:hover {
+        background: $button-hover-bg;
+        border: 1px solid $border-active-color;
     }
-    &.icon-left > .icon{
-        order:1;
-        // margin-right:.3em;
+
+    &.icon-left>.icon-span {
+        margin-right: .3em;
     }
-    &.icon-left > .content{
-        order:2;
+
+    &.icon-right>.icon-span {
+        /** 如果长度和字体大小相同 推荐用em */
+        float: right;
+        margin-left: .3em;
     }
-    &.icon-right > .icon{
-        order:2;
-        margin-left:.3em; /** 如果长度和字体大小相同 推荐用em */
+
+    &.icon-right>.content {
+        order: 1;
     }
-    &.icon-right > .content{
-        order:1;
-    }
-    &.ecode-button-small{
-        padding:0 7px;
+
+    &.ecode-button-small {
+        padding: 0 7px;
         height: 24px;
         line-height: 22px;
+    }
+}
+
+.ecode-button.ecode-button-primary {
+    background: $primary-color;
+    color: $white-color;
+    border: 1px solid $primary-color;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .12);
+
+    &:hover {
+        background: $primary-hover-color;
+    }
+}
+
+.ecode-button.ecode-button-default {
+    background: $white-color;
+    color: $default-color;
+    border: 1px solid $default-color;
+
+    &:hover {
+        border: 1px solid $default-hover-color;
+        color: $default-hover-color;
+    }
+}
+
+.ecode-button.ecode-button-dashed {
+    background: $white-color;
+    color: $default-color;
+    border: 1px dashed $default-color;
+
+    &:hover {
+        border: 1px dashed $default-hover-color;
+        color: $default-hover-color;
+    }
+}
+
+.ecode-button.ecode-button-text {
+    background: transparent;
+    color: $default-color;
+    border: none;
+    box-sizing: none;
+
+    &:hover {
+        color: $default-hover-color;
+    }
+}
+
+.ecode-button.ecode-button-circle {
+    border-radius: 50%;
+    padding: 4px;
+    width: 34px;
+}
+
+.ecode-button.ecode-button-round {
+    padding: 0px;
+    min-width: 100px;
+    border-radius: 20px;
+    line-height: 34px;
+    height: 34px;
+}
+
+.ecode-button.ecode-button-large {
+    font-size: 16px;
+    height: 40px;
+    padding: 6px 16px;
+}
+
+.ecode-button.ecode-button-small {
+    height: 24px;
+    padding: 0 7px;
+    font-size: 14px;
+}
+
+
+.ecode-button.ecode-button-click-animating{
+    position: relative;
+}
+
+.ecode-button.ecode-button-click-animating:after{
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    bottom: -1px;
+    right: -1px;
+    border-radius: inherit;
+    border: 0 solid $primary-color;
+    opacity: 0.2;
+    animation: fadeEffect 2s cubic-bezier(0.08, 0.82, 0.17, 1), waveEffect 0.4s cubic-bezier(0.08, 0.82, 0.17, 1);
+    animation-fill-mode: forwards;
+    display: block;
+    pointer-events: none;
+}
+
+@keyframes waveEffect {
+    100% {
+        top: -6px;
+        left: -6px;
+        bottom: -6px;
+        right: -6px;
+        border-width: 6px;
+    }
+}
+
+@keyframes fadeEffect {
+    100% {
+        opacity: 0;
     }
 }

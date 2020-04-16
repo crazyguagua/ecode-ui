@@ -31,20 +31,20 @@ const createDocClickHandler = (el, binding, vnode) => {
 
 export default {
 
-    inserted(el, binding, vnode) {
-        vnode[ctx]={
+    bind(el, binding, vnode) {
+        el[ctx]={
             id : seed++,
             handler : createDocClickHandler(el, binding, vnode)
         }
-        nodeList.push(vnode)
+        nodeList.push(el)
     },
     update(el, binding, vnode) {
-      
-        vnode[ctx].handler = createDocClickHandler(el, binding, vnode)
+        // 不能放在vnode 上 vnode 会变 bind时候绑了 update的时候又变了 而el不会变
+        el[ctx].handler = createDocClickHandler(el, binding, vnode)
     },
     unbind(el,binding,vnode){
         nodeList.forEach((item,index)=>{
-            if(item[ctx].id === vnode[ctx].id){
+            if(item[ctx].id === el[ctx].id){
                 item[ctx].handler=null
                 delete item[ctx]
                 nodeList.splice(index,1)

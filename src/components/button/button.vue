@@ -1,12 +1,12 @@
 <template>
-  <button class="ecode-button" :class="{[`icon-${iconPosition}`]:true,[`ecode-button-${size}`]:true}" @click="$emit('click')">
+  <button class="ecode-button" :class="buttonCls" @click="handleClick" >
       <!-- {[`icon-${iconPosition}`]:true}   会把 icon-left icon-right 添加到 class上 -->
       <!--这里通过样式来控制按钮的位置，通过 display:inline-flex; order:1;order；2;决定icon的位置 -->
-    <EIcon class="loading icon" name="ecode-loading" v-if="loading"></EIcon> <!-- 保证loading 在 icon原来的位置上 加上icon的样式-->
-    <EIcon class="icon" v-if="icon && !loading" :name="icon"></EIcon>
-    <div class="content">
+    <span class="icon-span" v-if="loading"><EIcon class="loading icon" name="ecode-loading" ></EIcon> </span><!-- 保证loading 在 icon原来的位置上 加上icon的样式-->
+    <span class="icon-span"><EIcon class="icon" v-if="icon && !loading" :name="icon"></EIcon></span>
+    <span class="content">
         <slot></slot>
-    </div>
+    </span>
   </button>
 </template>
 
@@ -36,9 +36,43 @@ export default {
             type:String,
             default:'default',
             validator(value){
-                return ['default','primary','dashed','link'].includes(value)
+                return ['default','primary','dashed','text'].includes(value)
+            }
+        },
+        shape:{
+            type:String,
+            default:'rect',
+            validator(value){
+                return ['rect','round','circle'].includes(value)
             }
         }
+    },
+    data(){
+        return {
+            showAnimation:false
+        }
+    },
+    computed:{
+        buttonCls(){
+            return {
+                [`icon-${this.iconPosition}`]:true,
+                [`ecode-button-${this.size}`]:true,
+                [`ecode-button-${this.type}`]:true,
+                [`ecode-button-${this.shape}`]:true,
+                'ecode-button-click-animating':this.showAnimation
+            }
+        }
+    },
+    methods:{
+        handleClick(){
+            this.showAnimation = true
+            this.$emit('click')
+        }
+    },
+    mounted(){
+        this.$el.addEventListener('animationend',()=>{
+            this.showAnimation = false
+        })
     }
 }
 </script>
