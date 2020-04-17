@@ -18,9 +18,9 @@
         @mouseleave="isEnter = false"
       >
         <e-icon :name="iconName" />
-        <transition name="enterRight">
-          <a v-if="isEnter" @click="showCodeFn">{{btnText}}</a>
-        </transition>
+        <!-- <transition name="enterRight"> -->
+          <a  @click="showCodeFn">{{btnText}}</a>
+        <!-- </transition> -->
       </div>
     </div>
   </div>

@@ -45,6 +45,10 @@ export default {
             validator(value){
                 return ['rect','round','circle'].includes(value)
             }
+        },
+        wave:{
+            type:Boolean,
+            default:true
         }
     },
     data(){
@@ -70,9 +74,15 @@ export default {
         }
     },
     mounted(){
-        this.$el.addEventListener('animationend',()=>{
-            this.showAnimation = false
-        })
+        if(this.wave){
+            this.$el.addEventListener('animationend',()=>{
+                this.showAnimation = false
+            })
+        }
+    },
+    beforeDestroy(){
+        debugger
+        this.$el.removeEventListener('animationend')
     }
 }
 </script>

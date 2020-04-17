@@ -7,9 +7,9 @@
         <span>ECODE-UI</span>
       </div>
       <div class="search-bar"></div>
-      <div class="miniBar" v-if="testvisible">
+      <div class="miniBar" >
           <e-icon ref="popElm" name="ecode-hamburg" @click.native.stop="popperVisible = !popperVisible" />
-          <transition>
+          <transition enter-active-class="zoomIn" leave-active-class="zoomOut">
             <div class="popper-content" v-show="popperVisible">
                 <div class="arrow"></div>
                 <docNav @on-click-menu="popperVisible = false"  v-clickoutside="handleClose"/>
@@ -100,6 +100,23 @@ export default {
               box-shadow: -2px -2px 5px rgba(0,0,0,.06);
             }  
         }
+        .zoomIn{
+             animation:zoomIn cubic-bezier(0.075, 0.82, 0.165, 1) .8s;
+        }
+        .zoomOut{
+            animation:zoomOut cubic-bezier(0.075, 0.82, 0.165, 1) .8s;
+        }
+        @keyframes zoomOut{
+            0%{opacity:1}
+            50%{opacity:0;transform:scale3d(.8,.8,.8)}
+            100%{opacity:0}
+        }
+        
+        @keyframes zoomIn{
+            0%{opacity:0;transform:scale3d(.8,.8,.8);}
+            50%{opacity:1}
+        }
     }
 }
+
 </style>
