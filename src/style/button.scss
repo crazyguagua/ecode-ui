@@ -78,6 +78,9 @@
     &:hover {
         background: $primary-hover-color;
     }
+    &.ecode-button-ghost{
+        color:$primary-color;
+    }
 }
 
 .ecode-button.ecode-button-default {
@@ -89,6 +92,79 @@
         border: 1px solid $default-hover-color;
         color: $default-hover-color;
     }
+
+    &.ecode-button-ghost{
+        color:$white-color;
+        border: 1px solid $white-color;
+        &:hover {
+            border: 1px solid $default-hover-color;
+            color: $default-hover-color;
+        }
+    }
+}
+
+.ecode-button.ecode-button-primary.ecode-button-danger {
+    background: $danger-color;
+    color: $white-color;
+    border: 1px solid $danger-color;
+
+    &:hover {
+        background: $danger-hover-color;
+    }
+
+    &.ecode-button-ghost{
+        color:$white-color;
+        border: 1px solid $white-color;
+        &:hover {
+            border: 1px solid $default-hover-color;
+            color: $default-hover-color;
+        }
+    }
+}
+
+.ecode-button.ecode-button-default.ecode-button-danger {
+    color: $danger-color;
+    border: 1px solid $danger-color;
+    &:hover {
+        border: 1px solid $danger-hover-color;
+        color: $danger-hover-color;
+    }
+    &.ecode-button-ghost{
+        color:$white-color;
+        border: 1px solid $white-color;
+        &:hover {
+            border: 1px solid $default-hover-color;
+            color: $default-hover-color;
+        }
+    }
+}
+
+.ecode-button.ecode-button-dashed.ecode-button-danger {
+    color: $danger-color;
+    border: 1px dashed $danger-color;
+    &:hover {
+        border: 1px dashed $danger-hover-color;
+        color: $danger-hover-color;
+    }
+    &.ecode-button-ghost{
+        color:$white-color;
+        border: 1px solid $white-color;
+        &:hover {
+            border: 1px solid $default-hover-color;
+            color: $default-hover-color;
+        }
+    }
+}
+
+.ecode-button.ecode-button-text.ecode-button-danger {
+    background: transparent;
+    color: $danger-color;
+    border: none;
+    box-sizing: none;
+
+    &:hover {
+        color: $danger-hover-color;
+    }
 }
 
 .ecode-button.ecode-button-dashed {
@@ -99,6 +175,14 @@
     &:hover {
         border: 1px dashed $default-hover-color;
         color: $default-hover-color;
+    }
+    &.ecode-button-ghost{
+        color:$white-color;
+        border: 1px dashed $white-color;
+        &:hover {
+            border: 1px dashed $default-hover-color;
+            color: $default-hover-color;
+        }
     }
 }
 
@@ -138,14 +222,29 @@
     padding: 0 7px;
     font-size: 14px;
 }
-
+.ecode-button.ecode-button-ghost{
+    background: transparent;
+    &:hover{
+        background: transparent;
+    }
+}
+.ecode-button[disabled]{
+    cursor: not-allowed;
+    color: rgba(0,0,0,.25);
+    background-color: #f5f5f5;
+    border-color: #d9d9d9;
+    &:hover{
+        color: rgba(0,0,0,.25);
+        background-color: #f5f5f5;
+        border-color: #d9d9d9;
+    }
+}
 
 .ecode-button.ecode-button-click-animating{
     position: relative;
 }
 
-.ecode-button.ecode-button-click-animating:after{
-    content: '';
+.ecode-button > .ecode-button-click-animating{
     position: absolute;
     top: -1px;
     left: -1px;
@@ -154,19 +253,23 @@
     border-radius: inherit;
     border: 0 solid $primary-color;
     opacity: 0.2;
-    animation: fadeEffect 2s cubic-bezier(0.08, 0.82, 0.17, 1), waveEffect 0.4s cubic-bezier(0.08, 0.82, 0.17, 1);
+    animation: fadeEffect 2s cubic-bezier(0.08, 0.82, 0.17, 1), waveEffect .4s cubic-bezier(0.08, 0.82, 0.17, 1);
     animation-fill-mode: forwards;
     display: block;
     pointer-events: none;
 }
 
+.ecode-button.ecode-button-danger > .ecode-button-click-animating{
+    border: 0 solid $danger-color;
+}
+
 @keyframes waveEffect {
     100% {
-        top: -6px;
-        left: -6px;
-        bottom: -6px;
-        right: -6px;
-        border-width: 6px;
+        top: -4px;
+        left: -4px;
+        bottom: -4px;
+        right: -4px;
+        border-width: 4px;
     }
 }
 
