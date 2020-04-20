@@ -82,6 +82,9 @@ export default {
             .nav-list-item{
                 padding:10px 20px ;
                 color:#333;
+                a{
+                    display:block;
+                }
                 &.active{
                     background: #d8e0f3;
                     border-right: 2px solid #8998e8;

@@ -7,8 +7,11 @@
 </template>
 
 <script>
+import {createStore} from './class/helper'
 export default {
+  props:{
 
+  }
 }
 </script>
 

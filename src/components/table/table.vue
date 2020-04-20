@@ -1,6 +1,6 @@
 <template>
    <div class="ecode-table">
-       <TableHeader  />
+       <TableHeader  :columns="columns" />
 
        </TableBody />
    </div>
@@ -15,7 +15,26 @@ export default {
         TableHeader,TableBody
     },
     props:{
-        data:Array,
+        data:{
+            type:Array,
+            default(){
+                return []
+            }
+        },
+        columns:{
+            type:Array,
+            default(){
+                return []
+            }
+        },
+        rowKey: [String, Function],
+    },
+    data(){
+        
+        return {
+
+
+        }
     }
 }
 </script>
