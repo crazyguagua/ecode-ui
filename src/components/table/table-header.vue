@@ -10,7 +10,7 @@
 import {createStore} from './class/helper'
 export default {
   props:{
-
+    store:Object
   }
 }
 </script>

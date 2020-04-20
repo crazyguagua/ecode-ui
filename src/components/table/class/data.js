@@ -1,6 +1,10 @@
-class Data{
+import Vue from 'vue'
 
-    constructor(){
-        
+const Ctor = Vue.extend({
+    data(){
+        return {
+            columns:[],
+            data:[]
+        }
     }
-}
+})

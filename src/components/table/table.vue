@@ -9,6 +9,9 @@
 <script>
 import TableHeader from './table-header.vue'
 import TableBody from './table-body'
+import { createData } from './class/helper'
+
+let seed = 1 
 export default {
     name:'table',
     components:{
@@ -29,8 +32,11 @@ export default {
         },
         rowKey: [String, Function],
     },
+    created(){
+        this.tableId = 'ecode-table-'+seed++
+    },
     data(){
-        
+        this.store = createData(this)
         return {
 
 
