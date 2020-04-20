@@ -1,5 +1,6 @@
 <template>
-  <button class="ecode-button" :class="buttonCls" @click="handleClick" >
+  <button class="ecode-button" :class="buttonCls" @click="handleClick" :disabled="disabled || loading">
+      <div class="ecode-button-click-animating" v-show="showAnimation" ref="animationDiv"></div>
       <!-- {[`icon-${iconPosition}`]:true}   会把 icon-left icon-right 添加到 class上 -->
       <!--这里通过样式来控制按钮的位置，通过 display:inline-flex; order:1;order；2;决定icon的位置 -->
     <span class="icon-span" v-if="loading"><EIcon class="loading icon" name="ecode-loading" ></EIcon> </span><!-- 保证loading 在 icon原来的位置上 加上icon的样式-->
@@ -30,7 +31,10 @@ export default {
         },
         size:{
             type:String,
-            default:'normal'
+            default:'normal',
+             validator(value){
+                return ['normal','large','small',].includes(value)
+            }
         },
         type:{
             type:String,
@@ -49,6 +53,18 @@ export default {
         wave:{
             type:Boolean,
             default:true
+        },
+        ghost:{
+            type:Boolean,
+            default:false
+        },
+        disabled:{
+            type:Boolean,
+            default:false
+        },
+        danger:{
+            type:Boolean,
+            default:false
         }
     },
     data(){
@@ -63,7 +79,9 @@ export default {
                 [`ecode-button-${this.size}`]:true,
                 [`ecode-button-${this.type}`]:true,
                 [`ecode-button-${this.shape}`]:true,
-                'ecode-button-click-animating':this.showAnimation
+                'ecode-button-click-animating':this.showAnimation,
+                'ecode-button-ghost':this.ghost,
+                'ecode-button-danger':this.danger
             }
         }
     },
@@ -75,13 +93,12 @@ export default {
     },
     mounted(){
         if(this.wave){
-            this.$el.addEventListener('animationend',()=>{
+            this.$refs.animationDiv.addEventListener('animationend',()=>{
                 this.showAnimation = false
             })
         }
     },
     beforeDestroy(){
-        debugger
         this.$el.removeEventListener('animationend')
     }
 }

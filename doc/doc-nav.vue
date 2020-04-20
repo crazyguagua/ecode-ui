@@ -39,6 +39,9 @@ export default {
         ,{
           title: "吐司",
           name:'toast'
+        }  ,{
+          title: "表格",
+          name:'table'
         }
       ]
     };

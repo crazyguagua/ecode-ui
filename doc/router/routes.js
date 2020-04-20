@@ -7,7 +7,8 @@ const COMP_MAP={
     'layout': () =>import(/* webpackChunkName: "layout" */ '../pages/layout.md'),
     'toast': () =>import(/* webpackChunkName: "toast" */ '../pages/toast.md'),
     'tab': () =>import(/* webpackChunkName: "tab" */ '../pages/tab.md'),
-    'icon': () =>import(/* webpackChunkName: "icon" */ '../pages/icon.md')
+    'icon': () =>import(/* webpackChunkName: "icon" */ '../pages/icon.md'),
+    'table': () =>import(/* webpackChunkName: "icon" */ '../pages/table.md')
 }
 let routes = [
     {
