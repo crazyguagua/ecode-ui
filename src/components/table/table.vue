@@ -1,8 +1,8 @@
 <template>
-   <div class="ecode-table">
-       <TableHeader  :columns="columns" />
+   <div class="ecode-table" :class="tableCls">
+       <TableHeader  :tableData="tableData" />
 
-       </TableBody />
+       <TableBody :tableData="tableData" />
    </div>
 </template>
 
@@ -10,10 +10,11 @@
 import TableHeader from './table-header.vue'
 import TableBody from './table-body'
 import { createData } from './class/helper'
+import Layout from './class/layout'
 
 let seed = 1 
 export default {
-    name:'table',
+    name:'ecode-table',
     components:{
         TableHeader,TableBody
     },
@@ -30,17 +31,42 @@ export default {
                 return []
             }
         },
+        bordered:{
+            type:Boolean,
+            default:false
+        },
         rowKey: [String, Function],
     },
     created(){
         this.tableId = 'ecode-table-'+seed++
     },
-    data(){
-        this.store = createData(this)
-        return {
-
-
+    computed:{
+        tableCls(){
+            return {
+                'ecode-table-bordered':this.bordered
+            }
         }
+    },
+    mounted(){
+        this.tableData.updateColumns()
+        this.doLayout()
+    },
+    data(){
+        let tableData = createData(this,this.$props)
+        let layout = new Layout(tableData,this)
+        return {
+            tableData:tableData,
+            layout:layout
+        }
+    },
+    methods:{
+        doLayout(){
+            
+            this.layout.updateColumnWidth()
+        }
+    },
+    beforeDestroy(){
+        this.tableData = null
     }
 }
 </script>

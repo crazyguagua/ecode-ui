@@ -1,20 +1,31 @@
 <template>
-  <table>
+ <div class="ecode-table-header-wrapper">
+  <table class="ecode-table-header">
+     <colgroup>
+        <col :name="`${tableName}-column-${c.columnId}`" :width="c.width" v-for="c in columns" :key="c.columnId" />
+     </colgroup>
       <tr>
-          <th>111</th>
+          <th v-for="c in columns" :key="c.columnId">
+            <span>{{c.title}} </span>
+          </th>
       </tr>
   </table>
+</div>
 </template>
 
 <script>
-import {createStore} from './class/helper'
 export default {
+  name:'ecode-table-header',
   props:{
-    store:Object
+    tableData:Object
+  },
+  computed:{
+    columns(){
+      return this.tableData.states.columns
+    },
+    tableName(){
+      return this.tableData.table.tableId
+    }
   }
 }
 </script>
-
-<style>
-
-</style>

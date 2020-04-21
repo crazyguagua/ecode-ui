@@ -1,0 +1,60 @@
+@import '../var/var.scss';
+.ecode-table {
+    margin-bottom: 20px;
+    table{
+        color: rgba(0,0,0,.65);
+        font-size: 14px;
+        font-variant: tabular-nums;
+        line-height: 1.5715;
+        list-style: none;
+        font-feature-settings: 'tnum';
+    }
+   
+    .ecode-table-header {
+        > tr {
+
+            >th {
+                color: rgba(0, 0, 0, .85);
+                font-weight: 500;
+                text-align: left;
+                background: #fafafa;
+                position: relative;
+                padding: 16px;
+                overflow-wrap: break-word;
+            }
+        }
+    }
+    .ecode-table-header,.ecode-table-body{
+        width: 100%;
+        text-align: left;
+        border-radius: 2px 2px 0 0;
+        border-collapse: separate;
+        border-spacing: 0;
+        td,th{
+            border-bottom: 1px solid $table-border-color;
+        }
+    }
+    .ecode-table-body{
+        > tr{
+
+            > td{
+                position: relative;
+                padding: 16px;
+                overflow-wrap: break-word;
+            }
+            &:hover{
+               > td{
+                   background: $table-td-hover-color;
+               }
+            }
+        }
+    }
+    &.ecode-table-bordered{
+        .ecode-table-header-wrapper,.ecode-table-body-wrapper{
+            border-left:1px solid $table-border-color;
+        }
+        td,th{
+            border-right: 1px solid $table-border-color;
+        }
+    }
+}
