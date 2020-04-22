@@ -57,4 +57,13 @@
             border-right: 1px solid $table-border-color;
         }
     }
+    .ecode-table-header-wrapper{
+        //头部滚动条需要隐藏
+        overflow: hidden;
+    }
+
+    .ecode-table-body-wrapper{
+        //table内容滚动条需要显示
+        overflow: auto;
+    }
 }

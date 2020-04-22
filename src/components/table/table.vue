@@ -1,8 +1,8 @@
 <template>
-   <div class="ecode-table" :class="tableCls">
-       <TableHeader  :tableData="tableData" />
+   <div class="ecode-table" :class="tableCls" >
+       <TableHeader  :tableData="tableData" ref="tableHeader" />
 
-       <TableBody :tableData="tableData" />
+       <TableBody :tableData="tableData" ref="tableBody" />
    </div>
 </template>
 
@@ -45,9 +45,16 @@ export default {
             return {
                 'ecode-table-bordered':this.bordered
             }
+        },
+        tableStyle(){
+            return {
+                width:this.tableWidth,
+                tableLayout:this.tableWidth!='100%'?'fixed':'auto'
+            }
         }
     },
     mounted(){
+        this.bindEvents()
         this.tableData.updateColumns()
         this.doLayout()
     },
@@ -56,17 +63,25 @@ export default {
         let layout = new Layout(tableData,this)
         return {
             tableData:tableData,
-            layout:layout
+            layout:layout,
+            tableWidth:'100%'
         }
     },
     methods:{
         doLayout(){
             
             this.layout.updateColumnWidth()
+        },
+        bindEvents(){
+            this.$refs.tableBody.$el.addEventListener('scroll',this.syncScroll,{ passive: true })
+        },
+        syncScroll(e){
+            console.log(e)
         }
     },
     beforeDestroy(){
         this.tableData = null
+        this.layout = null
     }
 }
 </script>

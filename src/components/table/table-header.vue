@@ -1,6 +1,6 @@
 <template>
  <div class="ecode-table-header-wrapper">
-  <table class="ecode-table-header">
+  <table class="ecode-table-header" :style="tableStyle">
      <colgroup>
         <col :name="`${tableName}-column-${c.columnId}`" :width="c.width" v-for="c in columns" :key="c.columnId" />
      </colgroup>
@@ -25,6 +25,9 @@ export default {
     },
     tableName(){
       return this.tableData.table.tableId
+    },
+    tableStyle(){
+      return this.tableData.table.tableStyle
     }
   }
 }

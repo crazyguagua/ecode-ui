@@ -3,7 +3,7 @@
     <div  v-if="data.length ==0 ">
         未查询到数据
     </div>
-    <table  v-else class="ecode-table-body">
+    <table  v-else class="ecode-table-body" :style="tableStyle">
       <colgroup>
         <col :name="`${tableName}-column-${c.columnId}`" :width="c.width" v-for="c in columns" :key="c.columnId" />
       </colgroup>
@@ -33,6 +33,9 @@ export default {
     },
      tableName(){
       return this.tableData.table.tableId
+    },
+    tableStyle(){
+      return this.tableData.table.tableStyle
     }
   }
 };
