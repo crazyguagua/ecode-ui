@@ -35,13 +35,15 @@ export default {
         },{
           title:'选项卡',
           name:'tab'
-        }
-        ,{
+        },{
           title: "吐司",
           name:'toast'
-        }  ,{
+        },{
           title: "表格",
           name:'table'
+        },{
+          title: "输入框",
+          name:'input'
         }
       ]
     };
