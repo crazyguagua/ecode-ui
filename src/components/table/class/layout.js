@@ -1,8 +1,11 @@
 import Vue from 'vue'
+import {getScrollBarWith} from '@/util/scrollbar'
+
 class Layout{
     constructor(tableData,table){
         this.tableData = tableData 
         this.table = table
+        this.scrollbarWidth = getScrollBarWith()
     }
 
     updateColumnWidth(){
@@ -42,9 +45,36 @@ class Layout{
         
         //如果宽度之和大于容器宽度，需要修改容器的宽度
         if(hasWidthOrMinWithColumnTotoalWidth > containerWidth ){
-            this.table.tableWidth = hasWidthOrMinWithColumnTotoalWidth + 'px'
+            this.table.horizontalScroll = true
+            //获得滚动条的宽度
+            //去掉一个滚动条的宽度，否则对不齐
+            this.table.tableBodyWidth = hasWidthOrMinWithColumnTotoalWidth  + 'px'
+            this.table.tableTotalWidth = hasWidthOrMinWithColumnTotoalWidth + this.scrollbarWidth + 'px'
+            //头部最后一列的宽度加上一个滚动条的宽度
+            Vue.nextTick(()=>{
+               let cols =  this.table.$refs.tableHeader.$el.querySelectorAll('colgroup col')
+               let newWidth = parseFloat(cols[cols.length-1].width) + this.scrollbarWidth
+               cols[cols.length-1].width = newWidth
+            })
         }
     }
+    //计算整个table的高度 头部加body
+    updateTableHeight(totalHeight){
+        //表格容器
+
+        //整个表格容器的高度
+        this.table.totalHeight = totalHeight
+        Vue.nextTick(()=>{
+            let container = this.table.$el
+            let tableHeader = this.table.$refs.tableHeader.$el
+            let tableBody = this.table.$refs.tableBody.$el
+            let allH = container.offsetHeight
+            let headerH = tableHeader.offsetHeight
+            tableBody.style['height'] = allH - headerH +'px'
+        })
+    }
+
+
 }
 
 export default Layout

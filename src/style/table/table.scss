@@ -63,7 +63,8 @@
     }
 
     .ecode-table-body-wrapper{
-        //table内容滚动条需要显示
+        //table内容滚动
         overflow: auto;
+        //被ecode-table 挡住了滚动条
     }
 }

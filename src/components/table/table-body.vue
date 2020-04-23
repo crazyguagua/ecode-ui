@@ -35,8 +35,12 @@ export default {
       return this.tableData.table.tableId
     },
     tableStyle(){
-      return this.tableData.table.tableStyle
-    }
+      let table = this.tableData.table
+      return {
+          width:table.tableBodyWidth,
+          tableLayout:table.tableBodyWidth?'fixed':'auto'
+      }
+    },
   }
 };
 </script>

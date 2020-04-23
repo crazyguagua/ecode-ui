@@ -62,12 +62,12 @@
 
 :::
 
-### 出现滚动条的表格
+### 设置表格高度
 
 :::demo 
 ```html
 <div class="table-demo">
-         <e-table :data="data" bordered :columns="columns"></e-table>
+    <e-table :data="data" bordered :columns="columns" :height="300" ></e-table>
   </div>
   <script>
     export default {
@@ -82,6 +82,10 @@
                     {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003",
                       column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',},
                     {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004",
+                      column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',},
+                        {rank:5,name:'曼联',score:'60',star:"拉屎福德 林加德 德赫亚",id:"005",
+                      column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',},
+                        {rank:6,name:'狼队',score:'60',star:"劳尔希门尼斯，阿达马特劳雷，鲁本内维斯",id:"006",
                       column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',}
                 ],
                 columns:[
