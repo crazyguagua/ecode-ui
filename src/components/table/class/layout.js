@@ -1,15 +1,26 @@
 import Vue from 'vue'
 import {getScrollBarWith} from '@/util/scrollbar'
 
+const transWidth = (width,tableTotalWidth)=>{
+    if(typeof width === 'string'){
+        if(/\d+%$/.test(width)){
+            let percentage =  width.substr(0,width.indexOf('%'))
+            return tableTotalWidth* parseFloat(percentage)/100
+        }else{
+            return parseFloat(width)
+        }
+    }else{
+        return width
+    }
+}
 class Layout{
     constructor(tableData,table){
         this.tableData = tableData 
         this.table = table
         this.scrollbarWidth = getScrollBarWith()
     }
-
+     //更新每一列的宽度
     updateColumnWidth(){
-        //更新每一列的宽度
         let containerWidth = this.table.$el.clientWidth
         let columns = this.tableData.states.columns
         //具有最小宽度的列或者没有宽度的列
@@ -22,7 +33,7 @@ class Layout{
         let hasWidthOrMinWithColumnTotoalWidth = 0
         columns.forEach((item,index)=>{
             if(item.width){
-               Vue.set(item,'width',item.width)
+               Vue.set(item,'width',transWidth(item.width,containerWidth))
                hasWidthColumnTotoalWidth +=item.width
                hasWidthOrMinWithColumnTotoalWidth += item.width
             }else if(item.minWidth) {
@@ -35,7 +46,7 @@ class Layout{
 
         noWidthColumns.forEach(element => {
            let width = (element.minWidth&&averageWidth<element.minWidth)?element.minWidth:averageWidth
-           Vue.set(element,'width',width)
+           Vue.set(element,'width',transWidth(width,containerWidth))
         });
 
         //如果全都指定宽度，并且宽度之和小于容器宽度，需要修改容器的宽度
@@ -60,7 +71,9 @@ class Layout{
     }
     //计算整个table的高度 头部加body
     updateTableHeight(totalHeight){
-        //表格容器
+        if(typeof totalHeight === 'string'){
+            totalHeight = parseFloat(totalHeight)
+        }
 
         //整个表格容器的高度
         this.table.totalHeight = totalHeight

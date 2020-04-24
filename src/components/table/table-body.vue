@@ -1,23 +1,3 @@
-<template>
-  <div class="ecode-table-body-wrapper">
-    <div  v-if="data.length ==0 ">
-        未查询到数据
-    </div>
-    <table  v-else class="ecode-table-body" :style="tableStyle">
-      <colgroup>
-        <col :name="`${tableName}-column-${c.columnId}`" :width="c.width" v-for="c in columns" :key="c.columnId" />
-      </colgroup>
-        <tr v-for="d in data" :key="d.id">
-           <td v-for="c in columns" :key="d.key">
-             <div class="table-cell">
-               {{d[c.key]}}
-             </div>
-           </td>
-        </tr>
-    </table>
-  </div>
-</template>
-
 <script>
 export default {
   name: "ecode-table-body",
@@ -41,6 +21,44 @@ export default {
           tableLayout:table.tableBodyWidth?'fixed':'auto'
       }
     },
+  },
+  render(h){
+    const colGroup = this.columns.map(c=>{
+        return (
+            <colgroup>
+              <col name={`${this.tableName}-column-${c.columnId}`} width={c.width} key={c.columnId} />
+            </colgroup>
+        )
+    }) 
+
+    const trs = this.data.map(row=>{
+        return (
+            <tr key={row.id}>
+                {
+                  this.columns.map(c=>{
+                    return (
+                      <td key={c.key}>
+                       <div class="table-cell">
+                          {
+                            c.render?c.render(h,row,c):row[c.key]
+                          }
+                        </div>
+                      </td>
+                    )
+                  })
+                }
+            </tr>
+        )
+    }) 
+    return (
+       <div class="ecode-table-body-wrapper">
+          <table  class="ecode-table-body" style={this.tableStyle}>
+              {colGroup}
+              {trs}
+          </table>
+        </div>
+    )
+
   }
 };
 </script>

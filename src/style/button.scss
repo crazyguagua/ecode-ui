@@ -26,11 +26,6 @@
     touch-action: manipulation; //浏览器只允许进行滚动和持续缩放操作
     cursor: pointer;
 
-    &-default {
-        background: #fff;
-        color: #333;
-    }
-
     .loading {
         animation: spin 2s linear infinite;
     }
@@ -39,14 +34,9 @@
         outline: none;
     }
 
-    &:active {
-        background: $button-active-bg;
-    }
-
-    &:hover {
-        background: $button-hover-bg;
-        border: 1px solid $border-active-color;
-    }
+    // &:active {
+    //     background: $button-active-bg;
+    // }
 
     &.icon-left>.icon-span {
         margin-right: .3em;
@@ -83,7 +73,7 @@
     }
 }
 
-.ecode-button.ecode-button-default {
+.ecode-button,.ecode-button.ecode-button-default {
     background: $white-color;
     color: $default-color;
     border: 1px solid $default-color;

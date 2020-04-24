@@ -35,7 +35,7 @@ export default {
             type:Boolean,
             default:false
         },
-        height:{type:Number},
+        height:{type:[String,Number]},
         rowKey: [String, Function],
     },
     created(){
@@ -81,7 +81,12 @@ export default {
         },
         bindEvents(){
             this.$refs.tableBody.$el.addEventListener('scroll',this.syncScroll,{ passive: true })
+            window.addEventListener('resize',this.tableResize)
         },
+        tableResize:debounce(200,function(){
+            //重新计算表格的宽度
+            this.doLayout()
+        }),
         syncScroll:throttle(20,function(){
             // 这里不能用箭头函数
             let { scrollLeft } = this.$refs.tableBody.$el
@@ -91,6 +96,7 @@ export default {
         }),
         unbindEvents(){
             this.$refs.tableBody.$el.removeEventListener('scroll',this.syncScroll)
+            window.removeEventListener('resize',this.tableResize)
         }
     },
     beforeDestroy(){
@@ -102,13 +108,11 @@ export default {
         height:{
             immediate:true,
             handler(newVal,oldVal){
-                this.layout.updateTableHeight(newVal)
+                if(newVal && newVal !=oldVal){
+                    this.layout.updateTableHeight(newVal)
+                }
             }
         }
     }
 }
 </script>
-
-<style>
-
-</style>

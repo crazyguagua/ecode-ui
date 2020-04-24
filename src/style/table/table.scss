@@ -32,6 +32,9 @@
         border-spacing: 0;
         td,th{
             border-bottom: 1px solid $table-border-color;
+            .ecode-button{
+                margin-right: 5px;
+            }
         }
     }
     .ecode-table-body{

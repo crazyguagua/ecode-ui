@@ -89,17 +89,18 @@ export default {
         handleClick(){
             this.showAnimation = true
             this.$emit('click')
+        },
+        annimationEvHandler(){
+            this.showAnimation = false
         }
     },
     mounted(){
         if(this.wave){
-            this.$refs.animationDiv.addEventListener('animationend',()=>{
-                this.showAnimation = false
-            })
+            this.$refs.animationDiv.addEventListener('animationend',this.annimationEvHandler)
         }
     },
     beforeDestroy(){
-        this.$el.removeEventListener('animationend')
+        this.$el.removeEventListener('animationend',this.annimationEvHandler)
     }
 }
 </script>
