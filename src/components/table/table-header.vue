@@ -2,7 +2,7 @@
  <div class="ecode-table-header-wrapper">
   <table class="ecode-table-header" :style="tableStyle">
      <colgroup>
-        <col :name="`${tableName}-column-${c.columnId}`" :width="c.width" v-for="c in columns" :key="c.columnId" />
+        <col :name="`${tableName}-column-${c.columnId}`" :width="c.calcWidth" v-for="c in columns" :key="c.columnId" />
      </colgroup>
       <tr>
           <th v-for="c in columns" :key="c.columnId">

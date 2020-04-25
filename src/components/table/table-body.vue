@@ -26,7 +26,7 @@ export default {
     const colGroup = this.columns.map(c=>{
         return (
             <colgroup>
-              <col name={`${this.tableName}-column-${c.columnId}`} width={c.width} key={c.columnId} />
+              <col name={`${this.tableName}-column-${c.columnId}`} width={c.calcWidth} key={c.columnId} />
             </colgroup>
         )
     }) 

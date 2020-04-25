@@ -25,7 +25,7 @@ class Layout{
         let columns = this.tableData.states.columns
         //具有最小宽度的列或者没有宽度的列
         let noWidthColumns = columns.filter(item=>{
-            return item.width == undefined || item.minWidth
+            return !item.width || item.minWidth 
         });
         //具有width属性的列宽之和
         let hasWidthColumnTotoalWidth = 0
@@ -33,11 +33,12 @@ class Layout{
         let hasWidthOrMinWithColumnTotoalWidth = 0
         columns.forEach((item,index)=>{
             if(item.width){
-               Vue.set(item,'width',transWidth(item.width,containerWidth))
-               hasWidthColumnTotoalWidth +=item.width
-               hasWidthOrMinWithColumnTotoalWidth += item.width
+               let calcWidth = transWidth(item.width,containerWidth)
+               Vue.set(item,'calcWidth',calcWidth)
+               hasWidthColumnTotoalWidth += calcWidth
+               hasWidthOrMinWithColumnTotoalWidth += calcWidth
             }else if(item.minWidth) {
-                hasWidthOrMinWithColumnTotoalWidth += item.minWidth
+                hasWidthOrMinWithColumnTotoalWidth += transWidth(item.minWidth,containerWidth)
             }
        },0)
          
@@ -45,8 +46,9 @@ class Layout{
         let averageWidth = Math.max((containerWidth - hasWidthColumnTotoalWidth)/noWidthColumns.length,80)
 
         noWidthColumns.forEach(element => {
-           let width = (element.minWidth&&averageWidth<element.minWidth)?element.minWidth:averageWidth
-           Vue.set(element,'width',transWidth(width,containerWidth))
+           let minWidth = transWidth(element.minWidth,containerWidth)
+           let width = (minWidthh&&averageWidth<minWidth)?minWidth:averageWidth
+           Vue.set(element,'calcWidth',transWidth(width,containerWidth))
         });
 
         //如果全都指定宽度，并且宽度之和小于容器宽度，需要修改容器的宽度
@@ -64,7 +66,7 @@ class Layout{
             //头部最后一列的宽度加上一个滚动条的宽度
             Vue.nextTick(()=>{
                let cols =  this.table.$refs.tableHeader.$el.querySelectorAll('colgroup col')
-               let newWidth = parseFloat(cols[cols.length-1].width) + this.scrollbarWidth
+               let newWidth = parseFloat(cols[cols.length-1].calcWidth) + this.scrollbarWidth
                cols[cols.length-1].width = newWidth
             })
         }
