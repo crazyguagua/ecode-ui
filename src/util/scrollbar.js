@@ -25,4 +25,5 @@ export function getScrollBarWith(){
     let scrollDivWidth = div2.offsetWidth
     div1.parentNode.removeChild(div1)
     scrollBarWidth =   noScrollDivWidth - scrollDivWidth
+    return scrollBarWidth
 }

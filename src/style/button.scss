@@ -67,9 +67,11 @@
 
     &:hover {
         background: $primary-hover-color;
+        color: $white-color;
     }
     &.ecode-button-ghost{
         color:$primary-color;
+        border: 1px solid $primary-color;
     }
 }
 

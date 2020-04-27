@@ -47,7 +47,7 @@ class Layout{
 
         noWidthColumns.forEach(element => {
            let minWidth = transWidth(element.minWidth,containerWidth)
-           let width = (minWidthh&&averageWidth<minWidth)?minWidth:averageWidth
+           let width = (minWidth&&averageWidth<minWidth)?minWidth:averageWidth
            Vue.set(element,'calcWidth',transWidth(width,containerWidth))
         });
 
@@ -66,7 +66,7 @@ class Layout{
             //头部最后一列的宽度加上一个滚动条的宽度
             Vue.nextTick(()=>{
                let cols =  this.table.$refs.tableHeader.$el.querySelectorAll('colgroup col')
-               let newWidth = parseFloat(cols[cols.length-1].calcWidth) + this.scrollbarWidth
+               let newWidth = parseFloat(cols[cols.length-1].width) + this.scrollbarWidth
                cols[cols.length-1].width = newWidth
             })
         }
