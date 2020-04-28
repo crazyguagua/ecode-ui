@@ -18,9 +18,9 @@
                     {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}
                 ],
                 columns:[
-                    {key:'rank',title:'排名',width:200},
-                     {key:'name',title:'球队',width:200},
-                      {key:'score',title:'积分',width:200},
+                    {key:'rank',title:'排名'},
+                     {key:'name',title:'球队'},
+                      {key:'score',title:'积分'},
                        {key:'star',title:'球星',}
                 ]
             }

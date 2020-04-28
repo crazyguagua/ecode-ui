@@ -30,7 +30,8 @@ export default {
       let table = this.tableData.table
       return {
           width:table.tableTotalWidth,
-          tableLayout:table.tableTotalWidth?'fixed':'auto'
+          // tableLayout:table.horizontalScroll?'fixed':'auto'
+          tableLayout:'fixed'
       }
     },
   }

@@ -42,8 +42,8 @@ class Layout{
             }
        },0)
          
-        //自动分配剩余列的宽度
-        let averageWidth = Math.max((containerWidth - hasWidthColumnTotoalWidth)/noWidthColumns.length,80)
+        //自动分配剩余列的宽度 ，减一 防止出现横向滚动条
+        let averageWidth = Math.max((containerWidth - hasWidthColumnTotoalWidth - 1)/noWidthColumns.length,80)
 
         noWidthColumns.forEach(element => {
            let minWidth = transWidth(element.minWidth,containerWidth)
@@ -69,6 +69,8 @@ class Layout{
                let newWidth = parseFloat(cols[cols.length-1].width) + this.scrollbarWidth
                cols[cols.length-1].width = newWidth
             })
+        }else{
+            this.table.horizontalScroll = false
         }
     }
     //计算整个table的高度 头部加body
