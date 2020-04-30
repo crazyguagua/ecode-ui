@@ -142,7 +142,7 @@
                        {key:'column3',title:'column3',width:280},
                        {key:'column4',title:'column3',width:280},
                        {key:'column5',title:'column5',width:280},
-                        {key:'op',width:'180px',title:'操作',render(h,row,col){
+                        {key:'op',fixed:'right',width:'180px',title:'操作',render(h,row,col){
                            return <div >
                                        <e-button   size="small" >编辑</e-button>
                                        <e-button  danger  size="small" >删除</e-button>
