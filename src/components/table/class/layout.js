@@ -59,10 +59,7 @@ class Layout{
         //如果宽度之和大于容器宽度，需要修改容器的宽度
         if(hasWidthOrMinWithColumnTotoalWidth > containerWidth ){
             this.table.horizontalScroll = true
-            //获得滚动条的宽度
-            //去掉一个滚动条的宽度，否则对不齐
             this.table.tableBodyWidth = hasWidthOrMinWithColumnTotoalWidth  + 'px'
-            this.table.tableTotalWidth = hasWidthOrMinWithColumnTotoalWidth + this.scrollbarWidth + 'px'
             //头部最后一列的宽度加上一个滚动条的宽度
             Vue.nextTick(()=>{
                let cols =  this.table.$refs.tableHeader.$el.querySelectorAll('colgroup col')

@@ -25,8 +25,8 @@ const TableData = Vue.extend({
                    rightFixedColumns.push(column)
                }
             });
-            this.state.leftFixedColumns = leftFixedColumns
-            this.state.rightFixedColumns = rightFixedColumns
+            this.states.leftFixedColumns = leftFixedColumns
+            this.states.rightFixedColumns = rightFixedColumns
         }
     }
 })

@@ -24,7 +24,7 @@
             }
         }
     }
-    .ecode-table-header,.ecode-table-body{
+    .ecode-table-header,.ecode-table-body,.ecode-table-body-fixed{
         width: 100%;
         text-align: left;
         border-radius: 2px 2px 0 0;
@@ -37,13 +37,24 @@
             }
         }
     }
-    .ecode-table-body{
+    //左侧固定列父容器
+    .ecode-table-left-fixed-wrapper{
+        position: absolute;
+        left:0;
+        top:0px;
+        overflow: hidden;
+        z-index: 3;
+    }
+    .ecode-table-body,.ecode-table-body-left-fixed{
         > tr{
 
             > td{
                 position: relative;
                 padding: 16px;
                 overflow-wrap: break-word;
+                &.is-hidden{
+                    visibility: hidden;
+                }
             }
             &:hover{
                > td{
@@ -69,5 +80,6 @@
         //table内容滚动
         overflow: auto;
         //被ecode-table 挡住了滚动条
+        position: relative;
     }
 }
