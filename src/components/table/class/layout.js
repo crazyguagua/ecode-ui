@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import {getScrollBarWith} from '@/util/scrollbar'
 
+//宽度转换
 const transWidth = (width,tableTotalWidth)=>{
     if(typeof width === 'string'){
         if(/\d+%$/.test(width)){
@@ -69,6 +70,19 @@ class Layout{
         }else{
             this.table.horizontalScroll = false
         }
+        this.calcFixedColumnWidth()
+    }
+    //计算固定列的宽度
+    calcFixedColumnWidth(){
+        let leftFixedW = this.tableData.states.leftFixedColumns.reduce((acc, col)=>{
+            return acc+col.calcWidth
+        },0)
+        this.tableData.states.leftFixedColumnWidth = leftFixedW
+        let rightFixedW = this.tableData.states.rightFixedColumns.reduce((acc, col)=>{
+            return acc+col.calcWidth
+        },0)
+        this.tableData.states.rightFixedColumnWidth = rightFixedW
+        
     }
     //计算整个table的高度 头部加body
     updateTableHeight(totalHeight){

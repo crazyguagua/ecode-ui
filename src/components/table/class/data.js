@@ -6,6 +6,8 @@ const TableData = Vue.extend({
             states:{
                 columns:[],
                 data:[],
+                leftFixedColumnWidth : 0,
+                rightFixedColumnWidth:0,
                 leftFixedColumns:[], //左侧固定列数组
                 rightFixedColumns:[] //右侧固定列数组
             }
