@@ -5,6 +5,7 @@ import { createData } from "./class/helper";
 import Layout from "./class/layout";
 import { debounce, throttle } from "throttle-debounce";
 import { addResizeListener, removeResizeListener } from "@/util/resize-event";
+import {getScrollBarWith} from '@/util/scrollbar'
 let seed = 1;
 export default {
   name: "ecode-table",
@@ -45,9 +46,19 @@ export default {
       let table = this.tableData.table
       return {
           width:table.tableBodyWidth,
-          // tableLayout:table.horizontalScroll?'fixed':'auto'
           tableLayout:'fixed'
       }
+    },
+    fixedTableHeight(){
+        //如果出现横向滚动条，固定列的高度需要减去滚动条
+      let table = this.tableData.table
+      let totalHeight = table.totalHeight // 设置了高度的
+      let height = totalHeight
+      if(this.horizontalScroll){
+        //出现滚动条
+        height  -= getScrollBarWith()
+      }
+      return height+'px'
     },
     wrapperStyle() {
       if (this.totalHeight) {
@@ -61,9 +72,12 @@ export default {
     leftFixedColumn() {
       return this.tableData.states.leftFixedColumns;
     },
+    rightFixedColumn() {
+      return this.tableData.states.rightFixedColumns;
+    },
     tableName(){
       return this.tableData.table.tableId
-    },
+    }
   },
   mounted() {
     this.bindEvents();
@@ -76,10 +90,12 @@ export default {
     return {
       tableData: tableData,
       layout: layout,
-      tableBodyWidth: null,
+      tableBodyWidth: null,     //固定列父容器的宽度
       tableTotalWidth: null,
-      horizontalScroll: false,
-      totalHeight: null
+      horizontalScroll: false,  //是否出现横向滚动条
+      totalHeight: null,  //如果指定了表格的高度
+      fixedColumnBodyTop:null,   //固定列距离父容器的top值，相当于table header部分的高度
+      horizontalScrollDirection:'middle' //横向滚动的方向，默认中间滚动，用于显示固定列的阴影
     };
   },
   methods: {
@@ -100,11 +116,36 @@ export default {
     },
     syncScroll: throttle(20, function() {
       // 这里不能用箭头函数
-      let { scrollLeft } = this.$refs.tableBody.$el;
+      let { scrollLeft ,scrollTop,scrollWidth,offsetWidth} = this.$refs.tableBody.$el;
+      let {leftFixedTableBodyWrapper,rightFixedTableBodyWrapper} = this.$refs
       // console.log(scrollLeft)
       //同步tableBody的横向滚动距离到tableHeader
       this.$refs.tableHeader.$el.scrollLeft = scrollLeft;
+      if(leftFixedTableBodyWrapper){
+        //同步固定列的body部分滚动的距离
+        leftFixedTableBodyWrapper.scrollTop = scrollTop;
+      }
+      if(rightFixedTableBodyWrapper){
+        //同步固定列的body部分滚动的距离
+        rightFixedTableBodyWrapper.scrollTop = scrollTop;
+      }
+
+      //处理是否显示固定列一侧的阴影
+      let maxScrollLeft = scrollWidth-offsetWidth -20
+      if(scrollLeft>0){
+        
+        //向右滚动
+        this.horizontalScrollDirection = 'right'
+      }else if(scrollLeft >= maxScrollLeft){
+        //向左滚动
+        this.horizontalScrollDirection = 'left'
+      }else {
+        //在中间滚动
+        this.horizontalScrollDirection = 'middle'
+      }
+      
     }),
+    //销毁时解除事件绑定
     unbindEvents() {
       let el = this.$refs.tableBody.$el;
       el.removeEventListener("scroll", this.syncScroll);
@@ -112,18 +153,18 @@ export default {
       removeResizeListener(this.$el, this.tableResize);
     },
     //渲染左侧固定列
-    leftFixedColumnRender() {
-      let leftFixedTable = null;
+    renderFixedColumn(position) {
+      let fixedTable = null;
       //左侧固定列
-      if (this.leftFixedColumn.length > 0) {
-        const leftFixedColumnsTr = this.data.map(row => {
+
+        const fixedColumnsTr = this.data.map(row => {
           return (
             <tr>
               {this.columns.map(item => {
                 return (
                   <td
                     key={item.key}
-                    class={item.fixed != "left" ? "is-hidden" : ""}
+                    class={item.fixed != position ? "is-hidden" : ""}
                   >
                     <div class={["table-cell"]}>
                       {item.render ? item.render(h, row, item) : row[item.key]}
@@ -135,7 +176,7 @@ export default {
           );
         });
         //固定列必须也是完整的表格，这样才能保证固定列的高度和不固定的列高度一致，有可能存在固定列不换行，而其他列换行，高度不一致
-        const leftFixedGroup = (
+        const fixedGroup = (
           <colgroup>
             {this.columns.map(c => {
               return (
@@ -148,47 +189,54 @@ export default {
             })}
           </colgroup>
         );
-        leftFixedTable = (
-          <div class="ecode-table-fixed-left" style={{width:this.tableData.states.leftFixedColumnWidth+'px'}}>
-          <div class="ecode-table-header-wrapper">
-            <table class="ecode-table-header" style={this.tableStyle}>
-                <colgroup>
-                    {
-                        this.leftFixedColumn.map((c,index)=>{
-                            return (
-                                <col name={`${this.tableName}-column-left-fixed-${c.columnId}`} width={c.calcWidth} key={`${this.tableName}-column-left-fixed-${c.columnId}`} />
-                            )
-                        })
-                    }
-                </colgroup>
-                <tr>
-                    {
-                        this.leftFixedColumn.map((item,index)=>{
-                            return (
-                                <th>
-                                    <span>
-                                        {item.title}
-                                    </span>
-                                </th>
-                            )
-                        })
-                    }
-                </tr>
-            </table>
+        //固定列最外层容器的宽度
+        let fixedDivWidth = position=='left'?this.tableData.states.leftFixedColumnWidth:this.tableData.states.rightFixedColumnWidth
+        let fixedColumns = this.columns //position=='left'?this.leftFixedColumn:this.rightFixedColumn
+        let divStyle = {width:fixedDivWidth+'px',height:this.fixedTableHeight}
+        if(position == 'right'){
+          divStyle.right = this.layout.scrollbarWidth +'px'
+        }
+       
+        fixedTable = (
+          <div class={[`ecode-table-fixed-${position}`,`scroll-direction-${this.horizontalScrollDirection}`]}  style={divStyle}>
+            <div class={['ecode-table-header-wrapper',`ecode-table-header-${position}-wrapper`]}>
+              <table class="ecode-table-header" style={this.tableStyle}>
+                  <colgroup>
+                      {
+                          fixedColumns.map((c,index)=>{
+                              return (
+                                  <col name={`${this.tableName}-column-left-fixed-${c.columnId}`} width={c.calcWidth} key={`${this.tableName}-column-left-fixed-${c.columnId}`} />
+                              )
+                          })
+                      }
+                  </colgroup>
+                  <tr>
+                      {
+                          fixedColumns.map((item,index)=>{
+                              return (
+                                  <th  class={item.fixed != position ? "is-hidden" : ""}>
+                                      <span>
+                                          {item.title}
+                                      </span>
+                                  </th>
+                              )
+                          })
+                      }
+                  </tr>
+              </table>
             </div>
-            <div class="ecode-table-fixed-left-body-wrapper">
+            <div class={[`ecode-table-fixed-${position}-body-wrapper`]} style={{top:this.fixedColumnBodyTop}} ref={`${position}FixedTableBodyWrapper`}>
               <table
-                class="ecode-table-body-fixed ecode-table-body-left-fixed"
-                style={this.tableStyle}
+                class="ecode-table-body-fixed ecode-table-body-fixed"
+                style={this.tableStyle} 
               >
-                {leftFixedGroup}
-                {leftFixedColumnsTr}
+                {fixedGroup}
+                {fixedColumnsTr}
               </table>
             </div>
           </div>
         );
-      }
-      return leftFixedTable;
+      return fixedTable;
     }
   },
   beforeDestroy() {
@@ -207,13 +255,30 @@ export default {
     }
   },
   render(h) {
-    let leftFixedTable = this.leftFixedColumnRender();
+    let leftFixedTable = null
+    let  rightFixedTable = null
+    //只有出现横向滚动条并且配置了固定列才渲染固定列
+    if(this.horizontalScroll && this.leftFixedColumn.length > 0 ){
+      leftFixedTable = this.renderFixedColumn('left')
+    }
+    let rightPatch = null
+    if(this.horizontalScroll && this.rightFixedColumn.length > 0 ){
+      rightFixedTable = this.renderFixedColumn('right')
+       //右侧固定列定位距离一个滚动条的宽度，空出一个小div，需要打一个补丁盖住
+      const pathStyle = {width:this.layout.scrollbarWidth +'px',height:this.fixedColumnBodyTop}
+      rightPatch = (
+        <div class="fixed-right-patch" style={pathStyle}></div>
+      )
+    }
+    
     return (
       <div class={["ecode-table", this.tableCls]} style={this.wrapperStyle}>
         <TableHeader tableData={this.tableData} ref="tableHeader" />
 
         <TableBody tableData={this.tableData} ref="tableBody" />
         {leftFixedTable}
+        {rightFixedTable}
+        {rightPatch}
       </div>
     );
   }

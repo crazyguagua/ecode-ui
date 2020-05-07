@@ -2,6 +2,7 @@
 .ecode-table {
     margin-bottom: 20px;
     position: relative;
+    overflow: hidden;  //去除固定列滚动时候的阴影，只保留一边的阴影
     table{
         color: rgba(0,0,0,.65);
         font-size: 14px;
@@ -9,6 +10,9 @@
         line-height: 1.5715;
         list-style: none;
         font-feature-settings: 'tnum';
+        > tr{
+            background-color: $table-default-body-bg-color; //表格每一行的背景色，如果不加 固定列不能盖住 body
+        }
     }
    
     .ecode-table-header {
@@ -38,18 +42,10 @@
             }
         }
     }
-    //左侧固定列父容器
-    .ecode-table-left-fixed-wrapper{
-        // position: absolute;
-        // left:0;
-        // top:0px;
-        // overflow: hidden;
-        // z-index: 3;
-    }
-    .ecode-table-body,.ecode-table-body-left-fixed{
+    .ecode-table-body,.ecode-table-body-fixed{
         > tr{
 
-            > td{
+            > td,> th{
                 position: relative;
                 padding: 16px;
                 overflow-wrap: break-word;
@@ -65,11 +61,11 @@
         }
     }
     &.ecode-table-bordered{
-        .ecode-table-header-wrapper,.ecode-table-body-wrapper{
-            border-left:1px solid $table-border-color;
-        }
+        border-left:1px solid $table-border-color;
+        border-top:1px solid $table-border-color;
         td,th{
             border-right: 1px solid $table-border-color;
+            border-bottom:1px solid $table-border-color;
         }
     }
     .ecode-table-header-wrapper{
@@ -89,8 +85,47 @@
         left:0;
         top:0;
         bottom: 0;
-        box-shadow: 0px 0px 10px rgba(0,0,0,.12);
         overflow: hidden;
         z-index: 3;
+            //左侧固定列父容器
+        > .ecode-table-fixed-left-body-wrapper{
+            //左侧固定列body随着 主表格的body滚动而滚动 overflow:hidden;
+            position: absolute;
+            left:0px;
+            bottom:0px;
+            overflow: hidden;
+        }
+    }
+
+    > .ecode-table-fixed-right{
+        position: absolute;
+        right:0px;
+        top:0;
+        bottom: 0;
+        overflow: hidden;
+        z-index: 3;
+            //左侧固定列父容器
+        > .ecode-table-fixed-right-body-wrapper{
+            //左侧固定列body随着 主表格的body滚动而滚动 overflow:hidden;
+            position: absolute;
+            right:0px;
+            bottom:0px;
+            overflow: hidden;
+        }
+
+        > .ecode-table-header-right-wrapper{
+            position: absolute;
+            right:0px;
+        }
+    }
+    .scroll-direction-right,.scroll-direction-left{
+        //显示阴影
+        box-shadow: 0px 0px 10px rgba(0,0,0,.12);
+    }
+    .fixed-right-patch{
+        position: absolute;
+        right:0;
+        top:0;
+        background-color: $table-default-header-bg-color;
     }
 }

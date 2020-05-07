@@ -71,6 +71,7 @@ class Layout{
             this.table.horizontalScroll = false
         }
         this.calcFixedColumnWidth()
+        this.calcFixedColumnBodyTop()
     }
     //计算固定列的宽度
     calcFixedColumnWidth(){
@@ -83,6 +84,11 @@ class Layout{
         },0)
         this.tableData.states.rightFixedColumnWidth = rightFixedW
         
+    }
+    //固定列头部的高度
+    calcFixedColumnBodyTop(){
+        //固定列body部分滚动，body定位属性距离如容器的top值
+        this.table.fixedColumnBodyTop = this.table.$refs.tableHeader.$el.offsetHeight + 'px'
     }
     //计算整个table的高度 头部加body
     updateTableHeight(totalHeight){
@@ -98,8 +104,10 @@ class Layout{
             let tableBody = this.table.$refs.tableBody.$el
             let allH = container.offsetHeight
             let headerH = tableHeader.offsetHeight
-            tableBody.style['height'] = allH - headerH +'px'
+            let tableH = allH - headerH
+            tableBody.style['height'] = tableH+'px'
         })
+        
     }
 
 
