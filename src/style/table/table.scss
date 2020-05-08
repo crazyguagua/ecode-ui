@@ -68,11 +68,12 @@
             border-bottom:1px solid $table-border-color;
         }
     }
+    //table主体头部的父容器
     .ecode-table-header-wrapper{
         //头部滚动条需要隐藏
         overflow: hidden;
     }
-
+    //table主体body的父容器
     .ecode-table-body-wrapper{
         //table内容滚动
         overflow: auto;
@@ -86,7 +87,6 @@
         top:0;
         bottom: 0;
         overflow: hidden;
-        z-index: 3;
             //左侧固定列父容器
         > .ecode-table-fixed-left-body-wrapper{
             //左侧固定列body随着 主表格的body滚动而滚动 overflow:hidden;
@@ -103,7 +103,6 @@
         top:0;
         bottom: 0;
         overflow: hidden;
-        z-index: 3;
             //左侧固定列父容器
         > .ecode-table-fixed-right-body-wrapper{
             //左侧固定列body随着 主表格的body滚动而滚动 overflow:hidden;
@@ -118,14 +117,15 @@
             right:0px;
         }
     }
-    .scroll-direction-right,.scroll-direction-left{
-        //显示阴影
-        box-shadow: 0px 0px 10px rgba(0,0,0,.12);
-    }
     .fixed-right-patch{
         position: absolute;
         right:0;
         top:0;
         background-color: $table-default-header-bg-color;
+    }
+
+    &.scroll-shadow-position-both > .ecode-table-fixed,&.scroll-shadow-position-left > .ecode-table-fixed-left,&.scroll-shadow-position-right > .ecode-table-fixed-right{
+         //显示阴影
+         box-shadow: 0px 0px 10px rgba(0,0,0,.12);
     }
 }

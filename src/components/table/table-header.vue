@@ -1,23 +1,22 @@
 <template>
- <div class="ecode-table-header-wrapper">
-  <table class="ecode-table-header" :style="tableStyle">
+  <table :class="['ecode-table-header',{'ecode-table-body-fixed':fixed}]" :style="tableStyle">
      <colgroup>
         <col :name="`${tableName}-column-${c.columnId}`" :width="c.calcWidth" v-for="c in columns" :key="c.columnId" />
      </colgroup>
       <tr>
-          <th v-for="c in columns" :key="c.columnId">
+          <th v-for="c in columns" :key="c.columnId" :class="{'is-hidden':c.fixed != fixed}">
             <span>{{c.title}} </span>
           </th>
       </tr>
   </table>
-</div>
 </template>
 
 <script>
 export default {
   name:'ecode-table-header',
   props:{
-    tableData:Object
+    tableData:Object,
+    fixed:{type:String,default:''}
   },
   computed:{
     columns(){

@@ -2,7 +2,8 @@
 export default {
   name: "ecode-table-body",
   props: {
-    tableData: Object
+    tableData: Object,
+     fixed:{type:String,default:''}
   },
   computed:{
     columns(){
@@ -21,9 +22,6 @@ export default {
           // tableLayout:table.horizontalScroll?'fixed':'auto'
           tableLayout:'fixed'
       }
-    },
-    leftFixedColumns(){
-      return this.tableData.states.leftFixedColumns
     }
   },
   render(h){
@@ -54,14 +52,12 @@ export default {
             </tr>
         )
     }) 
-   
+
     return (
-       <div class="ecode-table-body-wrapper">
           <table  class="ecode-table-body" style={this.tableStyle}>
               {colGroup}
               {trs}
           </table>
-        </div>
     )
 
   }

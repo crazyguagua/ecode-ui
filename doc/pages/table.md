@@ -1,7 +1,7 @@
 ## table 表格组件
 
 ### 基础表格
-:::demo 配置data和column。
+:::demo 配置data和column，可以调整列的宽度。
 ```html
   <div class="table-demo">
         <e-table :data="data" bordered :columns="columns"></e-table>

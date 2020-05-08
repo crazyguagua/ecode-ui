@@ -88,7 +88,7 @@ class Layout{
     //固定列头部的高度
     calcFixedColumnBodyTop(){
         //固定列body部分滚动，body定位属性距离如容器的top值
-        this.table.fixedColumnBodyTop = this.table.$refs.tableHeader.$el.offsetHeight + 'px'
+        this.tableData.states.fixedColumnBodyTop = this.table.$refs.tableHeader.offsetHeight + 'px'
     }
     //计算整个table的高度 头部加body
     updateTableHeight(totalHeight){
@@ -100,8 +100,8 @@ class Layout{
         this.table.totalHeight = totalHeight
         Vue.nextTick(()=>{
             let container = this.table.$el
-            let tableHeader = this.table.$refs.tableHeader.$el
-            let tableBody = this.table.$refs.tableBody.$el
+            let tableHeader = this.table.$refs.tableHeader
+            let tableBody = this.table.$refs.tableBody
             let allH = container.offsetHeight
             let headerH = tableHeader.offsetHeight
             let tableH = allH - headerH
