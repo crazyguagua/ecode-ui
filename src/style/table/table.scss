@@ -53,7 +53,7 @@
                     visibility: hidden;
                 }
             }
-            &:hover{
+            &.hovering-row{
                > td{
                    background: $table-td-hover-color;
                }

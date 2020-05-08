@@ -10,7 +10,8 @@ const TableData = Vue.extend({
                 rightFixedColumnWidth:0,
                 leftFixedColumns:[], //左侧固定列数组
                 rightFixedColumns:[], //右侧固定列数组
-                fixedColumnBodyTop:0   //table头部的高度
+                fixedColumnBodyTop:0,   //table头部的高度
+                currentHoverRow:-1
             }
         }
     },

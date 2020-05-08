@@ -1,4 +1,5 @@
 <script>
+import { debounce } from "throttle-debounce";
 export default {
   name: "ecode-table-body",
   props: {
@@ -22,6 +23,9 @@ export default {
           // tableLayout:table.horizontalScroll?'fixed':'auto'
           tableLayout:'fixed'
       }
+    },
+    currentHoverRow(){
+      return this.tableData.states.currentHoverRow
     }
   },
   render(h){
@@ -33,9 +37,9 @@ export default {
                 })}
           </colgroup>
 
-    const trs = this.data.map(row=>{
+    const trs = this.data.map((row,index)=>{
         return (
-            <tr key={row.id}>
+            <tr key={row.id} onMouseenter={()=>{this.onMouseenter(index)}} class={[{'hovering-row':this.currentHoverRow == index}]}>
                 {
                   this.columns.map(c=>{
                     return (
@@ -60,6 +64,11 @@ export default {
           </table>
     )
 
+  },
+  methods:{
+    onMouseenter:debounce(30,function(index){
+        this.tableData.states.currentHoverRow = index
+    })
   }
 };
 </script>
