@@ -20,7 +20,6 @@ export default {
       let table = this.tableData.table
       return {
           width:table.tableBodyWidth,
-          // tableLayout:table.horizontalScroll?'fixed':'auto'
           tableLayout:'fixed'
       }
     },
@@ -39,7 +38,7 @@ export default {
 
     const trs = this.data.map((row,index)=>{
         return (
-            <tr key={row.id} onMouseenter={()=>{this.onMouseenter(index)}} class={[{'hovering-row':this.currentHoverRow == index}]}>
+            <tr key={row.id} onMouseLeave={this.onMouseLeave} onMouseenter={()=>{this.onMouseenter(index)}} class={[{'hovering-row':this.currentHoverRow == index}]}>
                 {
                   this.columns.map(c=>{
                     return (
@@ -68,6 +67,9 @@ export default {
   methods:{
     onMouseenter:debounce(30,function(index){
         this.tableData.states.currentHoverRow = index
+    }),
+    onMouseLeave:debounce(30,function(){
+        this.tableData.states.currentHoverRow = -1
     })
   }
 };

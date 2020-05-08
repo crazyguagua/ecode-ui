@@ -4,7 +4,9 @@
         <col :name="`${tableName}-column-${c.columnId}`" :width="c.calcWidth" v-for="c in columns" :key="c.columnId" />
      </colgroup>
       <tr>
-          <th v-for="c in columns" :key="c.columnId" :class="{'is-hidden':c.fixed != fixed}">
+          <th 
+             onMouseDown={this.onMouseDown}
+             v-for="c in columns" :key="c.columnId" :class="{'is-hidden':c.fixed != fixed}">
             <span>{{c.title}} </span>
           </th>
       </tr>
@@ -29,10 +31,14 @@ export default {
       let table = this.tableData.table
       return {
           width:table.tableTotalWidth,
-          // tableLayout:table.horizontalScroll?'fixed':'auto'
           tableLayout:'fixed'
       }
     },
+  },
+  methods:{
+    onMouseDown(){
+
+    }
   }
 }
 </script>

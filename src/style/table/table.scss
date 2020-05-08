@@ -41,6 +41,9 @@
                 margin-right: 5px;
             }
         }
+        th{
+            user-select: none;
+        }
     }
     .ecode-table-body,.ecode-table-body-fixed{
         > tr{
@@ -67,6 +70,10 @@
             border-right: 1px solid $table-border-color;
             border-bottom:1px solid $table-border-color;
         }
+        &.no-data{
+            border-bottom: 1px solid $table-border-color;
+            border-right: 1px solid $table-border-color;
+        }
     }
     //table主体头部的父容器
     .ecode-table-header-wrapper{
@@ -79,6 +86,7 @@
         overflow: auto;
         //被ecode-table 挡住了滚动条
         position: relative;
+        min-height: $table-body-min-height;
     }
 
     > .ecode-table-fixed-left{
@@ -127,5 +135,31 @@
     &.scroll-shadow-position-both > .ecode-table-fixed,&.scroll-shadow-position-left > .ecode-table-fixed-left,&.scroll-shadow-position-right > .ecode-table-fixed-right{
          //显示阴影
          box-shadow: 0px 0px 10px rgba(0,0,0,.12);
+    }
+    .no-data{
+        //未查询到数据的样式
+        position: absolute;
+        left:0;
+        bottom:0;
+        width: 100%;
+        top:0;
+        min-height: $table-body-min-height;
+        text-align: center;
+        .inner{
+            position: absolute;
+            top:50%;
+            left:50%;
+            transform: translate3d(-50%,-50%,0);
+            .text{
+                color: rgba(0,0,0,.25);
+                color: 16px;
+                margin-top:10px;
+            }
+            .ecode-icon{
+                width: 40px;
+                height: 40px;
+                fill: rgba(0,0,0,.25);
+            }
+        }
     }
 }

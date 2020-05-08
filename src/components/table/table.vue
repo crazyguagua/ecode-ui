@@ -6,12 +6,14 @@ import Layout from "./class/layout";
 import { debounce, throttle } from "throttle-debounce";
 import { addResizeListener, removeResizeListener } from "@/util/resize-event";
 import { getScrollBarWith } from "@/util/scrollbar";
+import EIcon from '@/components/icon/icon'
 let seed = 1;
 export default {
   name: "ecode-table",
   components: {
     TableHeader,
-    TableBody
+    TableBody,
+    EIcon
   },
   props: {
     data: {
@@ -31,7 +33,8 @@ export default {
       default: false
     },
     height: { type: [String, Number] },
-    rowKey: [String, Function]
+    rowKey: [String, Function],
+    emptyText:{type:String,default:'暂无数据'}
   },
   created() {
     this.tableId = "ecode-table-" + seed++;
@@ -39,7 +42,8 @@ export default {
   computed: {
     tableCls() {
       return {
-        "ecode-table-bordered": this.bordered
+        "ecode-table-bordered": this.bordered,
+        'no-data':this.data.length==0
       };
     },
     tableStyle() {
@@ -103,6 +107,7 @@ export default {
       this.layout.updateColumnWidth();
     },
     bindEvents() {
+      //监听浏览器窗口改变的事件
       let el = this.$refs.tableBody;
       el.addEventListener("scroll", this.syncScroll, { passive: true });
       // window.addEventListener('resize',this.tableResize)
@@ -197,6 +202,22 @@ export default {
         </div>
       );
       return fixedTable;
+    },
+    //渲染未查询到数据的div
+    renderNoData(){
+      if(this.data.length == 0 && !this.loading){
+        return (
+          <div class="no-data" >
+            <div class="inner">
+              <EIcon name="ecode-bianzu"  />
+              <p class="text">
+                <span >{this.emptyText}</span>
+              </p>
+            </div>
+          </div>
+        )
+      }
+      
     }
   },
   beforeDestroy() {
@@ -210,6 +231,16 @@ export default {
       handler(newVal, oldVal) {
         if (newVal && newVal != oldVal) {
           this.layout.updateTableHeight(newVal);
+        }
+      }
+    },
+    data:{
+      //数据更新时刷新tableData states data
+      immediate:true, // 一开始就要检测是否会有纵向滚动条
+      handler(newVal,oldVal){
+         if (newVal && newVal != oldVal) {
+           this.tableData.states.data = newVal
+           this.layout.updateScrollY()
         }
       }
     }
@@ -231,7 +262,7 @@ export default {
       };
       rightPatch = <div class="fixed-right-patch" style={patchStyle}></div>;
     }
-
+    const noDataTextDiv = this.renderNoData()
     return (
       <div
         class={[
@@ -241,15 +272,17 @@ export default {
         ]}
         style={this.wrapperStyle}
       >
-        <div class={["ecode-table-header-wrapper"]}  ref="tableHeader">
+        <div class={["ecode-table-header-wrapper"]} ref="tableHeader">
           <TableHeader tableData={this.tableData}  />
         </div>
         <div class={["ecode-table-body-wrapper"]}  ref="tableBody">
+           {noDataTextDiv}
           <TableBody tableData={this.tableData}  />
         </div>
         {leftFixedTable}
         {rightFixedTable}
         {rightPatch}
+       
       </div>
     );
   }

@@ -1,7 +1,37 @@
 ## table 表格组件
 
 ### 基础表格
-:::demo 配置data和column，可以调整列的宽度。
+:::demo 配置data和column。
+```html
+  <div class="table-demo">
+        <e-table :data="data" :columns="columns"></e-table>
+  </div>
+  
+  <script>
+    export default {
+        data(){
+            return {
+                data:[
+                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
+                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
+                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
+                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}
+                ],
+                columns:[
+                    {key:'rank',title:'排名'},
+                     {key:'name',title:'球队'},
+                      {key:'score',title:'积分'},
+                       {key:'star',title:'球星',}
+                ]
+            }
+        }
+    }
+    </script>
+```
+:::
+
+### 可调整列宽的表格
+:::demo 给需要调整列宽的列指定 resize属性为true，同时table必须指定bordered属性
 ```html
   <div class="table-demo">
         <e-table :data="data" bordered :columns="columns"></e-table>
@@ -24,6 +54,41 @@
                        {key:'star',title:'球星',}
                 ]
             }
+        }
+    }
+    </script>
+```
+:::
+
+### 动态加载数据
+:::demo 
+```html
+  <div class="table-demo">
+        <e-table :data="data" bordered :columns="columns"></e-table>
+  </div>
+  
+  <script>
+    export default {
+        data(){
+            return {
+                data:[
+                   
+                ],
+                columns:[
+                    {key:'rank',title:'排名'},
+                     {key:'name',title:'球队'},
+                      {key:'score',title:'积分'},
+                       {key:'star',title:'球星',}
+                ]
+            }
+        },
+        created(){
+            setTimeout(()=>{
+                this.data =  [{rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
+                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
+                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
+                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}]
+            },3000)
         }
     }
     </script>
