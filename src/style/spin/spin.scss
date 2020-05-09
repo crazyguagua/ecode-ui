@@ -1,0 +1,39 @@
+@import '../var/var.scss';
+.ecode-spin{
+    position: relative;
+    > .ecode-spin-mask{
+        position: absolute;
+        z-index: 5;
+        background:$white-color ;
+        left:0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        transition: opacity .3s;
+        .inner{
+            position: absolute;
+            left:50%;
+            top:50%;
+            transform: translate3d(-50%,-50%,0);
+            z-index: 6;
+        }
+        .ecode-icon{
+            fill:#7780d8;
+            width: 32px;
+            height: 32px;
+            animation: rotate 2s infinite linear;
+        }
+    }
+    @keyframes rotate {
+        0%{
+            transform: rotate(0deg);
+        }
+        100%{
+            transform: rotate(360deg);
+        }
+    }
+   
+}
+.fade-enter,.fade-leave-active{
+    opacity: 0;
+}

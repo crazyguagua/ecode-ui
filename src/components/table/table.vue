@@ -7,13 +7,15 @@ import { debounce, throttle } from "throttle-debounce";
 import { addResizeListener, removeResizeListener } from "@/util/resize-event";
 import { getScrollBarWith } from "@/util/scrollbar";
 import EIcon from '@/components/icon/icon'
+import ESpin from '@/components/spin/spin'
 let seed = 1;
 export default {
   name: "ecode-table",
   components: {
     TableHeader,
     TableBody,
-    EIcon
+    EIcon,
+    ESpin
   },
   props: {
     data: {
@@ -34,7 +36,8 @@ export default {
     },
     height: { type: [String, Number] },
     rowKey: [String, Function],
-    emptyText:{type:String,default:'暂无数据'}
+    emptyText:{type:String,default:'暂无数据'},
+    loading:{type:Boolean,default:false}
   },
   created() {
     this.tableId = "ecode-table-" + seed++;
@@ -264,26 +267,28 @@ export default {
     }
     const noDataTextDiv = this.renderNoData()
     return (
-      <div
-        class={[
-          "ecode-table",
-          this.tableCls,
-          `scroll-shadow-position-${this.shadowPosition}`
-        ]}
-        style={this.wrapperStyle}
-      >
-        <div class={["ecode-table-header-wrapper"]} ref="tableHeader">
-          <TableHeader tableData={this.tableData}  />
+      <ESpin spinning={this.loading}>
+        <div
+          class={[
+            "ecode-table",
+            this.tableCls,
+            `scroll-shadow-position-${this.shadowPosition}`
+          ]}
+          style={this.wrapperStyle}
+        >
+          <div class={["ecode-table-header-wrapper"]} ref="tableHeader">
+            <TableHeader tableData={this.tableData}  />
+          </div>
+          <div class={["ecode-table-body-wrapper"]}  ref="tableBody">
+            {noDataTextDiv}
+            <TableBody tableData={this.tableData}  />
+          </div>
+          {leftFixedTable}
+          {rightFixedTable}
+          {rightPatch}
+        
         </div>
-        <div class={["ecode-table-body-wrapper"]}  ref="tableBody">
-           {noDataTextDiv}
-          <TableBody tableData={this.tableData}  />
-        </div>
-        {leftFixedTable}
-        {rightFixedTable}
-        {rightPatch}
-       
-      </div>
+      </ESpin>
     );
   }
 };
