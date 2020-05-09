@@ -28,6 +28,9 @@ const TableData = Vue.extend({
                }else if(column.fixed && column.fixed ==='right'){
                    rightFixedColumns.push(column)
                }
+               if(!column.resize){
+                  column.resize = true
+               }
             });
             this.states.leftFixedColumns = leftFixedColumns
             this.states.rightFixedColumns = rightFixedColumns

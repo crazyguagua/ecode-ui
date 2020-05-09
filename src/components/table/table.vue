@@ -30,7 +30,7 @@ export default {
         return [];
       }
     },
-    bordered: {
+    border: {
       type: Boolean,
       default: false
     },
@@ -45,7 +45,7 @@ export default {
   computed: {
     tableCls() {
       return {
-        "ecode-table-bordered": this.bordered,
+        "ecode-table-border": this.border,
         'no-data':this.data.length==0
       };
     },
@@ -101,7 +101,8 @@ export default {
       tableTotalWidth: null,
       horizontalScroll: false, //是否出现横向滚动条
       totalHeight: null, //如果指定了表格的高度
-      shadowPosition: "right" //横向滚动的方向，默认中间滚动，用于显示固定列的阴影
+      shadowPosition: "right", //横向滚动的方向，默认中间滚动，用于显示固定列的阴影
+      showResizeDiv:false //控制是否显示拖拽调整列宽的div
     };
   },
   methods: {
@@ -161,7 +162,7 @@ export default {
     }),
     //销毁时解除事件绑定
     unbindEvents() {
-      let el = this.$refs.tableBody.$el;
+      let el = this.$refs.tableBody;
       el.removeEventListener("scroll", this.syncScroll);
       // window.removeEventListener('resize',this.tableResize)
       removeResizeListener(this.$el, this.tableResize);
@@ -266,6 +267,13 @@ export default {
       rightPatch = <div class="fixed-right-patch" style={patchStyle}></div>;
     }
     const noDataTextDiv = this.renderNoData()
+    // 用来拖拽调整列宽的div
+    let resizeDiv = null
+    if(this.showResizeDiv){
+      resizeDiv = (
+        <div class="resizeDiv"  ref="resizeDiv"/>
+      )
+    }
     return (
       <ESpin spinning={this.loading}>
         <div
@@ -286,7 +294,7 @@ export default {
           {leftFixedTable}
           {rightFixedTable}
           {rightPatch}
-        
+          {resizeDiv}
         </div>
       </ESpin>
     );

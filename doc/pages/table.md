@@ -4,7 +4,7 @@
 :::demo 配置data和column。
 ```html
   <div class="table-demo">
-        <e-table :data="data" :columns="columns"></e-table>
+        <e-table :data="data" border :columns="columns"></e-table>
   </div>
   
   <script>
@@ -31,10 +31,10 @@
 :::
 
 ### 可调整列宽的表格
-:::demo 给需要调整列宽的列指定 resize属性为true，同时table必须指定bordered属性
+:::demo 给需要调整列宽的列指定 resize属性为true，同时table必须指定border属性
 ```html
   <div class="table-demo">
-        <e-table :data="data" bordered :columns="columns"></e-table>
+        <e-table :data="data" border :columns="columns"></e-table>
   </div>
   
   <script>
@@ -64,7 +64,7 @@
 :::demo 
 ```html
   <div class="table-demo">
-        <e-table :data="data" bordered :columns="columns"></e-table>
+        <e-table :data="data" :loading="loading" border :columns="columns"></e-table>
   </div>
   
   <script>
@@ -78,12 +78,15 @@
                     {key:'rank',title:'排名'},
                      {key:'name',title:'球队'},
                       {key:'score',title:'积分'},
-                       {key:'star',title:'球星',}
-                ]
+                       {key:'star',title:'球星',width:300}
+                ],
+                loading:false
             }
         },
         created(){
+            this.loading = true
             setTimeout(()=>{
+                 this.loading = false
                 this.data =  [{rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
                     {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
                     {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
@@ -97,10 +100,10 @@
 
 ### 带边框的表格
 
-:::demo bordered 属性可以让表格带边框 
+:::demo border 属性可以让表格带边框 
 ```html
 <div class="table-demo">
-         <e-table :data="data" bordered :columns="columns"></e-table>
+         <e-table :data="data" border :columns="columns"></e-table>
   </div>
   <script>
     export default {
@@ -132,7 +135,7 @@
 :::demo  通过height属性设置table的高度，表格内容滚动，头部保持固定。
 ```html
 <div class="table-demo">
-    <e-table :data="data" bordered :columns="columns" height="300px" ></e-table>
+    <e-table :data="data" border :columns="columns" height="300px" ></e-table>
   </div>
   <script>
     export default {
@@ -177,7 +180,7 @@
 :::demo  列配置fixed属性，使列固定在左侧或者右侧。
 ```html
 <div class="table-demo">
-    <e-table :data="data" bordered :columns="columns" height="300px" ></e-table>
+    <e-table :data="data" border :columns="columns" height="300px" ></e-table>
   </div>
   <script>
     export default {
@@ -227,7 +230,7 @@
 :::demo 
 ```html
 <div class="table-demo">
-         <e-table :data="data" bordered :columns="columns"></e-table>
+         <e-table :data="data" border :columns="columns"></e-table>
   </div>
   <script>
     export default {
