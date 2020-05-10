@@ -2,7 +2,7 @@ import Vue from 'vue'
 import {
     getScrollBarWith
 } from '@/util/scrollbar'
-
+const MIN_COLUMN_WIDTH = 80
 //宽度转换
 const transWidth = (width, tableTotalWidth) => {
     if (typeof width === 'string') {
@@ -47,7 +47,7 @@ class Layout {
         }, 0)
 
         //自动分配剩余列的宽度 ，减一 防止出现横向滚动条
-        let averageWidth = Math.max(Math.floor((containerWidth - hasWidthColumnTotoalWidth - 1) / noWidthColumns.length), 80)
+        let averageWidth = Math.max(Math.floor((containerWidth - hasWidthColumnTotoalWidth - 1) / noWidthColumns.length), MIN_COLUMN_WIDTH)
 
         noWidthColumns.forEach(element => {
             let minWidth = transWidth(element.minWidth, containerWidth)

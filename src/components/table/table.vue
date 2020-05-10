@@ -268,12 +268,11 @@ export default {
     }
     const noDataTextDiv = this.renderNoData()
     // 用来拖拽调整列宽的div
-    let resizeDiv = null
-    if(this.showResizeDiv){
-      resizeDiv = (
-        <div class="resizeDiv"  ref="resizeDiv"/>
+    let resizeDivStyle = {display:'none'}
+
+    const resizeDiv = (
+        <div class="resizeDiv"  ref="resizeDiv" style={resizeDivStyle}/>
       )
-    }
     return (
       <ESpin spinning={this.loading}>
         <div

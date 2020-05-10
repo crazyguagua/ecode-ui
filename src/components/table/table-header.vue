@@ -1,4 +1,5 @@
 <script>
+const MIN_COLUMN_WIDTH = 80
 export default {
   name: "ecode-table-header",
   props: {
@@ -7,7 +8,8 @@ export default {
   },
   data(){
     return {
-      isDragging : false
+      isDragging : false,
+      dragState:{}
     }
   },
   computed: {
@@ -25,21 +27,46 @@ export default {
       };
     },
     border(){
-      return this.tableData.table.border
+      return this.table.border
+    },
+    table(){
+      return this.tableData.table
     }
   },
   methods: {
     onMouseDown(e, column) {
-      if(!border || !column.resize ){
+      if(!this.border || !column.resize ){
         return
       }
       let clientX = e.clientX;
-      this.$parent.showResizeDiv = true;
+      this.isDragging = true
+      let tableEl = this.table.$el
+      let tableRect = tableEl.getBoundingClientRect()
+      let tableLeft = tableRect.left
+      let maxLeft = tableRect.width
+      //当前列th
+      let columnId = `${this.tableName}-column-${column.columnId}`
+      let th = this.$el.querySelector('th[name="'+columnId+'"]')
+      let thRect = th.getBoundingClientRect()
+      let thLeft = thRect.left  //单元格的 left
+      let resizeDiv = this.table.$refs.resizeDiv
+
+      //th的最小宽度
+      let minLeft = (thLeft - tableLeft) + MIN_COLUMN_WIDTH
       const handleMouseMove =(e)=>{
-        this.isDragging = true
+        let resizeDivLeft = e.clientX - tableLeft
+        resizeDivLeft = Math.min(maxLeft,Math.max(minLeft,resizeDivLeft))
+        resizeDiv.style.left = resizeDivLeft +'px'
+        resizeDiv.style.display = 'block'
+        
       }
-      const handleMouseUp = ()=>{
+      const handleMouseUp = (e)=>{
+        let newWidth = e.clientX - thLeft
         this.isDragging = false
+        resizeDiv.style.display = 'none'
+        column.width = newWidth
+        //重新计算列宽
+        this.table.layout.updateColumnWidth()
         document.removeEventListener('mousemove',handleMouseMove)
         document.removeEventListener('mouseup',handleMouseUp)
       }
@@ -61,6 +88,8 @@ export default {
        //只有在鼠标距离右边很近的时候才显示可拖拽的cursor
        if(rect.right - e.pageX <10){
          target.style.cursor = 'col-resize'
+       }else{
+          target.style.cursor = ''
        }
     }
   },
@@ -86,7 +115,7 @@ export default {
           {this.columns.map((c, index) => {
             return (
               <th
-
+                 name={`${this.tableName}-column-${c.columnId}`}
                 onMousedown={e => this.onMouseDown(e, c)}
                 onMousemove={e=>this.onMouseMove(e,c)}
                 key={c.columnId}
