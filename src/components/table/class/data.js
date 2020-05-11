@@ -12,6 +12,7 @@ const TableData = Vue.extend({
                 rightFixedColumns:[], //右侧固定列数组
                 fixedColumnBodyTop:0,   //table头部的高度
                 currentHoverRow:-1,
+                orderProp:null,//排序字段
             }
         }
     },

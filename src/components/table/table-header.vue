@@ -1,7 +1,9 @@
 <script>
 const MIN_COLUMN_WIDTH = 80
+import EIcon from '@/components/icon/icon'
 export default {
   name: "ecode-table-header",
+  components:{EIcon},
   props: {
     tableData: Object,
     fixed: { type: String, default: "" }
@@ -9,7 +11,7 @@ export default {
   data(){
     return {
       isDragging : false,
-      dragState:{}
+      dragingColumn:null
     }
   },
   computed: {
@@ -34,8 +36,9 @@ export default {
     }
   },
   methods: {
+    //处理列拖拽事件
     onMouseDown(e, column) {
-      if(!this.border || !column.resize ){
+      if(!this.border || !column.resize || !this.dragingColumn){ //鼠标没有出现拖拽cursor不让点击拖拽
         return
       }
       let clientX = e.clientX;
@@ -54,14 +57,14 @@ export default {
       //th的最小宽度
       let minLeft = (thLeft - tableLeft) + MIN_COLUMN_WIDTH
       const handleMouseMove =(e)=>{
-        let resizeDivLeft = e.clientX - tableLeft
+        let resizeDivLeft = e.clientX - tableLeft   //鼠标屏幕坐标 减去 table的left值
         resizeDivLeft = Math.min(maxLeft,Math.max(minLeft,resizeDivLeft))
         resizeDiv.style.left = resizeDivLeft +'px'
         resizeDiv.style.display = 'block'
         
       }
       const handleMouseUp = (e)=>{
-        let newWidth = e.clientX - thLeft
+        let newWidth = e.clientX - thLeft  //鼠标屏幕坐标 减去 当前th的left值
         this.isDragging = false
         resizeDiv.style.display = 'none'
         column.width = newWidth
@@ -88,8 +91,11 @@ export default {
        //只有在鼠标距离右边很近的时候才显示可拖拽的cursor
        if(rect.right - e.pageX <10){
          target.style.cursor = 'col-resize'
+         //通过dragingColumn来控制只有出现手型，才可以点击拖拽
+         this.dragingColumn = column
        }else{
           target.style.cursor = ''
+          this.dragingColumn = null
        }
     },
     renderHeader(h,column){
@@ -101,12 +107,23 @@ export default {
        }else{
          content = column.title
        }
-       let sortDiv = <div class='sort'></div>
-       return <div class="headerCell">
-          {content}
+       let sortDiv = null
+       if(column.sortable){
+         sortDiv = <div class='sort'>
+          <e-icon name='ecode-arrowdropdown-copy-copy' class="arrow-up" onClick={(e)=>{this.handleSort(e,column,'asc')}} />
+          <e-icon name='ecode-arrowdropdown-copy' class="arrow-down" onClick={(e)=>{this.handleSort(e,column,'desc')}} />
+       </div>
+       }
+       return <div class="headerCell"  onClick={(e)=>{this.handleSort(e,column)}}>
+          <span>{content}</span>
           {sortDiv}
        </div>
-    }
+    },
+    //降序
+    handleSort(event,column,sortType){
+       event.stopPropagation();//防止事件冒泡  ，点击箭头，不冒泡给headerCell
+
+    },
   },
   render(h) {
     

@@ -26,6 +26,24 @@
                 position: relative;
                 padding: 16px;
                 overflow-wrap: break-word;
+                > .headerCell{
+                    position: relative;
+                }
+                > .headerCell > .sort{
+                    margin-left:5px;
+                    display: inline-flex;
+                    flex-direction: column;
+                    align-items: center;
+                    vertical-align: middle;
+                    > .ecode-icon{
+                        display: inline-block;
+                        cursor: pointer;
+                        fill: $table-sort-color;
+                    }
+                }
+                > .headerCell > .sort > .arrow-down{
+                    margin-top: -3px;
+                }
             }
         }
     }
