@@ -93,13 +93,19 @@ export default {
        }
     },
     renderHeader(h,column){
+      let content= null
        if(column.type==='index'){
-          return column.title||'序号'
+          content =  column.title||'序号'
        }else if(column.headerRender){
-         return column.headerRender(h,column)
+         content = column.headerRender(h,column)
        }else{
-         return column.title
+         content = column.title
        }
+       let sortDiv = <div class='sort'></div>
+       return <div class="headerCell">
+          {content}
+          {sortDiv}
+       </div>
     }
   },
   render(h) {

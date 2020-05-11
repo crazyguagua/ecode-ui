@@ -100,6 +100,7 @@ export default {
       tableData: tableData,
       layout: layout,
       tableBodyWidth: null, //固定列父容器的宽度
+      tableBodyHeight:null,//表格内容部分的高度
       tableTotalWidth: null,
       horizontalScroll: false, //是否出现横向滚动条
       totalHeight: null, //如果指定了表格的高度

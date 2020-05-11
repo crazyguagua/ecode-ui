@@ -20,7 +20,8 @@ export default {
       let table = this.tableData.table
       return {
           width:table.tableBodyWidth,
-          tableLayout:'fixed'
+          tableLayout:'fixed',
+          height:this.tableData.table.tableBodyHeight
       }
     },
     currentHoverRow(){

@@ -105,6 +105,9 @@ class Layout {
             let tableH = allH - headerH
             this.tableBodyHeight = tableH
             tableBody.style['height'] = tableH + 'px'
+
+            //没有数据也设置body 部分的table高度
+            this.table.tableBodyHeight = tableH + 'px'
         })
 
     }
