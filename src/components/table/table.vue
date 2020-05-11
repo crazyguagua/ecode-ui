@@ -38,7 +38,8 @@ export default {
     rowKey: [String, Function],
     emptyText:{type:String,default:'暂无数据'},
     loading:{type:Boolean,default:false},
-    stripe:{type:Boolean,default:false}
+    stripe:{type:Boolean,default:false},
+    resize:{type:Boolean,default:true}
   },
   created() {
     this.tableId = "ecode-table-" + seed++;

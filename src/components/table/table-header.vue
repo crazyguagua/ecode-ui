@@ -91,6 +91,15 @@ export default {
        }else{
           target.style.cursor = ''
        }
+    },
+    renderHeader(h,column){
+       if(column.type==='index'){
+          return column.title||'序号'
+       }else if(column.headerRender){
+         return column.headerRender(h,column)
+       }else{
+         return column.title
+       }
     }
   },
   render(h) {
@@ -121,7 +130,7 @@ export default {
                 key={c.columnId}
                 class="{'is-hidden':c.fixed != fixed}"
               >
-                <span>{c.title} </span>
+                {this.renderHeader(h,c)}
               </th>
             );
           })}

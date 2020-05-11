@@ -28,8 +28,10 @@ const TableData = Vue.extend({
                }else if(column.fixed && column.fixed ==='right'){
                    rightFixedColumns.push(column)
                }
-               if(!column.resize){
-                  column.resize = true
+               if(typeof column.resize =='undefined' && typeof table.resize !='undefined' ){
+                   column.resize = table.resize
+               }else{
+                   column.resize = true
                }
                column.ellipsis = false
             });

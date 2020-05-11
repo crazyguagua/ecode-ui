@@ -62,7 +62,7 @@
 
 ### 带边框的表格
 
-:::demo border 属性可以让表格带边框 
+:::demo border 属性可以让表格带边框。
 ```html
 <div class="table-demo">
          <e-table :data="data" border :columns="columns"></e-table>
@@ -93,7 +93,7 @@
 :::
 
 ### 可调整列宽的表格
-:::demo 给需要调整列宽的列指定 resize属性为true，同时table必须指定border属性
+:::demo 给需要调整列宽的列指定 resize属性为true，同时table必须指定border属性。
 ```html
   <div class="table-demo">
         <e-table :data="data" border :columns="columns"></e-table>
@@ -110,6 +110,68 @@
                     {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}
                 ],
                 columns:[
+                    {key:'rank',title:'排名'},
+                     {key:'name',title:'球队'},
+                      {key:'score',title:'积分'},
+                       {key:'star',title:'球星',}
+                ]
+            }
+        }
+    }
+    </script>
+```
+:::
+
+### 自定义索引
+:::demo column配置type="index"。
+```html
+  <div class="table-demo">
+        <e-table :data="data" border :columns="columns"></e-table>
+  </div>
+  
+  <script>
+    export default {
+        data(){
+            return {
+                data:[
+                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
+                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
+                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
+                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}
+                ],
+                columns:[
+                    {type:'index',title:'编号'},
+                    {key:'rank',title:'排名'},
+                     {key:'name',title:'球队'},
+                      {key:'score',title:'积分'},
+                       {key:'star',title:'球星',}
+                ]
+            }
+        }
+    }
+    </script>
+```
+:::
+
+### 排序
+:::demo column配置sortable 。
+```html
+  <div class="table-demo">
+        <e-table :data="data" :columns="columns"></e-table>
+  </div>
+  
+  <script>
+    export default {
+        data(){
+            return {
+                data:[
+                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
+                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
+                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
+                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}
+                ],
+                columns:[
+                    {type:'index',title:'编号'},
                     {key:'rank',title:'排名'},
                      {key:'name',title:'球队'},
                       {key:'score',title:'积分'},
@@ -259,7 +321,7 @@
 :::
 
 ### 自定义单元格内容
-:::demo 
+:::demo column中通过render配置传入jsx或者render函数。
 ```html
 <div class="table-demo">
          <e-table :data="data" border :columns="columns"></e-table>
@@ -279,9 +341,9 @@
                      {key:'name',title:'球队'},
                       {key:'score',title:'积分',width:'80px'},
                        {key:'star',title:'球星',render(h,row,col){
-                           return <div >
-                                        <span>{row.star}</span> <e-icon name="ecode-zuqiu"  />
-                                  </div>
+                           return h('div',[
+                               h('span',row.star),h('e-icon',{props:{name:'ecode-zuqiu'}})
+                           ])
                        }},
                        {key:'op',width:'180px',title:'操作',render(h,row,col){
                            return <div >

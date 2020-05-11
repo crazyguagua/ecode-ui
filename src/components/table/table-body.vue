@@ -45,7 +45,7 @@ export default {
                       <td key={c.key}>
                        <div class="table-cell">
                           {
-                            c.render?c.render(h,row,c):row[c.key]
+                            this.renderCell(h,row,c,index)
                           }
                         </div>
                       </td>
@@ -76,6 +76,14 @@ export default {
       return [{'hovering-row':this.currentHoverRow == index},
         this.tableData.table.stripe&& index%2==1?'stripe-row':''
       ]
+    },
+    renderCell(h,row,column,rowIndex){
+      if(column.type === 'index'){
+        return <div class="table-cell">
+                    {rowIndex+1}
+                </div>
+      }
+      return column.render?column.render(h,row,column):row[column.key]
     }
   }
 };
