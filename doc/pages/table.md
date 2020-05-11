@@ -4,7 +4,7 @@
 :::demo 配置data和column。
 ```html
   <div class="table-demo">
-        <e-table :data="data" border :columns="columns"></e-table>
+        <e-table :data="data" :columns="columns"></e-table>
   </div>
   
   <script>
@@ -28,6 +28,68 @@
     }
     </script>
 ```
+:::
+
+### 斑马纹
+:::demo table设置 stripe属性，行与行之间，不同的颜色区分。
+```html
+  <div class="table-demo">
+        <e-table :data="data"  stripe :columns="columns"></e-table>
+  </div>
+  
+  <script>
+    export default {
+        data(){
+            return {
+                data:[
+                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
+                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
+                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
+                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}
+                ],
+                columns:[
+                    {key:'rank',title:'排名'},
+                     {key:'name',title:'球队'},
+                      {key:'score',title:'积分'},
+                       {key:'star',title:'球星',}
+                ]
+            }
+        }
+    }
+    </script>
+```
+:::
+
+### 带边框的表格
+
+:::demo border 属性可以让表格带边框 
+```html
+<div class="table-demo">
+         <e-table :data="data" border :columns="columns"></e-table>
+  </div>
+  <script>
+    export default {
+        data(){
+            return {
+                data:[
+                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
+                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
+                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
+                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}
+                ],
+                columns:[
+                    {key:'rank',title:'排名',width:80},
+                     {key:'name',title:'球队',width:80},
+                      {key:'score',title:'积分',width:80},
+                       {key:'star',title:'球星',minWidth:80}
+                ]
+            }
+        }
+    }
+    </script>
+
+```
+
 :::
 
 ### 可调整列宽的表格
@@ -98,37 +160,7 @@
 ```
 :::
 
-### 带边框的表格
 
-:::demo border 属性可以让表格带边框 
-```html
-<div class="table-demo">
-         <e-table :data="data" border :columns="columns"></e-table>
-  </div>
-  <script>
-    export default {
-        data(){
-            return {
-                data:[
-                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
-                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
-                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
-                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}
-                ],
-                columns:[
-                    {key:'rank',title:'排名',width:80},
-                     {key:'name',title:'球队',width:80},
-                      {key:'score',title:'积分',width:80},
-                       {key:'star',title:'球星',minWidth:80}
-                ]
-            }
-        }
-    }
-    </script>
-
-```
-
-:::
 
 ### 固定表格头部
 
@@ -180,7 +212,7 @@
 :::demo  列配置fixed属性，使列固定在左侧或者右侧。
 ```html
 <div class="table-demo">
-    <e-table :data="data" border :columns="columns" height="300px" ></e-table>
+    <e-table :data="data" stripe border :columns="columns" height="300px" ></e-table>
   </div>
   <script>
     export default {

@@ -37,7 +37,8 @@ export default {
     height: { type: [String, Number] },
     rowKey: [String, Function],
     emptyText:{type:String,default:'暂无数据'},
-    loading:{type:Boolean,default:false}
+    loading:{type:Boolean,default:false},
+    stripe:{type:Boolean,default:false}
   },
   created() {
     this.tableId = "ecode-table-" + seed++;
@@ -279,7 +280,8 @@ export default {
           class={[
             "ecode-table",
             this.tableCls,
-            `scroll-shadow-position-${this.shadowPosition}`
+            `scroll-shadow-position-${this.shadowPosition}`,
+            {'ecode-table-stripe':this.stripe}
           ]}
           style={this.wrapperStyle}
         >

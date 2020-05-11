@@ -166,8 +166,11 @@
         position: absolute;
         top:0;
         bottom: 0;
-        width: 1px;
+        width: 2px;
         background: $table-border-color;
         left:200px;
+    }
+    &.ecode-table-stripe   tr.stripe-row{
+        background :$table-tr-strip-bg-color;
     }
 }

@@ -31,6 +31,7 @@ const TableData = Vue.extend({
                if(!column.resize){
                   column.resize = true
                }
+               column.ellipsis = false
             });
             this.states.leftFixedColumns = leftFixedColumns
             this.states.rightFixedColumns = rightFixedColumns

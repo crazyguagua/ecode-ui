@@ -38,7 +38,7 @@ export default {
 
     const trs = this.data.map((row,index)=>{
         return (
-            <tr key={row.id} onMouseLeave={this.onMouseLeave} onMouseenter={()=>{this.onMouseenter(index)}} class={[{'hovering-row':this.currentHoverRow == index}]}>
+            <tr key={row.id} onMouseleave={this.onMouseleave} onMouseenter={()=>{this.onMouseenter(index)}} class={this.getTrClass(row,index)}>
                 {
                   this.columns.map(c=>{
                     return (
@@ -68,9 +68,15 @@ export default {
     onMouseenter:debounce(30,function(index){
         this.tableData.states.currentHoverRow = index
     }),
-    onMouseLeave:debounce(30,function(){
-        this.tableData.states.currentHoverRow = -1
-    })
+    onMouseleave:debounce(30,function(){
+        this.tableData.states.currentHoverRow = null
+    }),
+    //行样式 ，hover和stripe时用到
+    getTrClass(row,index){
+      return [{'hovering-row':this.currentHoverRow == index},
+        this.tableData.table.stripe&& index%2==1?'stripe-row':''
+      ]
+    }
   }
 };
 </script>
