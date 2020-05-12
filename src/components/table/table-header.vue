@@ -109,19 +109,30 @@ export default {
        }
        let sortDiv = null
        if(column.sortable){
-         sortDiv = <div class='sort'>
-          <e-icon name='ecode-arrowdropdown-copy-copy' class="arrow-up" onClick={(e)=>{this.handleSort(e,column,'asc')}} />
-          <e-icon name='ecode-arrowdropdown-copy' class="arrow-down" onClick={(e)=>{this.handleSort(e,column,'desc')}} />
-       </div>
+         //三种状态，未排序，升序，降序  click.native = nativeOnClick
+         let orderDiv = null
+         if(column.order == null){
+           orderDiv = <e-icon name='ecode-sort' nativeOnClick={ (e)=>{this.handleSort(e,column,'desc')}} />
+         }else if(column.order === 'asc'){
+           orderDiv = <e-icon name='ecode-sort-asc' class="sort-enable" nativeOnClick={(e)=>{this.handleSort(e,column,null)}} />
+         }else{
+           orderDiv = <e-icon name='ecode-sort-desc' class="sort-enable" nativeOnClick={(e)=>{this.handleSort(e,column,'asc')}} />
+         }
+         sortDiv = <div class='sort'>{orderDiv} </div>
        }
        return <div class="headerCell"  onClick={(e)=>{this.handleSort(e,column)}}>
           <span>{content}</span>
           {sortDiv}
        </div>
     },
-    //降序
-    handleSort(event,column,sortType){
+    //排序
+    handleSort(event,column,order){
        event.stopPropagation();//防止事件冒泡  ，点击箭头，不冒泡给headerCell
+       if(column.sortable === 'remote'){
+          //远程排序
+       }
+       column.order = order
+       this.tableData.doSort(column,order)
 
     },
   },

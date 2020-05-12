@@ -35,9 +35,13 @@ const TableData = Vue.extend({
                    column.resize = true
                }
                column.ellipsis = false
+               Vue.set(column,'order',null)
             });
             this.states.leftFixedColumns = leftFixedColumns
             this.states.rightFixedColumns = rightFixedColumns
+        },
+        doSort(column,order){
+            
         }
     }
 })

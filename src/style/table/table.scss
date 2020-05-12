@@ -31,18 +31,18 @@
                 }
                 > .headerCell > .sort{
                     margin-left:5px;
-                    display: inline-flex;
-                    flex-direction: column;
-                    align-items: center;
+                    display: inline-block;
                     vertical-align: middle;
                     > .ecode-icon{
                         display: inline-block;
                         cursor: pointer;
                         fill: $table-sort-color;
+                        width: 18px;
+                        height: 20px;
                     }
-                }
-                > .headerCell > .sort > .arrow-down{
-                    margin-top: -3px;
+                    > .sort-enable{
+                        fill:$table-sort-active-color;
+                    }
                 }
             }
         }
