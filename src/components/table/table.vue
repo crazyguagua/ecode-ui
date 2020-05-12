@@ -90,11 +90,9 @@ export default {
   },
   mounted() {
     this.bindEvents();
-    this.tableData.updateColumns();
-    this.doLayout();
   },
   data() {
-    let tableData = createData(this, this.$props);
+    let tableData = createData(this, {});
     let layout = new Layout(tableData, this);
     return {
       tableData: tableData,
@@ -246,8 +244,15 @@ export default {
       immediate:true, // 一开始就要检测是否会有纵向滚动条
       handler(newVal,oldVal){
          if (newVal && newVal != oldVal) {
-           this.tableData.states.data = newVal
-           this.layout.updateScrollY()
+           this.tableData.setData(newVal)
+        }
+      }
+    },
+    columns:{
+      immediate:true, // 初始化列
+      handler(newVal,oldVal){
+         if (newVal && newVal != oldVal) {
+           this.tableData.setColumn(newVal)
         }
       }
     }

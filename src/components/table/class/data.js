@@ -12,7 +12,7 @@ const TableData = Vue.extend({
                 rightFixedColumns:[], //右侧固定列数组
                 fixedColumnBodyTop:0,   //table头部的高度
                 currentHoverRow:-1,
-                orderProp:null,//排序字段
+                currentSort:null,//当前排序列
             }
         }
     },
@@ -40,8 +40,61 @@ const TableData = Vue.extend({
             this.states.leftFixedColumns = leftFixedColumns
             this.states.rightFixedColumns = rightFixedColumns
         },
-        doSort(column,order){
-            
+        //排序
+        doSort(column,sortType){
+            let sortM = column.sortMethod
+            let key = column.key
+            if(!key && !sortM)return
+            let sortFn = null
+            const compResult = sortType == 'asc'?1:(sortType =='desc'?-1:0)
+            if(sortM){
+                sortFn = sortM
+            }else{
+                sortFn = (ca,cb)=>{
+                    //默认数字排序和字符排序
+                    let a = ca[key]
+                    let b = cb[key]
+                    if(typeof a=='number' && typeof b=='number'){
+                        return (a-b) * compResult   // compResult：1 升序 compResult：-1 降序
+                    }
+                    if(typeof a=='string'){
+                        //一位一位的判断
+                    }
+                }
+            }
+            if(compResult ==0 ){ //恢复默认排序
+                this.states.data = this.states._data 
+            }else{
+                this.states.data = this.states._data.sort(sortFn)
+            }
+        },
+        //初始化排序
+        initSort(data){
+            const current = this.states.currentSort
+            if(current){
+                let orderMethod = current.orderMethod //自定义的排序方法
+                let key = current.key
+            }
+           
+            return data.map(item=>{
+               return {
+                   ...item
+               }
+            })
+        },
+        setData(data){
+            this.states._data = data
+            this.states.data = this.initSort(data)
+            Vue.nextTick(()=>{
+                this.table.layout.updateScrollY()
+            }) 
+        },
+        setColumn(columns){
+            this.states.columns =columns
+            this.updateColumns();
+            Vue.nextTick(()=>{
+                this.table.doLayout();
+            })
         }
     }
 })
