@@ -14,6 +14,7 @@ import ETabs from '@/components/tabs/e-tabs'
 import ETab from '@/components/tabs/e-tab'
 import ETable from '@/components/table/table'
 import ESpin from '@/components/spin'
+import EBackToTop from '@/components/backToTop'
 import './style/index.scss'
 import './style/fonts/iconfont.js'
 import ClipBoardDirective from '@/directive/clipboard'
@@ -34,6 +35,7 @@ const install = (Vue)=>{
     Vue.component('ETabs',ETabs)
     Vue.component('ETab',ETab)
     Vue.component('ETable',ETable)
+    Vue.component('EBackToTop',EBackToTop)
     Vue.use(ESpin)
     Vue.prototype.eToast = Toast
     Vue.use(ClipBoardDirective)

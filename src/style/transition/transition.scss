@@ -1,0 +1,6 @@
+.ecode-fade-enter,.ecode-fade-leave-to{
+    opacity: 0;
+}
+.ecode-fade-enter-active,.ecode-fade-leave-active{
+    transition: all .3s cubic-bezier(.55,0,.1,1);
+}

@@ -1,0 +1,18 @@
+@import './var/var.scss';
+@import '../transition/transition.scss';
+.ecode-back-to-top{
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    z-index: 6;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 0 6px $back-to-top-shadow-color;
+    background: $white-color;
+    .ecode-icon{
+        fill:$back-to-top-fill-color;
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+    }
+}
