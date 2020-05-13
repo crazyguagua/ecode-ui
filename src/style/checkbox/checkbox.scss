@@ -1,12 +1,20 @@
 @import '../var/var.scss';
+@import '../transition/wave.scss';
 .ecode-checkbox{
+    display: inline-block;
     > .checkbox-label{
+        position: relative;
         > .checkbox-input{
             opacity: 0;
+            position: absolute;
+            left:-9999;
+            top:0;
+            visibility: hidden;
+            
         }
         > .checkbox-rect{
-            width: 16px;
-            height: 16px;
+            width: 20px;
+            height: 20px;
             background: $white-color;
             border:1px solid $grey-color;
             display: inline-block;
@@ -14,13 +22,59 @@
             cursor: pointer;
             user-select: none;
             vertical-align: middle;
+            position: relative;
             &:hover{
                 border:1px solid  $primary-color;
+            }
+            &::before{
+                position: absolute;
+                top:1px;
+                bottom: 3px;
+                width: 4px;
+                left: 50%;
+                margin-left:-2px;
+                border: 2px solid $white-color;
+                border-top: 0;
+                border-left: 0;
+                transform: rotate(45deg) scale(1);
+                opacity: 1;
+                transition: all .2s cubic-bezier(.12,.4,.29,1.46) .1s;
+                content: ' ';
+                opacity: 0;
             }
         }
         > .checkbox-content{
             color: $text-color;
             font-size:$text-font-size;
+        }
+
+        &.checked{
+            > .checkbox-rect{
+               background: $primary-color;
+               border:1px solid $primary-color;
+               &::before{
+                   opacity: 1;
+               }
+            }
+            > .checkbox-content{
+                color: $primary-color;
+            }
+        }
+
+        &.disabled{
+            //禁用状态
+            > .checkbox-rect{
+                cursor:not-allowed;
+                background: $disabled-border-color;
+                border:1px solid $disabled-border-color;
+                &::before{
+                    opacity: 1;
+                }
+             }
+             > .checkbox-content{
+                cursor:not-allowed;
+                 color: $disabled-border-color;
+             }
         }
     }
    

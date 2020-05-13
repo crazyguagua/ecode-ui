@@ -224,7 +224,7 @@
     cursor: not-allowed;
     color: rgba(0,0,0,.25);
     background-color: #f5f5f5;
-    border-color: #d9d9d9;
+    border-color: $disabled-border-color;
     &:hover{
         color: rgba(0,0,0,.25);
         background-color: #f5f5f5;
@@ -235,6 +235,6 @@
 .ecode-button.ecode-button-click-animating{
     position: relative;
 }
-.ecode-button.ecode-button-danger > .ecode-click-animating{
+.ecode-button.ecode-button-danger.ecode-click-animating:after{
     border: 0 solid $danger-color;
 }

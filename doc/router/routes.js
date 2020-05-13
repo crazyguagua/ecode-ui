@@ -18,10 +18,6 @@ let routes = [
       }, {
         path: '*',
         redirect: defaultPath
-      },{
-          path:'/guide',
-          name:'guide',
-          component:GUIDE
       }
 
 ]

@@ -3,7 +3,7 @@
 
 顶部居中显示并自动消失，是一种不打断用户操作的轻量级提示方式。
 ### 弹出位置
-:::demo 可以设置弹出的位置（头部，中间，底部）
+:::demo 可以设置弹出的位置（头部，中间，底部）。
 ```html
 <e-button @click="showToast">头部提示</e-button>
 <e-button @click="showToast1">中间显示</e-button>
@@ -27,7 +27,7 @@ export default{
 :::
 
 ### 不同的状态
-:::demo 可以添加不同的状态提示: 成功，失败，提示，错误，通知
+:::demo 可以添加不同的状态提示: 成功，失败，提示，错误，通知。
 ```html
 <e-button @click="showToast">成功</e-button>
 <e-button @click="showToast1">失败</e-button>
@@ -59,7 +59,7 @@ export default{
 :::
 
 ### 手动关闭
-:::demo 可以手动关闭toast
+:::demo 可以手动关闭toast。
 ```html
 <e-button @click="showToast">可以手动关闭</e-button>
 <script>
@@ -85,8 +85,8 @@ export default{
 
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
-| message | 提示内容 | String | — | - |
-| duration | 消息显示持续时间，单位为毫秒 | number | - | 3000 |
+| message | 提示内容 | String | — | —  |
+| duration | 消息显示持续时间，单位为毫秒 | number | —  | 3000 |
 | position | 消息弹出位置 | string | top/middle/bottom | top |
 | showClose | 是否显示右侧关闭按钮 | bool | true/false | false |
 | center | 提示文字是否居中 | bool | true/false | false |

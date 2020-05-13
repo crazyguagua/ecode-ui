@@ -1,4 +1,4 @@
-.ecode-click-animating{
+.ecode-click-animating:after{
     position: absolute;
     top: -1px;
     left: -1px;
@@ -11,6 +11,7 @@
     animation-fill-mode: forwards;
     display: block;
     pointer-events: none;
+    content:"";
 }
 
 @keyframes waveEffect {
