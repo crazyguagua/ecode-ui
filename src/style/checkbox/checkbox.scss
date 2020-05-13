@@ -1,0 +1,27 @@
+@import '../var/var.scss';
+.ecode-checkbox{
+    > .checkbox-label{
+        > .checkbox-input{
+            opacity: 0;
+        }
+        > .checkbox-rect{
+            width: 16px;
+            height: 16px;
+            background: $white-color;
+            border:1px solid $grey-color;
+            display: inline-block;
+            border-radius: 2px;
+            cursor: pointer;
+            user-select: none;
+            vertical-align: middle;
+            &:hover{
+                border:1px solid  $primary-color;
+            }
+        }
+        > .checkbox-content{
+            color: $text-color;
+            font-size:$text-font-size;
+        }
+    }
+   
+}

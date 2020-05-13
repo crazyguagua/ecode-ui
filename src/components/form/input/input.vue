@@ -66,7 +66,7 @@ export default {
 </script>
 
 <style lang="scss" >
-@import '../../style/var/var.scss';
+@import '../../../style/var/var.scss';
 $large-size : 40px;
 $default-size : 34px;
 $small-size : 24px;

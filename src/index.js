@@ -1,7 +1,6 @@
 import EButton from '@/components/button/button'
 import EIcon from '@/components/icon/icon'
 import EButtonGroup from '@/components/button/buttonGroup'
-import EInput from '@/components/input/input'
 import ERow from '@/components/grid/row'
 import ECol from '@/components/grid/col'
 import ELayout from '@/components/layout/e-layout'
@@ -15,6 +14,8 @@ import ETab from '@/components/tabs/e-tab'
 import ETable from '@/components/table/table'
 import ESpin from '@/components/spin'
 import EBackToTop from '@/components/backToTop'
+import EInput from '@/components/form/input/input'
+import ECheckbox from '@/components/form/checkbox/checkbox'
 import './style/index.scss'
 import './style/fonts/iconfont.js'
 import ClipBoardDirective from '@/directive/clipboard'
@@ -36,6 +37,7 @@ const install = (Vue)=>{
     Vue.component('ETab',ETab)
     Vue.component('ETable',ETable)
     Vue.component('EBackToTop',EBackToTop)
+    Vue.component('ECheckbox',ECheckbox)
     Vue.use(ESpin)
     Vue.prototype.eToast = Toast
     Vue.use(ClipBoardDirective)

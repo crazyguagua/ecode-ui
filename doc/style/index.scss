@@ -11,6 +11,7 @@
 }
 html{
     height: 100%;
+    font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
 }
 ul,li{
     list-style: none;
@@ -51,6 +52,7 @@ ul,li{
         margin-bottom:40px;
         line-height: 1.5em;
         table-layout: fixed;
+        margin-top: 15px;
         th{
             text-align: center;
             white-space: nowrap;

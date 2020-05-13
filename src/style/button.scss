@@ -1,5 +1,5 @@
 @import './var/var.scss';
-
+@import './transition/wave.scss';
 @keyframes spin {
     0% {
         transform: rotate(0deg);
@@ -235,38 +235,6 @@
 .ecode-button.ecode-button-click-animating{
     position: relative;
 }
-
-.ecode-button > .ecode-button-click-animating{
-    position: absolute;
-    top: -1px;
-    left: -1px;
-    bottom: -1px;
-    right: -1px;
-    border-radius: inherit;
-    border: 0 solid $primary-color;
-    opacity: 0.2;
-    animation: fadeEffect 2s cubic-bezier(0.08, 0.82, 0.17, 1), waveEffect .4s cubic-bezier(0.08, 0.82, 0.17, 1);
-    animation-fill-mode: forwards;
-    display: block;
-    pointer-events: none;
-}
-
-.ecode-button.ecode-button-danger > .ecode-button-click-animating{
+.ecode-button.ecode-button-danger > .ecode-click-animating{
     border: 0 solid $danger-color;
-}
-
-@keyframes waveEffect {
-    100% {
-        top: -4px;
-        left: -4px;
-        bottom: -4px;
-        right: -4px;
-        border-width: 4px;
-    }
-}
-
-@keyframes fadeEffect {
-    100% {
-        opacity: 0;
-    }
 }
