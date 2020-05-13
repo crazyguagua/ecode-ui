@@ -2,50 +2,35 @@
   <div class="doc-nav">
     <div class="empty"></div>
     <ul class="nav-list">
-      <li class="nav-list-item" :class="{'active':$route.name=== l.name}" v-for="(l,index) in list" :key="l.name">
-        <a @click="go(l.name)" >
-          <span>{{l.title}}</span>
-        </a>
-      </li>
+      <template  v-for="(l,index) in list" >
+        <li class="nav-list-item" :class="{'active':$route.name=== l.name}"  v-if="!l.children">
+          <a @click="go(l.name)">
+            <span>{{l.title}}</span>
+          </a>
+        </li>
+        <div class="subMenu" v-else>
+          <div class="subMenuTitle">
+            {{l.title}}
+          </div>
+          <ul class="nav-list">
+            <li class="nav-list-item" :class="{'active':$route.name=== l.name}" v-for="(l,index) in l.children" :key="l.name">
+              <a @click="go(l.name)">
+                <span>{{l.title}}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </template>
     </ul>
   </div>
 </template>
 
 <script>
+import menuList from './menuList.js'
 export default {
   data() {
     return {
-      list: [
-        {
-          title: "入门",
-          name:'guide'
-        },{
-            title:'栅格',
-            name:'grid'
-        },{
-            title:'图标',
-            name:'icon'
-        },
-        {
-            title:'按钮',
-            name:'button'
-        },{
-          title: "布局",
-          name:'layout'
-        },{
-          title:'选项卡',
-          name:'tab'
-        },{
-          title: "吐司",
-          name:'toast'
-        },{
-          title: "表格",
-          name:'table'
-        },{
-          title: "输入框",
-          name:'input'
-        }
-      ]
+      list: menuList
     };
   },
   methods:{
@@ -90,5 +75,16 @@ export default {
     }
 
   }
+  
 }
+.subMenu{
+    
+    .subMenuTitle{
+      color: #9E9E9E;
+      font-size: 14px;
+    }
+    > .nav-list > .nav-list-item > a{
+       padding-left:5px;
+    }
+  }
 </style>

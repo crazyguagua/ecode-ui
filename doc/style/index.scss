@@ -86,6 +86,12 @@ ul,li{
     .doc-nav{
         display: none;
     }
+    .subMenu{
+    
+        .subMenuTitle{
+          padding: 10px 20px;
+        }
+    }
     .popper-content > .doc-nav{
         display: block;
         padding-top: 3px;

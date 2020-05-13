@@ -88,8 +88,9 @@ const TableData = Vue.extend({
             })
         },
         setData(data){
-            this.states._data = data
-            this.states.data = this.initSort(data)
+            let dataFreez = Object.freeze(data)
+            this.states._data = dataFreez
+            this.states.data = this.initSort(dataFreez)
             Vue.nextTick(()=>{
                 this.table.layout.updateScrollY()
             }) 

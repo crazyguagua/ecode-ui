@@ -1,5 +1,6 @@
 const defaultPath = '/guide'
 import GUIDE from '../guide.md'
+import menuList from '../menuList'
 const COMP_MAP={
     'input': () =>import(/* webpackChunkName: "input" */ '../pages/input.md'),
     'button': () =>import(/* webpackChunkName: "button" */ '../pages/button.md'),
@@ -24,15 +25,25 @@ let routes = [
       }
 
 ]
-const addRoute=()=>{
-   Object.keys(COMP_MAP).forEach(item=>{
-     routes.push({
-       path:`/${item}`,
-       name:item,
-       component:COMP_MAP[item]
-     })
+const flatMenu =(menuList,arr)=>{
+   menuList.forEach((item)=>{
+      if(item.children){
+        flatMenu(item.children,arr)
+      }else{
+        arr.push({
+          path:`/${item.name}`,
+          name:item.name,
+          component:() =>import('../pages/'+item.name+'.md')
+        })
+      }
    })
 }
+let newRoutes
+const addRoute=()=>{
+   let arr = []
+   flatMenu(menuList,arr)
+   newRoutes = routes.concat(arr)
+}
 addRoute()
-export default routes
+export default newRoutes
 // test
