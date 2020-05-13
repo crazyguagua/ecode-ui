@@ -172,8 +172,8 @@
                 ],
                 columns:[
                     {type:'index',title:'编号'},
-                    {key:'rank',title:'排名' ,sortable :true},
-                     {key:'name',title:'球队'},
+                    {key:'rank',title:'排名' },
+                     {key:'name',title:'球队',sortable :true},
                       {key:'score',title:'积分'},
                        {key:'star',title:'球星',}
                 ]

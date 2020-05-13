@@ -120,7 +120,7 @@ export default {
          }
          sortDiv = <div class='sort'>{orderDiv} </div>
        }
-       return <div class="headerCell"  onClick={(e)=>{this.handleSort(e,column)}}>
+       return <div class="headerCell"  >
           <span>{content}</span>
           {sortDiv}
        </div>

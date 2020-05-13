@@ -57,15 +57,20 @@ const TableData = Vue.extend({
                     if(typeof a=='number' && typeof b=='number'){
                         return (a-b) * compResult   // compResult：1 升序 compResult：-1 降序
                     }
-                    if(typeof a=='string'){
-                        //一位一位的判断
+                    if(typeof a=='string' && typeof b==='string'){
+                        return a.localeCompare(b, 'zh-CN') * compResult
                     }
+                    return 0
                 }
             }
-            if(compResult ==0 ){ //恢复默认排序
+            if(compResult ==0 ){ //恢复默认顺序
                 this.states.data = this.states._data 
             }else{
-                this.states.data = this.states._data.sort(sortFn)
+                this.states.data = this.states._data.map(item=>{
+                    return {
+                        ...item
+                    }
+                 }).sort(sortFn)
             }
         },
         //初始化排序
