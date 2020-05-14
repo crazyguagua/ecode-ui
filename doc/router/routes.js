@@ -1,5 +1,4 @@
 const defaultPath = '/guide'
-import GUIDE from '../guide.md'
 import menuList from '../menuList'
 const COMP_MAP={
     'input': () =>import(/* webpackChunkName: "input" */ '../pages/input.md'),
