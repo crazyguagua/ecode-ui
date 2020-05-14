@@ -116,6 +116,9 @@
             border:1px solid $primary-color;
             box-shadow: -1px 0 0 0 $checkbox-button-shadow-color;
         }
+        &.checked:first-of-type > .checkbox-button{
+            border:1px solid $primary-color;
+        }
         &.disabled > .checkbox-button {
             cursor:not-allowed;
             color:$disabled-text-color;
