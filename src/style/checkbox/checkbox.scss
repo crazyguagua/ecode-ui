@@ -28,24 +28,18 @@
             }
             &::before{
                 position: absolute;
-                top:1px;
-                bottom: 3px;
-                width: 4px;
-                left: 50%;
-                margin-left:-2px;
-                border: 2px solid $white-color;
-                border-top: 0;
-                border-left: 0;
-                transform: rotate(45deg) scale(1);
-                opacity: 1;
-                transition: all .2s cubic-bezier(.12,.4,.29,1.46) .1s;
+               
+                transition: opacity .2s cubic-bezier(.12,.4,.29,1.46) .1s;
                 content: ' ';
                 opacity: 0;
             }
         }
         > .checkbox-content{
             color: $text-color;
+            margin-left: 5px;
             font-size:$text-font-size;
+            cursor: pointer;
+            margin-right: 15px;
         }
 
         &.checked{
@@ -53,6 +47,15 @@
                background: $primary-color;
                border:1px solid $primary-color;
                &::before{
+                    top:1px;
+                    bottom: 3px;
+                    width: 4px;
+                    left: 50%;
+                    margin-left:-2px;
+                    border: 2px solid $white-color;
+                    border-top: 0;
+                    border-left: 0;
+                    transform: rotate(45deg) scale(1);
                    opacity: 1;
                }
             }
@@ -65,7 +68,6 @@
             //禁用状态
             > .checkbox-rect{
                 cursor:not-allowed;
-                background: $disabled-border-color;
                 border:1px solid $disabled-border-color;
                 &::before{
                     opacity: 1;
@@ -75,7 +77,66 @@
                 cursor:not-allowed;
                  color: $disabled-border-color;
              }
+             &.checked >.checkbox-rect{
+                background: $disabled-border-color;
+             }
         }
+
+        &.indeterminate{
+            > .checkbox-rect{
+                border:1px solid $primary-color;
+                &::before{
+                    opacity: 1;
+                    position: absolute;
+                    left:3px;
+                    right: 3px;
+                    bottom: 3px;
+                    top:3px;
+                    background: $primary-color;
+                }
+            }
+        }
+        > .checkbox-button{
+            padding:10px 15px;
+            cursor: pointer;
+            display: inline-block;
+            color: $text-color;
+            border-right:1px solid $grey-color;
+            border-bottom:1px solid $grey-color;
+            border-top:1px solid $grey-color;
+          
+        }
+        &:not(.checked):not(.disabled) > .checkbox-button:hover{
+            color: $primary-color;
+            border:1px solid $primary-color;
+        }
+        &.checked > .checkbox-button {
+            background: $primary-color;
+            color: $white-color;
+            border:1px solid $primary-color;
+            box-shadow: -1px 0 0 0 $checkbox-button-shadow-color;
+        }
+        &.disabled > .checkbox-button {
+            cursor:not-allowed;
+            color:$disabled-text-color;
+            background:$disabled-checkbox-button-bg;
+        }
+
     }
-   
+    &:first-of-type > .checkbox-label > .checkbox-button{
+        border-left:1px solid $grey-color;
+        border-top-left-radius:  $border-radius;
+        border-bottom-left-radius: $border-radius;
+    }
+    &:first-of-type > .checkbox-label:not(.checked):not(.disabled) > .checkbox-button:hover{
+        border:1px solid $primary-color;
+    }
+    &:last-of-type > .checkbox-label > .checkbox-button{
+        border-right:1px solid $grey-color;
+        border-top-right-radius:  $border-radius;
+        border-bottom-right-radius: $border-radius;
+    }
+    &:last-of-type > .checkbox-label:not(.checked):not(.disabled) > .checkbox-button:hover{
+        border:1px solid $primary-color;
+    }
 }

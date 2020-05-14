@@ -1,11 +1,11 @@
 <template>
   <div class="demo-block" :class="dyClass">
-    <div class="description">
-      <slot></slot>
-    </div>
     <div class="source" ref="showDemo">
       <div class="demo-wrapper"style="padding:10px"  > 
         <slot name="source"></slot>
+      </div>
+       <div class="description" v-if="$slots.default && showCode">
+        <slot></slot>
       </div>
       <div class="highlight" v-if="showCode" ref="highlight">
         <slot name="highlight"></slot>
@@ -98,10 +98,13 @@ export default {
   padding: 10px 0;
   .description {
     padding: 10px;
+    box-shadow: 0px 0px 3px #e0dce6;
+    margin: 10px;
+    border-radius: 2px;
   }
   .source {
     &:hover{
-       box-shadow: 0 0 8px 0 rgba(232,237,250,.6), 0 2px 4px 0 rgba(232,237,250,.5);;
+       box-shadow: 0 0 8px 0 rgba(232,237,250,.6), 0 2px 4px 0 rgba(232,237,250,.5);
     }
     border-radius: 3px;
     border: 1px solid #ebebeb;

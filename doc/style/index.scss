@@ -16,8 +16,11 @@ html{
 ul,li{
     list-style: none;
 }
+.margin-bottom-15{
+    margin-bottom: 15px;
+}
 .ecode-doc{
-    padding:30px 0 30px;
+    padding:20px;
     h2,h3{
         font-weight: 400;
         color: #1f2f3d;
@@ -30,11 +33,20 @@ ul,li{
         margin:20px 0 20px;
     }
     h3{
-        margin:10px 0 10px;
+        margin:15px 0 15px;
     }
     p{
-        margin:0 0 5px 0 ;
+        margin:15px 0 15px 0 ;
         color: #616164;
+        line-height: 28px;
+        > code{
+            padding:8px;
+            vertical-align: middle;
+            margin-bottom: 5px;
+            background: #c5cae7;
+            border-radius: 3px;
+            color: #646364;
+        }
     }
     .hljs{
         line-height: 1.8;
@@ -56,7 +68,7 @@ ul,li{
         th{
             text-align: center;
             white-space: nowrap;
-            color: #909399;
+            color: #333;
             font-weight: 400;
             padding: 15px;
             background: #ebeaef;

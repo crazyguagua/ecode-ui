@@ -58,6 +58,7 @@ export default {
   padding: 10px;
   left: 0;
   overflow-y: auto;
+  box-shadow: 0px 1px 2px #cfccd4;
   .nav-list {
     list-style: none;
   }
