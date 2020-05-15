@@ -42,7 +42,8 @@ export default {
     loading:{type:Boolean,default:false},
     stripe:{type:Boolean,default:false},
     resize:{type:Boolean,default:true},
-    highlightCurrentRow:{type:Boolean,default:false}
+    highlightCurrentRow:{type:Boolean,default:false},
+    rowKey: [String, Function], //行唯一标识 ，优化用
   },
   created() {
     this.tableId = "ecode-table-" + seed++;
@@ -243,7 +244,11 @@ export default {
         )
       }
       
-    }
+    },
+      //选中某一行，暴露给外层调用
+    selectRow(row){
+      this.tableData.changeCurrentSelectRow(row)
+    },
   },
   beforeDestroy() {
     this.tableData = null;
@@ -277,6 +282,7 @@ export default {
       }
     }
   },
+
   render(h) {
     let leftFixedTable = null;
     let rightFixedTable = null;

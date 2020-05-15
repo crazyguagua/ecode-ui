@@ -364,7 +364,11 @@
 :::demo 
 ```html
 <div class="table-demo">
-    <e-table :data="data" border highlight-current-row :columns="columns"></e-table>
+    <div class="margin-15">
+        <e-button size="normal" type="primary" @click="select(data[1])">选中第二行</e-button>
+        <e-button size="normal" @click="select">取消选中</e-button>
+    </div>
+    <e-table ref="table" @current-change="onCurrentChange" :data="data" border highlight-current-row :columns="columns"></e-table>
   </div>
   <script>
     export default {
@@ -383,8 +387,17 @@
                       {key:'score',title:'积分',width:'80px'},
                        {key:'star',title:'球星',key:'star'}
 
-                ]
+                ],
+                cRow:null
             }
+        },
+        methods:{
+            onCurrentChange(row){
+                this.cRow = row
+            },
+            select(row){
+                this.$refs.table.selectRow(row)
+            },
         }
     }
     </script>

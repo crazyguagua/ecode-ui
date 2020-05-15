@@ -36,10 +36,11 @@ export default {
                       
                 })}
           </colgroup>
-
+ 
     const trs = this.data.map((row,index)=>{
+        let _key = this.tableData.getRowKey(row,index)
         return (
-            <tr key={row.id} onMouseleave={this.onMouseleave} onMouseenter={()=>{this.onMouseenter(index)}} class={this.getTrClass(row,index)}>
+            <tr key={row._key} onClick={(event)=>this.selectRow(event,row)} onMouseleave={this.onMouseleave} onMouseenter={()=>{this.onMouseenter(index)}} class={this.getTrClass(row,index)}>
                 {
                   this.columns.map(c=>{
                     return (
@@ -74,8 +75,15 @@ export default {
     }),
     //行样式 ，hover和stripe时用到
     getTrClass(row,index){
+      let table = this.tableData.table
+      let currentSelectRow = this.tableData.states.currentSelectRow
+      let highlight = ''
+      if(table.highlightCurrentRow && currentSelectRow){
+          highlight =currentSelectRow._rowKey === row._rowKey?'highlight':''
+      }
       return [{'hovering-row':this.currentHoverRow == index},
-        this.tableData.table.stripe&& index%2==1?'stripe-row':''
+        table.stripe&& index%2==1?'stripe-row':'',
+        highlight
       ]
     },
     renderCell(h,row,column,rowIndex){
@@ -85,10 +93,10 @@ export default {
                 </div>
       }
       return column.render?column.render(h,row,column):row[column.key]
+    },
+    selectRow(event,row){
+      this.tableData.changeCurrentSelectRow(row)
     }
   }
 };
 </script>
-
-<style>
-</style>

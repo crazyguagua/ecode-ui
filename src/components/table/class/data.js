@@ -1,5 +1,6 @@
 import Vue from 'vue'
 let columnIdSeed = 1
+let keySeed
 const TableData = Vue.extend({
     data(){
         return {
@@ -11,8 +12,9 @@ const TableData = Vue.extend({
                 leftFixedColumns:[], //左侧固定列数组
                 rightFixedColumns:[], //右侧固定列数组
                 fixedColumnBodyTop:0,   //table头部的高度
-                currentHoverRow:-1,
+                currentHoverRow:null,
                 currentSort:null,//当前排序列
+                currentSelectRow:null
             }
         }
     },
@@ -73,27 +75,53 @@ const TableData = Vue.extend({
                  }).sort(sortFn)
             }
         },
-        //初始化排序
-        initSort(data){
+        //初始化数据 可能有排序，过滤
+        initData(data){
             const current = this.states.currentSort
             if(current){
                 let orderMethod = current.orderMethod //自定义的排序方法
                 let key = current.key
             }
-           
-            return data.map(item=>{
+            return data.map((item,index)=>{
+               item._rowKey = this.getRowKey(item,index)
                return {
-                   ...item
+                   ...item,
                }
             })
         },
         setData(data){
             let dataFreez = Object.freeze(data)
             this.states._data = dataFreez
-            this.states.data = this.initSort(dataFreez)
+            this.states.data = this.initData(dataFreez)
+            //需要更新currentRow
+            this.updateCurrentRow()
             Vue.nextTick(()=>{
                 this.table.layout.updateScrollY()
             }) 
+        },
+        //row的标识
+        getRowKey(item,index){
+            let rowKey = this.table.rowKey
+            let now = Date.now()
+            let newRowKey = null
+            if(rowKey && typeof rowKey ==='string'){
+                 newRowKey = item[rowKey]
+            }else if(rowKey && typeof rowKey === 'function'){
+                 newRowKey = rowKey(item)
+            }else{
+                 newRowKey = `${now}_${index}`
+            }
+            return  '_row_key_'+newRowKey
+        },
+        //数据变化时要更新currentRow,可能当前选中列不在数据列表中了
+        updateCurrentRow(){
+            if(this.states.currentSelectRow ){
+                debugger
+                let index = this.data.findIndex(item=>item._key === this.states.currentSelectRow._key)
+                if(index==-1){
+                    this.states.currentSelectRow = null
+                }
+            }
         },
         setColumn(columns){
             this.states.columns =columns
@@ -101,6 +129,15 @@ const TableData = Vue.extend({
             Vue.nextTick(()=>{
                 this.table.doLayout();
             })
+        },
+        //切换当前选中列
+        changeCurrentSelectRow(row){
+            let isNew = this.states.currentSelectRow != row
+            if(row && isNew){
+                this.states.currentSelectRow = row
+            }else if(!row){
+                this.states.currentSelectRow = null
+            }
         }
     }
 })

@@ -79,6 +79,11 @@
                    background: $table-td-hover-color;
                }
             }
+            &.highlight{
+                > td{
+                    background: $table-td-highlight-color;
+                }
+            }
         }
     }
     &.ecode-table-border{
