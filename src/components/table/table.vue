@@ -6,6 +6,7 @@ import Layout from "./class/layout";
 import { debounce, throttle } from "throttle-debounce";
 import { addResizeListener, removeResizeListener } from "@/util/resize-event";
 import { getScrollBarWith } from "@/util/scrollbar";
+import MouseWheel from '@/directive/mousewheel'
 import EIcon from '@/components/icon/icon'
 import ESpin from '@/components/spin/spin'
 let seed = 1;
@@ -17,6 +18,7 @@ export default {
     EIcon,
     ESpin
   },
+  directives:{MouseWheel},
   props: {
     data: {
       type: Array,
@@ -39,7 +41,8 @@ export default {
     emptyText:{type:String,default:'暂无数据'},
     loading:{type:Boolean,default:false},
     stripe:{type:Boolean,default:false},
-    resize:{type:Boolean,default:true}
+    resize:{type:Boolean,default:true},
+    highlightCurrentRow:{type:Boolean,default:false}
   },
   created() {
     this.tableId = "ecode-table-" + seed++;
@@ -161,6 +164,23 @@ export default {
         this.shadowPosition = "left";
       }
     }),
+    //鼠标在左侧固定列滚动，同时也需要同步body部分的纵向滚动
+    handleFixedMouseWheel(e,normalized){
+      let tableBody = this.$refs.tableBody
+      let spinY = normalized.spinY
+      if (Math.abs(spinY) > 0) {
+        let currentScrollTop =tableBody.scrollTop 
+        if(normalized.pixelY < 0 && currentScrollTop !== 0){
+          e.preventDefault()
+        }
+        if(normalized.pixelY > 0 && tableBody.scrollHeight - tableBody.clientHeight > currentScrollTop){
+          e.preventDefault()
+        }
+        tableBody.scrollTop += Math.ceil(normalized.pixelY / 5);
+      }else {
+        tableBody.scrollLeft += Math.ceil(data.pixelX / 5);
+      }
+    },
     //销毁时解除事件绑定
     unbindEvents() {
       let el = this.$refs.tableBody;
@@ -171,7 +191,7 @@ export default {
     //渲染固定列
     renderFixedColumn(position) {
       let fixedTable = null;
-      //固定列必须也是完整的表格，这样才能保证固定列的高度和不固定的列高度一致，有可能存在固定列不换行，而其他列换行，高度不一致
+      //固定列必须也是完整的表格，没有fixed属性的列也要（visibility:hidden），这样才能保证固定列的高度和不固定的列高度一致，有可能存在固定列不换行，而其他列换行，高度不一致
 
       //最外层容器的宽度
       let fixedDivWidth =
@@ -201,7 +221,7 @@ export default {
             fixed={position}
           ></TableHeader>
         </div>
-        <div class={[`ecode-table-fixed-${position}-body-wrapper`]} style={bodyStyle}  ref={`${position}FixedTableWrapper`}>
+        <div v-mouseWheel="handleFixedMouseWheel" class={[`ecode-table-fixed-${position}-body-wrapper`]}  style={bodyStyle}  ref={`${position}FixedTableWrapper`}>
           <TableBody tableData={this.tableData} fixed={position}></TableBody>
         </div>
         </div>

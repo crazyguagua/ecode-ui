@@ -296,7 +296,7 @@
                       column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',}
                 ],
                 columns:[
-                    {key:'rank',title:'排名',width:'80px',fixed:'left'},
+                    {key:'rank',title:'排名',width:'180px',fixed:'left'},
                      {key:'name',title:'球队',width:'50%'},
                       {key:'score',title:'积分',width:80},
                        {key:'star',title:'球星',minWidth:180},
@@ -350,6 +350,39 @@
                                        <e-button danger type="primary"  size="small" >删除</e-button>
                                   </div>
                        }}
+                ]
+            }
+        }
+    }
+    </script>
+
+```
+:::
+
+### 行单选
+选择单行数据时使用色块表示。
+:::demo 
+```html
+<div class="table-demo">
+    <e-table :data="data" border highlight-current-row :columns="columns"></e-table>
+  </div>
+  <script>
+    export default {
+        data(){
+            return {
+                data:[
+                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
+                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
+                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
+                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}
+                ],
+                columns:[
+                    {type:'index',width:100},
+                    {key:'rank',title:'排名',width:'80px'},
+                     {key:'name',title:'球队'},
+                      {key:'score',title:'积分',width:'80px'},
+                       {key:'star',title:'球星',key:'star'}
+
                 ]
             }
         }
