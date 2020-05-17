@@ -91,7 +91,9 @@ export default {
         return <div class="table-cell">
                     {rowIndex+1}
                 </div>
-      }
+      }else if(column.type === 'select'){
+          return  <e-checkbox value={row.checked}></e-checkbox>
+       }
       return column.render?column.render(h,row,column):row[column.key]
     },
     selectRow(event,row){

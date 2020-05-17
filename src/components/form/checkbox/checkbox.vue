@@ -4,7 +4,7 @@
           <input :name="name" @change="handleChange" :value="label" type="checkbox" :disabled="disabled" v-model="cValue" class="checkbox-input" />
           <template v-if="!isButton">
             <span class="checkbox-rect" @click.stop="showWave" ref="checkboxLabel" :class="{'ecode-click-animating':showAnimation}"></span>
-            <span class="checkbox-content" @click.stop="showWave" >
+            <span class="checkbox-content" @click.stop="showWave" v-if="$slots.default || label" >
                 <slot></slot>
                 <!-- 如果不传slot 那就默认用label属性 -->
                 <template v-if="!$slots.default">

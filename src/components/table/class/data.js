@@ -14,7 +14,8 @@ const TableData = Vue.extend({
                 fixedColumnBodyTop:0,   //table头部的高度
                 currentHoverRow:null,
                 currentSort:null,//当前排序列
-                currentSelectRow:null
+                currentSelectRow:null,
+                hasCheckBox:false
             }
         }
     },
@@ -35,6 +36,9 @@ const TableData = Vue.extend({
                    column.resize = table.resize
                }else{
                    column.resize = true
+               }
+               if(column.type == 'check'){
+                 this.states.hasCheckBox = true
                }
                column.ellipsis = false
                Vue.set(column,'order',null)

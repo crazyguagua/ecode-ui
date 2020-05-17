@@ -11,12 +11,7 @@
     export default {
         data(){
             return {
-                data:[
-                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
-                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
-                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
-                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}
-                ],
+                data:this.tableData,
                 columns:[
                     {key:'rank',title:'排名'},
                      {key:'name',title:'球队'},
@@ -41,12 +36,7 @@
     export default {
         data(){
             return {
-                data:[
-                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
-                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
-                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
-                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}
-                ],
+                data:this.tableData,
                 columns:[
                     {key:'rank',title:'排名'},
                      {key:'name',title:'球队'},
@@ -71,12 +61,7 @@
     export default {
         data(){
             return {
-                data:[
-                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
-                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
-                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
-                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}
-                ],
+                data:this.tableData,
                 columns:[
                     {key:'rank',title:'排名',width:80},
                      {key:'name',title:'球队',width:80},
@@ -103,12 +88,7 @@
     export default {
         data(){
             return {
-                data:[
-                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
-                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
-                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
-                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}
-                ],
+                data:this.tableData,
                 columns:[
                     {key:'rank',title:'排名'},
                      {key:'name',title:'球队'},
@@ -133,12 +113,7 @@
     export default {
         data(){
             return {
-                data:[
-                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
-                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
-                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
-                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}
-                ],
+                data:this.tableData,
                 columns:[
                     {type:'index',title:'编号'},
                     {key:'rank',title:'排名'},
@@ -164,12 +139,7 @@
     export default {
         data(){
             return {
-                data:[
-                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
-                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
-                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
-                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}
-                ],
+                data:this.tableData,
                 columns:[
                     {type:'index',title:'编号'},
                     {key:'rank',title:'排名' },
@@ -195,9 +165,7 @@
     export default {
         data(){
             return {
-                data:[
-                   
-                ],
+                data:this.tableData,
                 columns:[
                     {key:'rank',title:'排名'},
                      {key:'name',title:'球队'},
@@ -211,10 +179,7 @@
             this.loading = true
             setTimeout(()=>{
                  this.loading = false
-                this.data =  [{rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
-                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
-                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
-                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}]
+                this.data =  this.tableData
             },3000)
         }
     }
@@ -235,21 +200,7 @@
     export default {
         data(){
             return {
-                data:[
-                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001",
-                        column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',
-                    },
-                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002",
-                      column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',},
-                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003",
-                      column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',},
-                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004",
-                      column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',},
-                        {rank:5,name:'曼联',score:'60',star:"拉屎福德 林加德 德赫亚",id:"005",
-                      column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',},
-                        {rank:6,name:'狼队',score:'60',star:"劳尔希门尼斯，阿达马特劳雷，鲁本内维斯",id:"006",
-                      column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',}
-                ],
+                data:this.tableData,
                 columns:[
                     {key:'rank',title:'排名',width:'80px'},
                      {key:'name',title:'球队',width:'50%'},
@@ -280,21 +231,7 @@
     export default {
         data(){
             return {
-                data:[
-                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001",
-                        column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',
-                    },
-                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002",
-                      column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',},
-                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003",
-                      column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',},
-                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004",
-                      column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',},
-                        {rank:5,name:'曼联',score:'60',star:"拉屎福德 林加德 德赫亚",id:"005",
-                      column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',},
-                        {rank:6,name:'狼队',score:'60',star:"劳尔希门尼斯，阿达马特劳雷，鲁本内维斯",id:"006",
-                      column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',}
-                ],
+                data:this.tableData,
                 columns:[
                     {key:'rank',title:'排名',width:'180px',fixed:'left'},
                      {key:'name',title:'球队',width:'50%'},
@@ -382,6 +319,49 @@
                 ],
                 columns:[
                     {type:'index',width:100},
+                    {key:'rank',title:'排名',width:'80px'},
+                     {key:'name',title:'球队'},
+                      {key:'score',title:'积分',width:'80px'},
+                       {key:'star',title:'球星',key:'star'}
+
+                ],
+                cRow:null
+            }
+        },
+        methods:{
+            onCurrentChange(row){
+                this.cRow = row
+            },
+            select(row){
+                this.$refs.table.selectRow(row)
+            },
+        }
+    }
+    </script>
+
+```
+:::
+
+### 行多选
+在第一列设置type:select，第一列会生成checkbox，自动带有全选功能。
+:::demo 
+```html
+<div class="table-demo">
+    <div class="margin-15">当前选中行：</div>
+    <e-table ref="table" @current-change="onCurrentChange" :data="data" border highlight-current-row :columns="columns"></e-table>
+  </div>
+  <script>
+    export default {
+        data(){
+            return {
+                data:[
+                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
+                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
+                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
+                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}
+                ],
+                columns:[
+                    {type:'select',width:60},
                     {key:'rank',title:'排名',width:'80px'},
                      {key:'name',title:'球队'},
                       {key:'score',title:'积分',width:'80px'},
