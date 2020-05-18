@@ -1,19 +1,33 @@
 export default [{
         title: "入门",
         name: 'guide'
-    }, {
-        title: '栅格',
-        name: 'grid'
-    }, {
-        title: '图标',
-        name: 'icon'
-    },
+    },{
+        title:'通用',
+        name:'common',
+        children:[
+            {
+                title: '按钮',
+                name: 'button'
+            }, 
+            {
+                title: '图标',
+                name: 'icon'
+            },
+        ]
+    }, 
     {
-        title: '按钮',
-        name: 'button'
-    }, {
         title: "布局",
-        name: 'layout'
+        name: 'layout',
+        children:[
+            {
+                title: '栅格',
+                name: 'grid'
+            },
+            {
+                title:'Layout 布局',
+                name: 'layout',
+            }
+        ]
     }, {
         title: '选项卡',
         name: 'tab'
