@@ -106,7 +106,7 @@ export default {
        }else if(column.headerRender){
          content = column.headerRender(h,column)
        }else if(column.type === 'select'){
-          content = <e-checkbox ></e-checkbox>
+          content = <e-checkbox  indeterminate={this.tableData.states.indeterminate} value={this.tableData.states.selectedAll} on-input={(selected)=>this.tableData.updateSelectAll(selected)}></e-checkbox>
        }else{
          content = column.title
        }

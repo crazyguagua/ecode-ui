@@ -2,6 +2,12 @@ import Vue from 'vue'
 let columnIdSeed = 1
 let keySeed
 const TableData = Vue.extend({
+    created(){
+        this.insideData={
+            dataMap:{}//rowKey,item  方便根据rowKey查找  
+        }
+        //非响应式数据
+    },
     data(){
         return {
             states:{
@@ -15,7 +21,9 @@ const TableData = Vue.extend({
                 currentHoverRow:null,
                 currentSort:null,//当前排序列
                 currentSelectRow:null,
-                hasCheckBox:false
+                selectedAll:false,//全部选中
+                selectedRows:[], //当前选中行数组
+                indeterminate:false,//半选
             }
         }
     },
@@ -36,9 +44,6 @@ const TableData = Vue.extend({
                    column.resize = table.resize
                }else{
                    column.resize = true
-               }
-               if(column.type == 'check'){
-                 this.states.hasCheckBox = true
                }
                column.ellipsis = false
                Vue.set(column,'order',null)
@@ -86,19 +91,27 @@ const TableData = Vue.extend({
                 let orderMethod = current.orderMethod //自定义的排序方法
                 let key = current.key
             }
-            return data.map((item,index)=>{
-               item._rowKey = this.getRowKey(item,index)
+            let dataMap = {}  //方便映射key和数据
+            let dataArray = []
+            dataArray =  data.map((item,index)=>{
+               let _rowKey = this.getRowKey(item,index)
+               item._rowKey = _rowKey
+               dataMap[_rowKey] = item
                return {
                    ...item,
                }
             })
+            this.insideData.dataMap = dataMap
+            return dataArray
         },
         setData(data){
             let dataFreez = Object.freeze(data)
             this.states._data = dataFreez
-            this.states.data = this.initData(dataFreez)
             //需要更新currentRow
             this.updateCurrentRow()
+            this.clearSelectMultiple()
+            this.states.data = this.initData(dataFreez)
+
             Vue.nextTick(()=>{
                 this.table.layout.updateScrollY()
             }) 
@@ -120,7 +133,6 @@ const TableData = Vue.extend({
         //数据变化时要更新currentRow,可能当前选中列不在数据列表中了
         updateCurrentRow(){
             if(this.states.currentSelectRow ){
-                debugger
                 let index = this.data.findIndex(item=>item._key === this.states.currentSelectRow._key)
                 if(index==-1){
                     this.states.currentSelectRow = null
@@ -142,6 +154,54 @@ const TableData = Vue.extend({
             }else if(!row){
                 this.states.currentSelectRow = null
             }
+        },
+        //当前行是否选中
+        isSelected(row){
+            let flag = this.states.selectedRows.indexOf(row._rowKey) > -1
+            return flag
+        },
+        //选中行处理  更新选中列数组
+        updateSelectedRow(row,selected,index){
+            let selectedRows = this.states.selectedRows
+            let _rowKey = row._rowKey
+            let oldIndex =  selectedRows.indexOf(_rowKey)
+            if(oldIndex==-1 && selected){
+                selectedRows.splice(index,0,_rowKey)
+            }else if(oldIndex>-1 && !selected){
+                selectedRows.splice(oldIndex,1)
+            }
+            if(selectedRows.length >0 && selectedRows.length == this.states._data.length){
+                this.states.selectedAll = true
+            }else{
+                this.states.selectedAll = false
+            }
+            this.states.indeterminate =selectedRows.length>0 && selectedRows.length != this.states._data.length
+            this.triggerSelectionChange()
+        },
+        //全选更新
+        updateSelectAll(selected){
+            this.states.selectedAll  = selected
+            this.states.indeterminate = false
+            if(selected){
+                this.states.selectedRows = this.states.data.map(item=>item._rowKey)
+            }else{
+                this.states.selectedRows =[]
+            }
+            this.triggerSelectionChange()
+        },
+        //通知选项发生变化
+        triggerSelectionChange(){
+            //slice 防止被外面修改
+            let dataMap = this.insideData.dataMap
+            let selection = this.states.selectedRows.map(key=>dataMap[key])
+            this.table.$emit('selection-change',selection.slice())
+        },
+        //清空多选
+        clearSelectMultiple(){
+            this.states.selectedRows=[]
+            this.states.selectedAll = false
+            this.states.indeterminate = false
+            this.triggerSelectionChange()
         }
     }
 })

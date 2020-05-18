@@ -267,12 +267,7 @@
     export default {
         data(){
             return {
-                data:[
-                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
-                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
-                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
-                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}
-                ],
+                data:this.tableData,
                 columns:[
                     {key:'rank',title:'排名',width:'80px'},
                      {key:'name',title:'球队'},
@@ -311,18 +306,13 @@
     export default {
         data(){
             return {
-                data:[
-                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
-                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
-                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
-                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}
-                ],
+                data:this.tableData,
                 columns:[
                     {type:'index',width:100},
                     {key:'rank',title:'排名',width:'80px'},
-                     {key:'name',title:'球队'},
+                     {key:'name',title:'队伍'},
                       {key:'score',title:'积分',width:'80px'},
-                       {key:'star',title:'球星',key:'star'}
+                       {key:'star',title:'明星',key:'star'}
 
                 ],
                 cRow:null
@@ -343,41 +333,35 @@
 :::
 
 ### 行多选
-在第一列设置type:select，第一列会生成checkbox，自动带有全选功能。
+在第一列设置`type=select`，第一列会生成checkbox，自动带有全选功能。
 :::demo 
 ```html
 <div class="table-demo">
-    <div class="margin-15">当前选中行：</div>
-    <e-table ref="table" @current-change="onCurrentChange" :data="data" border highlight-current-row :columns="columns"></e-table>
+    <div class="margin-15">当前选中行：{{selectRows}}</div>
+    <e-table ref="table" @selection-change="onChange"  :data="data" border :columns="columns"></e-table>
   </div>
   <script>
     export default {
         data(){
             return {
-                data:[
-                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
-                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
-                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
-                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}
-                ],
+                data:this.tableData,
                 columns:[
                     {type:'select',width:60},
                     {key:'rank',title:'排名',width:'80px'},
-                     {key:'name',title:'球队'},
-                      {key:'score',title:'积分',width:'80px'},
-                       {key:'star',title:'球星',key:'star'}
+                     {key:'name',title:'队名'},
+                      {key:'score',title:'战绩',width:'80px'},
+                       {key:'star',title:'首发',key:'star'}
 
                 ],
-                cRow:null
+                selectRows:[]
             }
         },
         methods:{
-            onCurrentChange(row){
-                this.cRow = row
-            },
-            select(row){
-                this.$refs.table.selectRow(row)
-            },
+            onChange(selectRows){
+                this.selectRows = selectRows.map(item=>item.name)
+            }
+        }, 
+        created(){
         }
     }
     </script>
