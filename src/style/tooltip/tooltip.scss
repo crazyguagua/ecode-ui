@@ -13,10 +13,7 @@
         border-top: 6px solid $tooltip-dark-bg-color;
 
         &[placement^=top]{
-            bottom: 6px;   
+            bottom: -12px;   
         }
-    }
-    &[placement^=top]{
-        margin-top:12px;
     }
 }

@@ -1,5 +1,6 @@
 
 import { createPopper } from '@popperjs/core';
+import {on,off} from '@/util/dom'
 import Vue from 'vue'
 const Ctor = Vue.extend({
     data(){return {child:null}},
@@ -28,7 +29,7 @@ export default{
 
     props:{
         content:'', //tooltip内容
-        placement:{type:Boolean,default:'top'},
+        placement:{type:String,default:'top'},
         offset:{type:Array,default:()=>[0, 10]},
         value:{type:Boolean,default:false}, //状态是否可见
         disabled:{type:Boolean,default:false}, //是否禁用
@@ -48,6 +49,13 @@ export default{
             })
         }
     },
+    beforeDestroy(){
+        debugger
+        this.popperIns.destroy()
+        document.body.removeChild(this.popper.$el)
+        this.popper.$destroy()
+
+    },
     methods:{
         updatePopper(){
             if(!this.popperIns){
@@ -63,17 +71,24 @@ export default{
         getPopperOption(){
             return {
                 modifiers: [
-
+                    {
+                        name: 'offset',
+                        options: {
+                          offset: this.offset,
+                        },
+                      },
                 ],
                 placement:this.placement
             }
         },
         renderPopper(){
-            const popper = <div ref="popper" class="ecode-tooltip"  placement={this.placement}>
-                {this.$slots.content||this.content}
-                <div placement={this.placement} class={['arrow']} data-popper-arrow></div>
-            </div>
-            return popper
+            
+            return <transition name="fade">
+                <div ref="popper" class="ecode-tooltip"  placement={this.placement}>
+                    {this.$slots.content||this.content}
+                    <div placement={this.placement} class={['arrow']} data-popper-arrow></div>
+                </div>
+            </transition>
         },
         renderReference(){
             let slots = this.$slots.default
@@ -85,6 +100,6 @@ export default{
                 };
             }
             return element;
-        }
+        },
     }
 }
