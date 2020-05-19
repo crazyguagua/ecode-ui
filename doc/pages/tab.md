@@ -1,6 +1,6 @@
-## Tab 选项卡
+# Tab 选项卡
 
-### 基本用法
+## 基本用法
 :::demo 基础简洁的标签页
 ```html
     <e-tabs v-model="current">
@@ -26,7 +26,7 @@
 ```
 :::
 
-### 自定义标签头
+## 自定义标签头
 :::demo 通过slot="label" 自定义标签头
 ```html
     <e-tabs v-model="current">
@@ -53,7 +53,7 @@
 ```
 :::
 
-### 新增和关闭标签页
+## 新增和关闭标签页
 :::demo
 ```html
     <div>

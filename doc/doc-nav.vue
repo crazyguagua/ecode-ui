@@ -59,6 +59,7 @@ export default {
   left: 0;
   overflow-y: auto;
   box-shadow: 0px 1px 2px #cfccd4;
+  padding-top: 10px;
   .nav-list {
     list-style: none;
   }
@@ -72,6 +73,7 @@ export default {
     background: #e9ecf9;
     border-right: 2px solid #e9ecf9;
     border-right: 3px solid #9aa9ea;
+    transition: all .3s cubic-bezier(0.075, 0.82, 0.165, 1);
   }
   .nav-list-item > a {
     line-height: 50px;
@@ -92,7 +94,7 @@ export default {
       color: #9E9E9E;
       font-size: 16px;
       border-bottom: 1px solid #f1eaea;
-      padding: 10px 10px 10px 10px;
+      padding: 10px 0px 10px;
       margin: 10px;
     }
     > .nav-list > .nav-list-item > a{

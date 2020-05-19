@@ -1,8 +1,8 @@
-## 快速使用
+# 快速使用
 
 本节将介绍如何在项目中使用 EcodeUI
 
-### 在vue-cli中引入EcodeUI
+## 在vue-cli中引入EcodeUI
 
 在 main.js 中写入以下内容：
 

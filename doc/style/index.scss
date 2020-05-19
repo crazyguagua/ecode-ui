@@ -24,7 +24,13 @@ ul,li{
 }
 .ecode-doc{
     padding:20px;
-    h2,h3{
+    > h1{
+        font-size: 30px;
+        font-weight: 500;
+        line-height: 35px;
+        font-family: Avenir,-apple-system,BlinkMacSystemFont,segoe ui,Roboto,helvetica neue,Arial,noto sans,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol,noto color emoji,sans-serif;;
+    }
+    > h2, > h3{
         font-weight: 400;
         color: #1f2f3d;
         a{
@@ -35,7 +41,7 @@ ul,li{
         }
         margin:20px 0 20px;
     }
-    h3{
+    > h3{
         margin:15px 0 15px;
     }
     p{
@@ -74,7 +80,7 @@ ul,li{
             color: #333;
             font-weight: 400;
             padding: 15px;
-            background: #ebeaef;
+            background: #e1e3f5;
         }
         td{
             border-bottom: 1px solid #dcdfe6;

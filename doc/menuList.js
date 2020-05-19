@@ -31,10 +31,7 @@ export default [{
     }, {
         title: '选项卡',
         name: 'tab'
-    }, {
-        title: "吐司",
-        name: 'toast'
-    }, {
+    },{
         title: "表格",
         name: 'table'
     }, {
@@ -48,6 +45,18 @@ export default [{
                 title: '多选框',
                 name: 'checkbox'
             }
+        ]
+    },{
+        title:'反馈',
+        children:[
+            {
+                title:'tooltip 文字提示',
+                name:'tooltip'
+            },
+            {
+                title: "吐司",
+                name: 'toast'
+            }, 
         ]
     }
 ]

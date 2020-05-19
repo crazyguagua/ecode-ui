@@ -1,6 +1,6 @@
-## 输入框
+# 输入框
 
-### 基础用法
+## 基础用法
 ::: demo 基本使用(default)、large、small
 ```html
 <div>
@@ -12,7 +12,7 @@
 
 :::
 
-### 可清除的
+## 可清除的
 
 ::: demo 添加属性 clearable
 ```html
@@ -32,7 +32,7 @@
 
 :::
 
-### 文本域
+## 文本域
 
 ::: demo type 属性为 textarea
 ```html

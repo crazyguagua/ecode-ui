@@ -1,8 +1,8 @@
-## 吐司 ，消息提示组件
+# 吐司 ，消息提示组件
 可提供成功、警告和错误等反馈信息。
 
 顶部居中显示并自动消失，是一种不打断用户操作的轻量级提示方式。
-### 弹出位置
+## 弹出位置
 :::demo 可以设置弹出的位置（头部，中间，底部）。
 ```html
 <e-button @click="showToast">头部提示</e-button>
@@ -26,7 +26,7 @@ export default{
 ```
 :::
 
-### 不同的状态
+## 不同的状态
 :::demo 可以添加不同的状态提示: 成功，失败，提示，错误，通知。
 ```html
 <e-button @click="showToast">成功</e-button>
@@ -58,7 +58,7 @@ export default{
 ```
 :::
 
-### 手动关闭
+## 手动关闭
 :::demo 可以手动关闭toast。
 ```html
 <e-button @click="showToast">可以手动关闭</e-button>
@@ -74,14 +74,14 @@ export default{
 ```
 :::
 
-### API
+## API
 - Toast.success(config)
 - Toast.fail(config)
 - Toast.warn(config)
 - Toast.error(config)
 - Toast.message(config)
 
-### config 参数
+## config 参数
 
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |

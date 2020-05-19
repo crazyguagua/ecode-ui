@@ -1,6 +1,6 @@
-## table 表格组件
+# table 表格组件
 
-### 基础表格
+## 基础表格
 :::demo 配置data和column。
 ```html
   <div class="table-demo">
@@ -25,7 +25,7 @@
 ```
 :::
 
-### 斑马纹
+## 斑马纹
 :::demo table设置 stripe属性，行与行之间，不同的颜色区分。
 ```html
   <div class="table-demo">
@@ -50,7 +50,7 @@
 ```
 :::
 
-### 带边框的表格
+## 带边框的表格
 
 :::demo border 属性可以让表格带边框。
 ```html
@@ -77,7 +77,7 @@
 
 :::
 
-### 可调整列宽的表格
+## 可调整列宽的表格
 :::demo 给需要调整列宽的列指定 resize属性为true，同时table必须指定border属性。
 ```html
   <div class="table-demo">
@@ -102,7 +102,7 @@
 ```
 :::
 
-### 自定义索引
+## 自定义索引
 :::demo column配置type="index"。
 ```html
   <div class="table-demo">
@@ -128,7 +128,7 @@
 ```
 :::
 
-### 排序
+## 排序
 :::demo column配置sortable 。
 ```html
   <div class="table-demo">
@@ -154,7 +154,7 @@
 ```
 :::
 
-### 动态加载数据
+## 动态加载数据
 :::demo 
 ```html
   <div class="table-demo">
@@ -189,7 +189,7 @@
 
 
 
-### 固定表格头部
+## 固定表格头部
 
 :::demo  通过height属性设置table的高度，表格内容滚动，头部保持固定。
 ```html
@@ -220,7 +220,7 @@
 
 :::
 
-### 固定列
+## 固定列
 
 :::demo  列配置fixed属性，使列固定在左侧或者右侧。
 ```html
@@ -257,7 +257,7 @@
 
 :::
 
-### 自定义单元格内容
+## 自定义单元格内容
 :::demo column中通过render配置传入jsx或者render函数。
 ```html
 <div class="table-demo">
@@ -291,7 +291,7 @@
 ```
 :::
 
-### 行单选
+## 行单选
 选择单行数据时使用色块表示。
 :::demo 
 ```html
@@ -332,7 +332,7 @@
 ```
 :::
 
-### 行多选
+## 行多选
 在第一列设置`type=select`，第一列会生成checkbox，自动带有全选功能。
 :::demo 
 ```html
