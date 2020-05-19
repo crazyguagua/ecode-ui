@@ -38,9 +38,9 @@ export default {
           </colgroup>
  
     const trs = this.data.map((row,index)=>{
-        let _key = this.tableData.getRowKey(row,index)
+        
         return (
-            <tr key={row._key} onClick={(event)=>this.selectRow(event,row)} onMouseleave={this.onMouseleave} onMouseenter={()=>{this.onMouseenter(index)}} class={this.getTrClass(row,index)}>
+            <tr key={row._rowKey} onClick={(event)=>this.selectRow(event,row)} onMouseleave={this.onMouseleave} onMouseenter={()=>{this.onMouseenter(index)}} class={this.getTrClass(row,index)}>
                 {
                   this.columns.map(c=>{
                     return (

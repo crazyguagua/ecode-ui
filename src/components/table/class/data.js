@@ -92,17 +92,14 @@ const TableData = Vue.extend({
                 let key = current.key
             }
             let dataMap = {}  //方便映射key和数据
-            let dataArray = []
-            dataArray =  data.map((item,index)=>{
-               let _rowKey = this.getRowKey(item,index)
-               item._rowKey = _rowKey
+            let now = Date.now()
+            data.forEach((item,index)=>{
+               let _rowKey = this.getRowKey(item,index,now)
                dataMap[_rowKey] = item
-               return {
-                   ...item,
-               }
+               item._rowKey =_rowKey
             })
             this.insideData.dataMap = dataMap
-            return dataArray
+            return data
         },
         setData(data){
             let dataFreez = Object.freeze(data)
@@ -117,25 +114,26 @@ const TableData = Vue.extend({
             }) 
         },
         //row的标识
-        getRowKey(item,index){
+        getRowKey(item,index,now=''){
             let rowKey = this.table.rowKey
-            let now = Date.now()
+            
             let newRowKey = null
             if(rowKey && typeof rowKey ==='string'){
                  newRowKey = item[rowKey]
             }else if(rowKey && typeof rowKey === 'function'){
                  newRowKey = rowKey(item)
             }else{
-                 newRowKey = `${now}_${index}`
+                 newRowKey = `${now}_${index+1}`
             }
             return  '_row_key_'+newRowKey
         },
         //数据变化时要更新currentRow,可能当前选中列不在数据列表中了
         updateCurrentRow(){
             if(this.states.currentSelectRow ){
-                let index = this.data.findIndex(item=>item._key === this.states.currentSelectRow._key)
+                let index = this.data.findIndex(item=>item=== this.states.currentSelectRow)
                 if(index==-1){
-                    this.states.currentSelectRow = null
+                    this.states.currentSelectRow = {}
+                    this.table.$emit('current-change',{})
                 }
             }
         },
@@ -146,14 +144,17 @@ const TableData = Vue.extend({
                 this.table.doLayout();
             })
         },
-        //切换当前选中列
+        //切换当前选中行
         changeCurrentSelectRow(row){
             let isNew = this.states.currentSelectRow != row
             if(row && isNew){
                 this.states.currentSelectRow = row
+                this.table.$emit('current-change',row)
             }else if(!row){
-                this.states.currentSelectRow = null
+                this.states.currentSelectRow = {}
+                this.table.$emit('current-change',{})
             }
+           
         },
         //当前行是否选中
         isSelected(row){
@@ -166,7 +167,7 @@ const TableData = Vue.extend({
             let _rowKey = row._rowKey
             let oldIndex =  selectedRows.indexOf(_rowKey)
             if(oldIndex==-1 && selected){
-                selectedRows.splice(index,0,_rowKey)
+                selectedRows.push(_rowKey)
             }else if(oldIndex>-1 && !selected){
                 selectedRows.splice(oldIndex,1)
             }

@@ -296,9 +296,10 @@
 :::demo 
 ```html
 <div class="table-demo">
+    <div class="margin-15">当前选中行：{{cRow.name}}</div>
     <div class="margin-15">
-        <e-button size="normal" type="primary" @click="select(data[1])">选中第二行</e-button>
-        <e-button size="normal" @click="select">取消选中</e-button>
+        <e-button size="normal" type="primary" @click="select('莱斯特城')">选中莱斯特城</e-button>
+        <e-button size="normal" @click="select('')">取消选中</e-button>
     </div>
     <e-table ref="table" @current-change="onCurrentChange" :data="data" border highlight-current-row :columns="columns"></e-table>
   </div>
@@ -310,20 +311,21 @@
                 columns:[
                     {type:'index',width:100},
                     {key:'rank',title:'排名',width:'80px'},
-                     {key:'name',title:'队伍'},
+                     {key:'name',title:'队伍',sortable:true},
                       {key:'score',title:'积分',width:'80px'},
                        {key:'star',title:'明星',key:'star'}
 
                 ],
-                cRow:null
+                cRow:{}
             }
         },
         methods:{
             onCurrentChange(row){
                 this.cRow = row
             },
-            select(row){
-                this.$refs.table.selectRow(row)
+            select(name){
+                let cc = this.data.find(item=>item.name===name)
+                this.$refs.table.selectRow(cc)
             },
         }
     }

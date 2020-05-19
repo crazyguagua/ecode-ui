@@ -94,7 +94,7 @@ export default {
       color: #9E9E9E;
       font-size: 16px;
       border-bottom: 1px solid #f1eaea;
-      padding: 10px 0px 10px;
+      padding: 10px 0px 10px 10px;
       margin: 10px;
     }
     > .nav-list > .nav-list-item > a{
