@@ -2,7 +2,18 @@
   <div class="eocde-inputWrapper" :class="{error,[`ecode-input-${size}`]:size}"  @mouseover="hovering =true" @mouseout="hovering =false">
     
     <template v-if="type !== 'textarea'">
-        <input class="ecode-input-inner"  :class="paddingR"
+        <span class="ecode-input-prefix" >
+            <span class="ecode-input-prefix-inner">
+                <e-icon v-if="prefixIcon" :name="prefixIcon || ''" @mousedown.prevent/>
+            </span>
+        </span>
+        <template v-if="$slots.prefixIcon">
+            <span class="ecode-input-pre-slot">
+                <slot name="prefixIcon"></slot>
+            </span>
+        </template>
+        
+        <input class="ecode-input-inner"  :class="[(showSuffixIcon || $slots.suffixIcon) ? 'padding_r':'',(showPrefixIcon || $slots.prefixIcon)?'padding_l':'']"
         :type="showPassword ?(pswVisible ?'text':'password'): type" 
         ref="input" @change="onChange" @focus="onfocus" @blur="onblur" @input="onInput" :readonly="readonly" :disabled="disabled" v-bind="$attrs"/>
         <!-- 后置图标 inner -->
@@ -13,6 +24,11 @@
                 <e-icon v-if="showPswVisible" name="ecode-show-password" @mousedown.prevent @click.native="handleShowPsw"/>
             </span>
         </span>
+         <template v-if="$slots.suffixIcon">
+            <span class="ecode-input-suf-slot">
+                <slot name="suffixIcon"></slot>
+            </span>
+        </template>
     </template>
       
     <template v-if="type === 'textarea'">
@@ -52,6 +68,10 @@ export default {
         suffixIcon: {
             type:String,
             default: ''
+        },
+        prefixIcon: {
+            type:String,
+            default: ''
         }
     },
     mounted() {
@@ -76,6 +96,9 @@ export default {
         },
         showSuffixIcon() {
             return this.suffixIcon || this.showPassword || this.clearable
+        },
+        showPrefixIcon() {
+            return this.prefixIcon || this.showPassword || this.clearable
         }
        
     },
@@ -159,7 +182,7 @@ $textaera-width:450px;
         height: $default-size;
         line-height: $default-size;
         border-radius: $border-radius;
-        padding: 0 30px 0 10px;
+        padding: 0 10px;
         cursor: pointer;
         transition: border-color .2s cubic-bezier(0.82, 0.01, 0.13, 1.01);
         &:hover{
@@ -179,13 +202,26 @@ $textaera-width:450px;
             background: $disabled-bg;
         }
     }
-    > .ecode-input-suffix{
+    .padding_r{
+        padding-right: 30px;
+    }
+    .padding_l{
+        padding-left: 30px;
+    }
+    > .ecode-input-suffix,.ecode-input-suf-slot{
         position: absolute;
         right: 5px;
         cursor: pointer;
         color: #868a93;
         text-align: center;
         // height: 100%;
+    }
+    .ecode-input-prefix,.ecode-input-pre-slot{
+        position: absolute;
+        left: 5px;
+        cursor: pointer;
+        color: #868a93;
+        text-align: center;
     }
     > textarea{
         width: $textaera-width;
