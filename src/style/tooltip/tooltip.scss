@@ -1,0 +1,22 @@
+@import '../var/var.scss';
+.ecode-tooltip{
+    background: $tooltip-dark-bg-color;
+    color: #FFF;
+    padding:10px;
+    position: absolute;
+    border-radius: 3px;
+    > .arrow{
+        width: 0;
+        position: absolute;
+        height: 0;
+        border:6px solid transparent;
+        border-top: 6px solid $tooltip-dark-bg-color;
+
+        &[placement^=top]{
+            bottom: 6px;   
+        }
+    }
+    &[placement^=top]{
+        margin-top:12px;
+    }
+}

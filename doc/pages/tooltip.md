@@ -9,7 +9,9 @@
 
 :::demo
 ```html
-<e-tooltip>
-    鼠标移入时显示
-</e-tooltip>
+<div class="margin-15">
+    <e-tooltip content="我是标题" :value="true">
+        <e-button>鼠标移入</e-button>12322
+    </e-tooltip>
+</div>
 ```
