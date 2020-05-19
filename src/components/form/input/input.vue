@@ -98,7 +98,7 @@ export default {
             return this.suffixIcon || this.showPassword || this.clearable
         },
         showPrefixIcon() {
-            return this.prefixIcon || this.showPassword || this.clearable
+            return this.prefixIcon
         }
        
     },
