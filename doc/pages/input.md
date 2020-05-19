@@ -1,6 +1,6 @@
-## 输入框
+# 输入框
 
-### 基础用法
+## 基础用法
 基本使用 size:(default)、large、small
 ::: demo 
 ```html
@@ -12,9 +12,10 @@
 ```
 :::
 
-### 可清除的
+## 可清除的
 添加属性 clearable
 ::: demo
+
 ```html
 <div >
     <e-input clearable v-model="input"></e-input>
@@ -31,7 +32,7 @@
 ```
 :::
 
-### 密码框
+## 密码框
 添加属性 show-password
 ::: demo
 ```html
@@ -51,7 +52,8 @@
 
 :::
 
-### 被禁止的
+<<<<<<< HEAD
+## 被禁止的
 添加属性 disabled
 ::: demo
 ```html
@@ -71,7 +73,7 @@
 
 :::
 
-### 带icon的输入框
+## 带icon的输入框
 添加属性 带有图标标记输入类型，上方为属性添加的方式，下方为slot的形式
 ::: demo 
 ```html
@@ -107,9 +109,12 @@
 </style>
 ```
 
+## 文本域
+
+
 :::
 
-### 文本域
+## 文本域
 type 属性为 textarea
 ::: demo 
 ```html

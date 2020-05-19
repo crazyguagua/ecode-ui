@@ -1,6 +1,6 @@
-## table 表格组件
+# table 表格组件
 
-### 基础表格
+## 基础表格
 :::demo 配置data和column。
 ```html
   <div class="table-demo">
@@ -11,12 +11,7 @@
     export default {
         data(){
             return {
-                data:[
-                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
-                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
-                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
-                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}
-                ],
+                data:this.tableData,
                 columns:[
                     {key:'rank',title:'排名'},
                      {key:'name',title:'球队'},
@@ -30,7 +25,7 @@
 ```
 :::
 
-### 斑马纹
+## 斑马纹
 :::demo table设置 stripe属性，行与行之间，不同的颜色区分。
 ```html
   <div class="table-demo">
@@ -41,12 +36,7 @@
     export default {
         data(){
             return {
-                data:[
-                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
-                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
-                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
-                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}
-                ],
+                data:this.tableData,
                 columns:[
                     {key:'rank',title:'排名'},
                      {key:'name',title:'球队'},
@@ -60,7 +50,7 @@
 ```
 :::
 
-### 带边框的表格
+## 带边框的表格
 
 :::demo border 属性可以让表格带边框。
 ```html
@@ -71,12 +61,7 @@
     export default {
         data(){
             return {
-                data:[
-                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
-                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
-                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
-                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}
-                ],
+                data:this.tableData,
                 columns:[
                     {key:'rank',title:'排名',width:80},
                      {key:'name',title:'球队',width:80},
@@ -92,7 +77,7 @@
 
 :::
 
-### 可调整列宽的表格
+## 可调整列宽的表格
 :::demo 给需要调整列宽的列指定 resize属性为true，同时table必须指定border属性。
 ```html
   <div class="table-demo">
@@ -103,12 +88,7 @@
     export default {
         data(){
             return {
-                data:[
-                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
-                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
-                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
-                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}
-                ],
+                data:this.tableData,
                 columns:[
                     {key:'rank',title:'排名'},
                      {key:'name',title:'球队'},
@@ -122,7 +102,7 @@
 ```
 :::
 
-### 自定义索引
+## 自定义索引
 :::demo column配置type="index"。
 ```html
   <div class="table-demo">
@@ -133,12 +113,7 @@
     export default {
         data(){
             return {
-                data:[
-                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
-                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
-                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
-                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}
-                ],
+                data:this.tableData,
                 columns:[
                     {type:'index',title:'编号'},
                     {key:'rank',title:'排名'},
@@ -153,7 +128,7 @@
 ```
 :::
 
-### 排序
+## 排序
 :::demo column配置sortable 。
 ```html
   <div class="table-demo">
@@ -164,12 +139,7 @@
     export default {
         data(){
             return {
-                data:[
-                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
-                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
-                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
-                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}
-                ],
+                data:this.tableData,
                 columns:[
                     {type:'index',title:'编号'},
                     {key:'rank',title:'排名' },
@@ -184,7 +154,7 @@
 ```
 :::
 
-### 动态加载数据
+## 动态加载数据
 :::demo 
 ```html
   <div class="table-demo">
@@ -195,9 +165,7 @@
     export default {
         data(){
             return {
-                data:[
-                   
-                ],
+                data:this.tableData,
                 columns:[
                     {key:'rank',title:'排名'},
                      {key:'name',title:'球队'},
@@ -211,10 +179,7 @@
             this.loading = true
             setTimeout(()=>{
                  this.loading = false
-                this.data =  [{rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
-                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
-                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
-                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}]
+                this.data =  this.tableData
             },3000)
         }
     }
@@ -224,7 +189,7 @@
 
 
 
-### 固定表格头部
+## 固定表格头部
 
 :::demo  通过height属性设置table的高度，表格内容滚动，头部保持固定。
 ```html
@@ -235,21 +200,7 @@
     export default {
         data(){
             return {
-                data:[
-                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001",
-                        column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',
-                    },
-                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002",
-                      column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',},
-                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003",
-                      column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',},
-                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004",
-                      column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',},
-                        {rank:5,name:'曼联',score:'60',star:"拉屎福德 林加德 德赫亚",id:"005",
-                      column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',},
-                        {rank:6,name:'狼队',score:'60',star:"劳尔希门尼斯，阿达马特劳雷，鲁本内维斯",id:"006",
-                      column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',}
-                ],
+                data:this.tableData,
                 columns:[
                     {key:'rank',title:'排名',width:'80px'},
                      {key:'name',title:'球队',width:'50%'},
@@ -269,7 +220,7 @@
 
 :::
 
-### 固定列
+## 固定列
 
 :::demo  列配置fixed属性，使列固定在左侧或者右侧。
 ```html
@@ -280,21 +231,7 @@
     export default {
         data(){
             return {
-                data:[
-                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001",
-                        column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',
-                    },
-                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002",
-                      column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',},
-                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003",
-                      column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',},
-                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004",
-                      column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',},
-                        {rank:5,name:'曼联',score:'60',star:"拉屎福德 林加德 德赫亚",id:"005",
-                      column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',},
-                        {rank:6,name:'狼队',score:'60',star:"劳尔希门尼斯，阿达马特劳雷，鲁本内维斯",id:"006",
-                      column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',}
-                ],
+                data:this.tableData,
                 columns:[
                     {key:'rank',title:'排名',width:'180px',fixed:'left'},
                      {key:'name',title:'球队',width:'50%'},
@@ -320,7 +257,7 @@
 
 :::
 
-### 自定义单元格内容
+## 自定义单元格内容
 :::demo column中通过render配置传入jsx或者render函数。
 ```html
 <div class="table-demo">
@@ -330,12 +267,7 @@
     export default {
         data(){
             return {
-                data:[
-                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
-                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
-                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
-                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}
-                ],
+                data:this.tableData,
                 columns:[
                     {key:'rank',title:'排名',width:'80px'},
                      {key:'name',title:'球队'},
@@ -359,14 +291,15 @@
 ```
 :::
 
-### 行单选
+## 行单选
 选择单行数据时使用色块表示。
 :::demo 
 ```html
 <div class="table-demo">
+    <div class="margin-15">当前选中行：{{cRow.name}}</div>
     <div class="margin-15">
-        <e-button size="normal" type="primary" @click="select(data[1])">选中第二行</e-button>
-        <e-button size="normal" @click="select">取消选中</e-button>
+        <e-button size="normal" type="primary" @click="select('莱斯特城')">选中莱斯特城</e-button>
+        <e-button size="normal" @click="select('')">取消选中</e-button>
     </div>
     <e-table ref="table" @current-change="onCurrentChange" :data="data" border highlight-current-row :columns="columns"></e-table>
   </div>
@@ -374,30 +307,63 @@
     export default {
         data(){
             return {
-                data:[
-                    {rank:1,name:'利物浦',score:'101',star:"萨拉赫，马内 菲尔米诺",id:"001"},
-                    {rank:2,name:'曼城',score:'80',star:"萨内，阿奎罗，斯特林",id:"002"},
-                    {rank:3,name:'莱斯特城',score:'70',star:"瓦尔迪，詹姆斯麦迪逊，蒂莱曼斯",id:"003"},
-                    {rank:4,name:'切尔西',score:'66',star:"坎特，威廉，吉鲁",id:"004"}
-                ],
+                data:this.tableData,
                 columns:[
                     {type:'index',width:100},
                     {key:'rank',title:'排名',width:'80px'},
-                     {key:'name',title:'球队'},
+                     {key:'name',title:'队伍',sortable:true},
                       {key:'score',title:'积分',width:'80px'},
-                       {key:'star',title:'球星',key:'star'}
+                       {key:'star',title:'明星',key:'star'}
 
                 ],
-                cRow:null
+                cRow:{}
             }
         },
         methods:{
             onCurrentChange(row){
                 this.cRow = row
             },
-            select(row){
-                this.$refs.table.selectRow(row)
+            select(name){
+                let cc = this.data.find(item=>item.name===name)
+                this.$refs.table.selectRow(cc)
             },
+        }
+    }
+    </script>
+
+```
+:::
+
+## 行多选
+在第一列设置`type=select`，第一列会生成checkbox，自动带有全选功能。
+:::demo 
+```html
+<div class="table-demo">
+    <div class="margin-15">当前选中行：{{selectRows}}</div>
+    <e-table ref="table" @selection-change="onChange"  :data="data" border :columns="columns"></e-table>
+  </div>
+  <script>
+    export default {
+        data(){
+            return {
+                data:this.tableData,
+                columns:[
+                    {type:'select',width:60},
+                    {key:'rank',title:'排名',width:'80px'},
+                     {key:'name',title:'队名'},
+                      {key:'score',title:'战绩',width:'80px'},
+                       {key:'star',title:'首发',key:'star'}
+
+                ],
+                selectRows:[]
+            }
+        },
+        methods:{
+            onChange(selectRows){
+                this.selectRows = selectRows.map(item=>item.name)
+            }
+        }, 
+        created(){
         }
     }
     </script>

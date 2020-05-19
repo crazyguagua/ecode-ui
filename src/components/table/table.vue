@@ -1,5 +1,5 @@
 <script>
-import TableHeader from "./table-header.vue";
+import TableHeader from "./table-header";
 import TableBody from "./table-body";
 import { createData } from "./class/helper";
 import Layout from "./class/layout";

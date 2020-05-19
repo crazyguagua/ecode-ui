@@ -1,9 +1,10 @@
 <script>
 const MIN_COLUMN_WIDTH = 80
 import EIcon from '@/components/icon/icon'
+import ECheckbox from '@/components/form/checkbox/checkbox'
 export default {
   name: "ecode-table-header",
-  components:{EIcon},
+  components:{EIcon,ECheckbox},
   props: {
     tableData: Object,
     fixed: { type: String, default: "" }
@@ -104,6 +105,8 @@ export default {
           content =  column.title||'序号'
        }else if(column.headerRender){
          content = column.headerRender(h,column)
+       }else if(column.type === 'select'){
+          content = <e-checkbox  indeterminate={this.tableData.states.indeterminate} value={this.tableData.states.selectedAll} on-input={(selected)=>this.tableData.updateSelectAll(selected)}></e-checkbox>
        }else{
          content = column.title
        }

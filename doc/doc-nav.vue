@@ -8,18 +8,19 @@
             <span>{{l.title}}</span>
           </a>
         </li>
-        <div class="subMenu" v-else>
-          <div class="subMenuTitle">
-            {{l.title}}
+
+          <div class="subMenu" v-else>
+            <div class="subMenuTitle">
+              {{l.title}}
+            </div>
+            <ul class="nav-list">
+              <li class="nav-list-item" :class="{'active':$route.name=== l.name}" v-for="(l,index) in l.children" :key="l.name">
+                <a @click="go(l.name)">
+                  <span>{{l.title}}</span>
+                </a>
+              </li>
+            </ul>
           </div>
-          <ul class="nav-list">
-            <li class="nav-list-item" :class="{'active':$route.name=== l.name}" v-for="(l,index) in l.children" :key="l.name">
-              <a @click="go(l.name)">
-                <span>{{l.title}}</span>
-              </a>
-            </li>
-          </ul>
-        </div>
       </template>
     </ul>
   </div>
@@ -55,15 +56,24 @@ export default {
   top: 68px;
   bottom: 0;
   width: 200px;
-  padding: 10px;
   left: 0;
   overflow-y: auto;
   box-shadow: 0px 1px 2px #cfccd4;
+  padding-top: 10px;
   .nav-list {
     list-style: none;
   }
+  .nav-list-item{
+      padding: 0 20px;
+  }
   .nav-list-item.active > a{
-    color: #343caa;
+    color: #656bc1;
+  }
+  .nav-list-item.active{
+    background: #e9ecf9;
+    border-right: 2px solid #e9ecf9;
+    border-right: 3px solid #9aa9ea;
+    transition: all .3s cubic-bezier(0.075, 0.82, 0.165, 1);
   }
   .nav-list-item > a {
     line-height: 50px;
@@ -72,7 +82,7 @@ export default {
     cursor: pointer;
     display: block;
     &:hover {
-      color: #343caa;
+      color: #7a82ec;
     }
 
   }
@@ -82,10 +92,13 @@ export default {
     
     .subMenuTitle{
       color: #9E9E9E;
-      font-size: 14px;
+      font-size: 16px;
+      border-bottom: 1px solid #f1eaea;
+      padding: 10px 0px 10px 10px;
+      margin: 10px;
     }
     > .nav-list > .nav-list-item > a{
-       padding-left:5px;
+       padding-left:15px;
     }
   }
 </style>

@@ -38,14 +38,14 @@ export default {
           </colgroup>
  
     const trs = this.data.map((row,index)=>{
-        let _key = this.tableData.getRowKey(row,index)
+        
         return (
-            <tr key={row._key} onClick={(event)=>this.selectRow(event,row)} onMouseleave={this.onMouseleave} onMouseenter={()=>{this.onMouseenter(index)}} class={this.getTrClass(row,index)}>
+            <tr key={row._rowKey} onClick={(event)=>this.selectRow(event,row)} onMouseleave={this.onMouseleave} onMouseenter={()=>{this.onMouseenter(index)}} class={this.getTrClass(row,index)}>
                 {
                   this.columns.map(c=>{
                     return (
                       <td key={c.key}>
-                       <div class="table-cell">
+                       <div class="table-cell" >
                           {
                             this.renderCell(h,row,c,index)
                           }
@@ -86,16 +86,24 @@ export default {
         highlight
       ]
     },
+    //渲染单元格
     renderCell(h,row,column,rowIndex){
       if(column.type === 'index'){
-        return <div class="table-cell">
-                    {rowIndex+1}
-                </div>
-      }
+        return rowIndex+1
+      }else if(column.type === 'select'){
+          return  <e-checkbox  nativeOn-click={ //阻止事件冒泡给tr，防止触发单选
+                          e=>e.stopPropagation()} value={this.tableData.isSelected(row)}
+                    on-input={ (selected)=>this.tableData.updateSelectedRow(row,selected,rowIndex)}
+                  >
+                  </e-checkbox>
+       }
       return column.render?column.render(h,row,column):row[column.key]
     },
     selectRow(event,row){
-      this.tableData.changeCurrentSelectRow(row)
+      if(this.tableData.table.highlightCurrentRow){
+         this.tableData.changeCurrentSelectRow(row)
+      }
+     
     }
   }
 };

@@ -2,6 +2,12 @@ import Vue from 'vue'
 let columnIdSeed = 1
 let keySeed
 const TableData = Vue.extend({
+    created(){
+        this.insideData={
+            dataMap:{}//rowKey,item  方便根据rowKey查找  
+        }
+        //非响应式数据
+    },
     data(){
         return {
             states:{
@@ -14,7 +20,10 @@ const TableData = Vue.extend({
                 fixedColumnBodyTop:0,   //table头部的高度
                 currentHoverRow:null,
                 currentSort:null,//当前排序列
-                currentSelectRow:null
+                currentSelectRow:null,
+                selectedAll:false,//全部选中
+                selectedRows:[], //当前选中行数组
+                indeterminate:false,//半选
             }
         }
     },
@@ -82,44 +91,49 @@ const TableData = Vue.extend({
                 let orderMethod = current.orderMethod //自定义的排序方法
                 let key = current.key
             }
-            return data.map((item,index)=>{
-               item._rowKey = this.getRowKey(item,index)
-               return {
-                   ...item,
-               }
+            let dataMap = {}  //方便映射key和数据
+            let now = Date.now()
+            data.forEach((item,index)=>{
+               let _rowKey = this.getRowKey(item,index,now)
+               dataMap[_rowKey] = item
+               item._rowKey =_rowKey
             })
+            this.insideData.dataMap = dataMap
+            return data
         },
         setData(data){
             let dataFreez = Object.freeze(data)
             this.states._data = dataFreez
-            this.states.data = this.initData(dataFreez)
             //需要更新currentRow
             this.updateCurrentRow()
+            this.clearSelectMultiple()
+            this.states.data = this.initData(dataFreez)
+
             Vue.nextTick(()=>{
                 this.table.layout.updateScrollY()
             }) 
         },
         //row的标识
-        getRowKey(item,index){
+        getRowKey(item,index,now=''){
             let rowKey = this.table.rowKey
-            let now = Date.now()
+            
             let newRowKey = null
             if(rowKey && typeof rowKey ==='string'){
                  newRowKey = item[rowKey]
             }else if(rowKey && typeof rowKey === 'function'){
                  newRowKey = rowKey(item)
             }else{
-                 newRowKey = `${now}_${index}`
+                 newRowKey = `${now}_${index+1}`
             }
             return  '_row_key_'+newRowKey
         },
         //数据变化时要更新currentRow,可能当前选中列不在数据列表中了
         updateCurrentRow(){
             if(this.states.currentSelectRow ){
-                debugger
-                let index = this.data.findIndex(item=>item._key === this.states.currentSelectRow._key)
+                let index = this.data.findIndex(item=>item=== this.states.currentSelectRow)
                 if(index==-1){
-                    this.states.currentSelectRow = null
+                    this.states.currentSelectRow = {}
+                    this.table.$emit('current-change',{})
                 }
             }
         },
@@ -130,14 +144,65 @@ const TableData = Vue.extend({
                 this.table.doLayout();
             })
         },
-        //切换当前选中列
+        //切换当前选中行
         changeCurrentSelectRow(row){
             let isNew = this.states.currentSelectRow != row
             if(row && isNew){
                 this.states.currentSelectRow = row
+                this.table.$emit('current-change',row)
             }else if(!row){
-                this.states.currentSelectRow = null
+                this.states.currentSelectRow = {}
+                this.table.$emit('current-change',{})
             }
+           
+        },
+        //当前行是否选中
+        isSelected(row){
+            let flag = this.states.selectedRows.indexOf(row._rowKey) > -1
+            return flag
+        },
+        //选中行处理  更新选中列数组
+        updateSelectedRow(row,selected,index){
+            let selectedRows = this.states.selectedRows
+            let _rowKey = row._rowKey
+            let oldIndex =  selectedRows.indexOf(_rowKey)
+            if(oldIndex==-1 && selected){
+                selectedRows.push(_rowKey)
+            }else if(oldIndex>-1 && !selected){
+                selectedRows.splice(oldIndex,1)
+            }
+            if(selectedRows.length >0 && selectedRows.length == this.states._data.length){
+                this.states.selectedAll = true
+            }else{
+                this.states.selectedAll = false
+            }
+            this.states.indeterminate =selectedRows.length>0 && selectedRows.length != this.states._data.length
+            this.triggerSelectionChange()
+        },
+        //全选更新
+        updateSelectAll(selected){
+            this.states.selectedAll  = selected
+            this.states.indeterminate = false
+            if(selected){
+                this.states.selectedRows = this.states.data.map(item=>item._rowKey)
+            }else{
+                this.states.selectedRows =[]
+            }
+            this.triggerSelectionChange()
+        },
+        //通知选项发生变化
+        triggerSelectionChange(){
+            //slice 防止被外面修改
+            let dataMap = this.insideData.dataMap
+            let selection = this.states.selectedRows.map(key=>dataMap[key])
+            this.table.$emit('selection-change',selection.slice())
+        },
+        //清空多选
+        clearSelectMultiple(){
+            this.states.selectedRows=[]
+            this.states.selectedAll = false
+            this.states.indeterminate = false
+            this.triggerSelectionChange()
         }
     }
 })
