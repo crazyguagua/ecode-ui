@@ -1,23 +1,43 @@
 <template>
-  <div class="eocde-inputWrapper" :class="{error,[`ecode-input-${size}`]:size}">
-      <span class="ecode-input-affix" v-if="type !== 'textarea'">
-        <template>
-            <input :type="type || 'text'" @change="onChange" @input="onInput" :readonly="readonly" 
-            :disabled="disabled" v-bind="$attrs"/>
-            <!-- 后置图标 inner -->
-            <span class="ecode-input-suffix">
-                <e-icon v-if="showClear" name="ecode-Fail" @mousedown.prevent @click.native="clear"/>
+  <div class="eocde-inputWrapper" :class="{error,[`ecode-input-${size}`]:size}"  @mouseover="hovering =true" @mouseout="hovering =false">
+    
+    <template v-if="type !== 'textarea'">
+        <span class="ecode-input-prefix" >
+            <span class="ecode-input-prefix-inner">
+                <e-icon v-if="prefixIcon" :name="prefixIcon || ''" @mousedown.prevent/>
+            </span>
+        </span>
+        <template v-if="$slots.prefixIcon">
+            <span class="ecode-input-pre-slot">
+                <slot name="prefixIcon"></slot>
             </span>
         </template>
-      </span>
+        
+        <input class="ecode-input-inner"  :class="[(showSuffixIcon || $slots.suffixIcon) ? 'padding_r':'',(showPrefixIcon || $slots.prefixIcon)?'padding_l':'']"
+        :type="showPassword ?(pswVisible ?'text':'password'): type" 
+        ref="input" @change="onChange" @focus="onfocus" @blur="onblur" @input="onInput" :readonly="readonly" :disabled="disabled" v-bind="$attrs"/>
+        <!-- 后置图标 inner -->
+        <span class="ecode-input-suffix" v-if="showSuffixIcon">
+            <span class="ecode-input-suffix-inner">
+                <e-icon v-if="suffixIcon" :name="suffixIcon || ''" @mousedown.prevent/>
+                <e-icon v-if="showClear" name="ecode-Fail" @mousedown.prevent @click.native="clear"/>
+                <e-icon v-if="showPswVisible" name="ecode-show-password" @mousedown.prevent @click.native="handleShowPsw"/>
+            </span>
+        </span>
+         <template v-if="$slots.suffixIcon">
+            <span class="ecode-input-suf-slot">
+                <slot name="suffixIcon"></slot>
+            </span>
+        </template>
+    </template>
       
-       <template v-if="type === 'textarea'">
-           <textarea  rows="3"></textarea>
-       </template>
+    <template v-if="type === 'textarea'">
+        <textarea  ref="textarea" rows="3"></textarea>
+    </template>
 
-      <div class="message" v-if="error">
-         <e-icon name="ecode-Fail" /> <span>{{error}}</span>
-      </div>
+    <div class="message" v-if="error">
+        <e-icon name="ecode-Fail" /> <span>{{error}}</span>
+    </div>
   </div>
 </template>
 
@@ -32,7 +52,6 @@ export default {
         warning:String,
         disabled:Boolean,
         readonly:Boolean,
-        value:[String,Number],
         type:String,
         size:{
             type:String,
@@ -41,25 +60,90 @@ export default {
         clearable:{
             type:Boolean,
             default:false
+        },
+        showPassword:{
+            type:Boolean,
+            default:false
+        },
+        suffixIcon: {
+            type:String,
+            default: ''
+        },
+        prefixIcon: {
+            type:String,
+            default: ''
+        }
+    },
+    mounted() {
+        this.setNativeInputValue()
+    },  
+    data() {
+        return {
+            hovering:false,
+            focusing:false,
+            pswVisible:false
         }
     },
     computed:{
-       
-        showClear(){
-            return this.clearable
+        nativeInputValue() {
+            return this.value === null || this.value === undefined ? '': String(this.value)
+        },
+        showClear() {
+            return this.clearable && this.nativeInputValue && (this.focusing || this.hovering) && !this.readonly && !this.disabled
+        },
+        showPswVisible() {
+            return this.showPassword && !this.readonly && !this.disabled && (this.nativeInputValue || this.focusing ) 
+        },
+        showSuffixIcon() {
+            return this.suffixIcon || this.showPassword || this.clearable
+        },
+        showPrefixIcon() {
+            return this.prefixIcon || this.showPassword || this.clearable
         }
+       
     },
     methods:{
+        getInput() {
+            return this.$refs.input || this.$refs.textarea
+        },
+        focused() {
+            this.getInput().focus()
+        },
+        setNativeInputValue() {
+            let input = this.getInput()
+            if(!input) return
+            if(input.value === this.nativeInputValue) return
+            input.value = this.nativeInputValue
+        },
         onChange(ev){
             this.$emit('change',ev.target.value)
         },
         onInput(ev){
+            if(ev.target.value === this.nativeInputValue) return
             this.$emit('input', ev.target.value);
+        },
+        onfocus(ev) {
+            this.focusing = true
+        },
+        onblur(ev) {
+            this.focusing = false
         },
         clear(ev){
             this.$emit('input','')
             this.$emit('change','')
             this.$emit('clear')
+        },
+        handleShowPsw() {
+            this.pswVisible = !this.pswVisible
+            this.$nextTick(()=>{
+                this.focused()
+            })
+            
+        }
+    },
+    watch:{
+        nativeInputValue(){
+            this.setNativeInputValue()
         }
     }
 }
@@ -72,38 +156,41 @@ $default-size : 34px;
 $small-size : 24px;
 $textaera-width:450px;
 .eocde-inputWrapper{
+    position: relative;
     display:inline-block;
     vertical-align: top;
+    align-items: center;
+    display: inline-flex;
     &.error {
-        > .ecode-input-affix,> .ecode-input-affix:focus-within,>.ecode-input-affix:hover{
+        > .ecode-input-inner,> .ecode-input-inner:focus-within,>.ecode-input-inner:hover{
             border:1px solid $error-color;
-            box-shadow: inset 0 0 0 0em $error-color,0 0 0 0.1em $error-color;
+            box-shadow: inset 0 0 0 0.03em $error-color,0 0 0 0.02em $error-color;
         }
         > textarea,> textarea:focus,>textarea:hover{
             border:1px solid $error-color;
-            box-shadow: inset 0 0 0px 0.1em $error-color;
+            box-shadow: inset 0 0 0px 0.03em $error-color;
         }
         .message{
             color:$error-color;
         }
     }
-    > .ecode-input-affix,textarea {
-        padding:0 10px;
+    > .ecode-input-inner,textarea {
         border:1px solid $border-color;
         width:100%;
-        border-radius: 4px;
         color:$text-color;
         font-size: $font-size;
-        height: 34px;
-        line-height: 34px;
+        height: $default-size;
+        line-height: $default-size;
+        border-radius: $border-radius;
+        padding: 0 10px;
         cursor: pointer;
         transition: border-color .2s cubic-bezier(0.82, 0.01, 0.13, 1.01);
         &:hover{
             border: 1px solid $border-hover-color;
         }
         &:focus{
-             outline: none;
-            // box-shadow: inset 0 0px 0px $shadow-color, 0 0 0 0.1em $shadow-color;
+            outline: none;
+            box-shadow: inset 0 0px 0px $shadow-color, 0 0 0 0.03em $shadow-color;
         }
         &[disabled]{
            border-color:$disabled-border-color;
@@ -112,23 +199,29 @@ $textaera-width:450px;
         }
         &[readonly]{
             border-color:$disabled-border-color;
-           background: $disabled-bg;
+            background: $disabled-bg;
         }
     }
-    > .ecode-input-affix{
-        display: inline-flex;
-        height: $default-size;
-        line-height: $default-size;
-        border: 1px solid $border-color;
-        border-radius: $border-radius;
-        padding: 0 10px;
-        &:focus-within{
-            box-shadow: inset 0 0px 0px $shadow-color, 0 0 0 0.1em $shadow-color;
-        }
-        > input,:active,:hover,:focus{
-            outline: 0;
-            border: none;
-        }
+    .padding_r{
+        padding-right: 30px;
+    }
+    .padding_l{
+        padding-left: 30px;
+    }
+    > .ecode-input-suffix,.ecode-input-suf-slot{
+        position: absolute;
+        right: 5px;
+        cursor: pointer;
+        color: #868a93;
+        text-align: center;
+        // height: 100%;
+    }
+    .ecode-input-prefix,.ecode-input-pre-slot{
+        position: absolute;
+        left: 5px;
+        cursor: pointer;
+        color: #868a93;
+        text-align: center;
     }
     > textarea{
         width: $textaera-width;
@@ -139,13 +232,13 @@ $textaera-width:450px;
 }
 .ecode-input-large {
     
-    > .ecode-input-affix{
+    > .ecode-input-inner{
         height: $large-size;
         line-height: $large-size;
     }
 }
 .ecode-input-small {
-    > .ecode-input-affix{
+    > .ecode-input-inner{
         height:$small-size;
         line-height:$small-size;
     }
