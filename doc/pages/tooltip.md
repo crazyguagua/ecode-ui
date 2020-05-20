@@ -7,15 +7,24 @@
 
 ## 基本用法
 
-:::demo
+:::demo 用具名 slot 分发content，替代e-tooltip中的content属性。
 ```html
 <div class="margin-15">
     <e-tooltip content="2019-2020 夏季赛冠军" >
         <div class="inline-block marin-15"><e-button>WE</e-button></div>
     </e-tooltip>
 
-     <e-tooltip content="2019-2020英超冠军" >
+     <e-tooltip >
         <div class="inline-block  marin-15"><e-button>利物浦</e-button></div>
+        <div class="" slot="content">
+            <h3>2019-2020英超冠军</h3>
+            <p>利物浦!!!!!!</p>
+            <p><em>YNWA</em></p>
+        </div>
+    </e-tooltip>
+
+     <e-tooltip  content="这个tooltip可以一直显示" :value="true" >
+        <div class="inline-block marin-15 always"><e-icon name="ecode-fail"></e-icon>一直显示</div>
     </e-tooltip>
 </div>
 ```
@@ -85,3 +94,28 @@
 </div>
 ```
 :::
+
+## 主题
+深色dark 和浅色light，通过配置`theme`属性实现。
+:::demo
+```html
+<div class="margin-15">
+    <e-tooltip  content="这是一个深色的tooltip" theme="dark" >
+        <div class="inline-block marin-15"><e-button type="primary">深色</e-button></div>
+    </e-tooltip>
+
+     <e-tooltip content="这是一个浅色的tooltip" theme="light" >
+        <div class="inline-block  marin-15"><e-button >浅色</e-button></div>
+    </e-tooltip>
+</div>
+```
+:::
+
+## API
+| 参数      | 说明          | 类型      | 可选值                           | 默认值  |
+|---------- |-------------- |---------- |--------------------------------  |-------- |
+| theme | 默认提供的主题 | String | dark/light | dark |
+| placement | tooltip 出现的位置 | string | top/top-start/top-end/bottom/bottom-start/bottom-end/left/left-start/left-end/right/right-start/right-end  | top |
+| content | 显示的内容，也可以通过 slot#content 传入 DOM | string/slot | - | - |
+| enterable | 鼠标是否可以进入tooltip | bool | true/false | true |
+| tooltipClass | tooltip自定义样式 | string | - |  |

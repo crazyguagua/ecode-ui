@@ -47,3 +47,17 @@
         // background: lightgreen;
     }
 }
+.always{
+    padding:5px;
+    cursor: pointer;
+    background:#6c35ec;
+    border-radius: 3px;
+    color: #fff;
+    > .ecode-icon{
+        fill: #dfd7f0;
+        width: 20px;
+        height: 20px;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+}

@@ -2,6 +2,7 @@
 import { createPopper } from '@popperjs/core';
 import {on,off} from '@/util/dom'
 import Vue from 'vue'
+import {getNextZIndex} from '@/util/zIndexManager'
 const Ctor = Vue.extend({
     data(){return {child:null}},
     render(h){
@@ -24,7 +25,6 @@ const Ctor = Vue.extend({
 //   | 'left'
 //   | 'left-start'
 //   | 'left-end';
-// type Strategy = 'absolute' | 'fixed';
 export default{
 
     props:{
@@ -33,6 +33,9 @@ export default{
         offset:{type:Array,default:()=>[0, 10]},
         value:{type:Boolean,default:false}, //状态是否可见
         disabled:{type:Boolean,default:false}, //是否禁用
+        theme:{type:String,default:'dark'},
+        tooltipClass:{type:String,default:''},
+        enterable:{type:Boolean,default:true} //鼠标是否可以进入tooltip
     },
     data(){
         return {
@@ -50,8 +53,9 @@ export default{
         this.reference = this.$el
         this.bindReferenceListener()
         if(this.value){
+            this.visible = true
             this.$nextTick(()=>{
-                this.updatePopper()
+                this.createPopper()
             })
         }
     },
@@ -62,25 +66,32 @@ export default{
     },
     methods:{
         updatePopper(){
+            this.checkExsit()
+            this.popperIns.update()
+        },
+        checkExsit(){
             if(!this.popperIns){
                 this.popperIns = this.createPopper()
             }
-            this.popperIns.update()
         },
         //创建popper
         createPopper(){
             let popperDiv = this.popper.$el
             document.body.appendChild(popperDiv)
+            popperDiv.style.zIndex = getNextZIndex()
             let ins = createPopper(this.reference, popperDiv,this.getPopperOption());
             return ins
         },
         //隐藏popper
         hidePopper(){
+            if(this.value || this.enterPopper){
+                return
+            }
             this.visible = false
         },
         showPopper(){
             this.visible = true
-            this.$nextTick(()=>this.updatePopper())
+            this.$nextTick(()=>this.createPopper())
         },
         bindReferenceListener(){
            on(this.reference,'mouseenter',this.showPopper) 
@@ -94,17 +105,25 @@ export default{
                         options: {
                           offset: this.offset,
                         },
-                      },
+                    },
+                    {
+                        name: 'flip',
+                        enabled: true,
+                        options: {
+                          padding: 5,
+                        },
+                    },
                 ],
                 placement:this.placement
             }
         },
         renderPopper(){
-            let styles = this.visible?{display:'block'}:{display:'none'} 
-            let popper = (<div style={styles}  ref="popper" class="ecode-tooltip"  placement={this.placement}>
+            //jsx 里面也可用 v-show 指令,v-if不能用 
+            let popper = this.visible?(<div  ref="popper" class={['ecode-tooltip',{[`ecode-tooltip-${this.theme}`]:true},{[`${this.tooltipClass}`]:true}]} 
+             placement={this.placement} on-mouse-enter={this.enterPopper =true } on-mouse-leave={this.enterPopper =false }>
                 {this.$slots.content||this.content}
                 <div  class={['arrow']} data-popper-arrow></div>
-            </div>)
+            </div>):null
             return <transition name="ecode-fade">
                {popper}
             </transition>

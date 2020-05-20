@@ -29,3 +29,23 @@
         border-right: 6px solid $tooltip-dark-bg-color;
     }
 }
+
+.ecode-tooltip-light{
+    background: $tooltip-light-bg-color;
+    color:$text-color;
+    &[data-popper-placement^=top] > .arrow{   // 这个属性是popper.js 自动添加的  
+        border-top-color: $tooltip-light-bg-color;
+    }
+    &[data-popper-placement^=bottom] > .arrow{
+
+        border-bottom-color: $tooltip-light-bg-color;
+    }
+    &[data-popper-placement^=left] > .arrow{
+
+        border-left-color: $tooltip-light-bg-color;
+    }
+    &[data-popper-placement^=right] > .arrow{
+ 
+        border-right-color: $tooltip-light-bg-color;
+    }
+}
