@@ -55,7 +55,7 @@ export default {
   position: fixed;
   top: 68px;
   bottom: 0;
-  width: 200px;
+  width: 250px;
   left: 0;
   overflow-y: auto;
   box-shadow: 0px 1px 2px #cfccd4;

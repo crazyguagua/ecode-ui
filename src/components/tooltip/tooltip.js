@@ -34,6 +34,11 @@ export default{
         value:{type:Boolean,default:false}, //状态是否可见
         disabled:{type:Boolean,default:false}, //是否禁用
     },
+    data(){
+        return {
+            visible:false
+        }
+    },
     created(){
         this.popper = new Ctor().$mount()
     },
@@ -43,6 +48,7 @@ export default{
     },
     mounted(){
         this.reference = this.$el
+        this.bindReferenceListener()
         if(this.value){
             this.$nextTick(()=>{
                 this.updatePopper()
@@ -50,23 +56,35 @@ export default{
         }
     },
     beforeDestroy(){
-        debugger
         this.popperIns.destroy()
         document.body.removeChild(this.popper.$el)
         this.popper.$destroy()
-
     },
     methods:{
         updatePopper(){
             if(!this.popperIns){
                 this.popperIns = this.createPopper()
             }
+            this.popperIns.update()
         },
+        //创建popper
         createPopper(){
             let popperDiv = this.popper.$el
             document.body.appendChild(popperDiv)
             let ins = createPopper(this.reference, popperDiv,this.getPopperOption());
             return ins
+        },
+        //隐藏popper
+        hidePopper(){
+            this.visible = false
+        },
+        showPopper(){
+            this.visible = true
+            this.$nextTick(()=>this.updatePopper())
+        },
+        bindReferenceListener(){
+           on(this.reference,'mouseenter',this.showPopper) 
+           on(this.reference,'mouseleave',this.hidePopper) 
         },
         getPopperOption(){
             return {
@@ -82,24 +100,18 @@ export default{
             }
         },
         renderPopper(){
-            
-            return <transition name="fade">
-                <div ref="popper" class="ecode-tooltip"  placement={this.placement}>
-                    {this.$slots.content||this.content}
-                    <div placement={this.placement} class={['arrow']} data-popper-arrow></div>
-                </div>
+            let styles = this.visible?{display:'block'}:{display:'none'} 
+            let popper = (<div style={styles}  ref="popper" class="ecode-tooltip"  placement={this.placement}>
+                {this.$slots.content||this.content}
+                <div  class={['arrow']} data-popper-arrow></div>
+            </div>)
+            return <transition name="ecode-fade">
+               {popper}
             </transition>
         },
         renderReference(){
             let slots = this.$slots.default
-            let element = null
-            for (let index = 0; index < slots.length; index++) {
-                if (slots[index] && slots[index].tag) {
-                  element = slots[index];
-                  break;
-                };
-            }
-            return element;
+            return slots&&slots.length>0?slots[0]:null
         },
     }
 }

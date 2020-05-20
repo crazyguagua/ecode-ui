@@ -2,7 +2,7 @@ import Vue from 'vue';
 
 const isServer = Vue.prototype.$isServer;
 
-export const on = (function(eventName,handler){
+export const on = (function(){
     if (!isServer && document.addEventListener) {
         return function(element,eventName,handler){
             if (element && eventName && handler) {

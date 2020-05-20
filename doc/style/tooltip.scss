@@ -1,0 +1,49 @@
+.center-box{
+    margin:80px auto;
+    position: relative;
+    width: 250px;
+    height: 160px;
+    // background: #ccc;
+    .ecode-button{
+        width: 70px;
+        padding:4px 5px;
+    }
+    .left-box{
+        position: absolute;
+        top:0;
+        width: 90px;
+        padding: 10px 10px;
+        line-height: 50px;
+        bottom:0;
+        left:-70px;
+        // background: lightblue;
+    }
+    .right-box{
+        position: absolute;
+        top:0;
+        width: 90px;
+        padding: 10px 10px;
+        line-height: 50px;
+        bottom:0;
+        right: -70px;
+        // background: lightpink;
+    }
+    .top-box{
+        position: absolute;
+        top:-30px;
+        line-height: 50px;
+        padding:0 15px;
+        left:0px;
+        right:0px;
+        // background: lightcyan;
+    }
+    .bottom-box{
+        position: absolute;
+        bottom:-40px;
+        line-height: 50px;
+        padding:0 15px;
+        left:0px;
+        right:0px;
+        // background: lightgreen;
+    }
+}

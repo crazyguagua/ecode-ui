@@ -32,7 +32,7 @@ export default {
 .doc-content{
     padding-top:68px;
     padding-left:200px;
-    padding:68px 10px 0 200px;
+    padding:68px 10px 0 250px;
 }
 .example{
     
