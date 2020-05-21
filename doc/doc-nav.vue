@@ -71,7 +71,6 @@ export default {
   }
   .nav-list-item.active{
     background: #e9ecf9;
-    border-right: 2px solid #e9ecf9;
     border-right: 3px solid #9aa9ea;
     transition: all .3s cubic-bezier(0.075, 0.82, 0.165, 1);
   }

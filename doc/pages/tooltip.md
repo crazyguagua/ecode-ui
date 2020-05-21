@@ -5,12 +5,16 @@
 
 可用来代替系统默认的 title 提示，提供一个按钮/文字/操作的文案解释。
 
+:::tip
+tooltip 默认是鼠标移入的时候才插入document节点中，鼠标移出，dom就会被移除。
+:::
+
 ## 基本用法
 
 :::demo 用具名 slot 分发content，替代e-tooltip中的content属性。
 ```html
 <div class="margin-15">
-    <e-tooltip content="2019-2020 夏季赛冠军" >
+    <e-tooltip :enterable="false" content="2019-2020 夏季赛冠军" >
         <div class="inline-block marin-15"><e-button>WE</e-button></div>
     </e-tooltip>
 
@@ -104,8 +108,11 @@
         <div class="inline-block marin-15"><e-button type="primary">深色</e-button></div>
     </e-tooltip>
 
-     <e-tooltip content="这是一个浅色的tooltip" theme="light" >
+     <e-tooltip placement="bottom-end" content="这是一个浅色的tooltip" theme="light" >
         <div class="inline-block  marin-15"><e-button >浅色</e-button></div>
+    </e-tooltip>
+     <e-tooltip  placement="right-start" content="这是一个朴素的tooltip" theme="plain" >
+        <div class="inline-block  marin-15"><e-button >朴素</e-button></div>
     </e-tooltip>
 </div>
 ```
@@ -114,8 +121,10 @@
 ## API
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
+| value/v-model | 是否一直显示tooltip | Boolean | true/false | false |
 | theme | 默认提供的主题 | String | dark/light | dark |
 | placement | tooltip 出现的位置 | string | top/top-start/top-end/bottom/bottom-start/bottom-end/left/left-start/left-end/right/right-start/right-end  | top |
 | content | 显示的内容，也可以通过 slot#content 传入 DOM | string/slot | - | - |
 | enterable | 鼠标是否可以进入tooltip | bool | true/false | true |
 | tooltipClass | tooltip自定义样式 | string | - |  |
+| transition | tooltip自定义过渡动画 | string | - | ecode-fade |
