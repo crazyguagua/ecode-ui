@@ -54,6 +54,10 @@ export default [{
                 name:'tooltip'
             },
             {
+                title:'popover 气泡卡片',
+                name:'popover'
+            },
+            {
                 title: "吐司",
                 name: 'toast'
             }, 

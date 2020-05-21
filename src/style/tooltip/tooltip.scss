@@ -1,6 +1,6 @@
 @import '../var/var.scss';
 @import '../transition/transition.scss';
-.ecode-tooltip{
+.ecode-tooltip,.ecode-popover{
     background: $tooltip-dark-bg-color;
     color: #FFF;
     padding:10px;
