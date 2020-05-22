@@ -1,0 +1,100 @@
+@import './var/var.scss';
+$large-size : 40px;
+$input-inner-color : #868a93;
+$default-size : 34px;
+$small-size : 28px;
+$textaera-width:100%;
+.eocde-inputWrapper{
+    width: 100%;
+    position: relative;
+    display:inline-block;
+    vertical-align: top;
+    align-items: center;
+    display: inline-flex;
+    &.error {
+        > .ecode-input-inner,> .ecode-input-inner:focus-within,>.ecode-input-inner:hover{
+            border:1px solid $error-color;
+            box-shadow: inset 0 0 0 0.03em $error-color,0 0 0 0.02em $error-color;
+        }
+        > .ecode-textarea-inner,> .ecode-textarea-inner:focus,>.ecode-textarea-inner:hover{
+            border:1px solid $error-color;
+            box-shadow: inset 0 0 0px 0.03em $error-color;
+        }
+        .message{
+            color:$error-color;
+        }
+    }
+    > .ecode-input-inner,.ecode-textarea-inner {
+        border:1px solid $border-color;
+        width:100%;
+        color:$text-color;
+        font-size: $font-size;
+        height: $default-size;
+        line-height: 1.5;
+        border-radius: $border-radius;
+        padding: 0 10px;
+        cursor: pointer;
+        transition: border-color .2s cubic-bezier(0.82, 0.01, 0.13, 1.01);
+        &:hover{
+            box-shadow: inset 0 0px 0px $shadow-color, 0 0 0 0.03em $shadow-color;
+        }
+        &:focus{
+            border: 1px solid $border-hover-color;
+            outline: none;
+            box-shadow: inset 0 0px 0px $shadow-color, 0 0 0 0.03em $shadow-color;
+        }
+        &[disabled]{
+           border-color:$disabled-border-color;
+           cursor:not-allowed; 
+           background: $disabled-bg;
+        }
+        &[readonly]{
+            border-color:$disabled-border-color;
+            background: $disabled-bg;
+        }
+    }
+    .padding_r{
+        padding-right: 30px;
+    }
+    .padding_l{
+        padding-left: 30px;
+    }
+    > .ecode-input-suffix,.ecode-input-suf-slot,.input-count{
+        position: absolute;
+        right: 5px;
+        cursor: pointer;
+        color: $input-inner-color;
+        text-align: center;
+    }
+    .ecode-input-prefix,.ecode-input-pre-slot{
+        position: absolute;
+        left: 5px;
+        cursor: pointer;
+        color: $input-inner-color;
+        text-align: center;
+    }
+    > .ecode-textarea-inner{
+        width: $textaera-width;
+        height: auto;
+        padding: 5px 15px;
+    }
+    .input-count{
+        bottom: 5px;
+        .input-count-inner {
+            font-size: 12px;
+        }
+    }
+}
+.ecode-input-large {
+    
+    > .ecode-input-inner{
+        height: $large-size;
+        line-height: $large-size;
+    }
+}
+.ecode-input-small {
+    > .ecode-input-inner{
+        height:$small-size;
+        line-height:$small-size;
+    }
+}
