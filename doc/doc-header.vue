@@ -7,8 +7,8 @@
         <span>ECODE-UI</span>
       </div>
       <div class="search-bar"></div>
-      <div class="miniBar" >
-          <e-icon ref="popElm" name="ecode-hamburg" @click.native.stop="popperVisible = !popperVisible" />
+      <div class="miniBar" v-if="showMiniBar" >
+          <e-icon ref="popper" name="ecode-hamburg" @click.native.stop="popperVisible = !popperVisible" />
           <transition enter-active-class="zoomIn" leave-active-class="zoomOut">
             <div class="popper-content" v-show="popperVisible">
                 <div class="arrow"></div>
@@ -21,6 +21,7 @@
 
 <script>
 import docNav from './doc-nav'
+import { addResizeListener, removeResizeListener }  from '@/util/resize-event'
 export default {
     name:'docHeader',
     components:{
@@ -29,16 +30,26 @@ export default {
     data(){
         return {
             popperVisible:false,
-            testvisible:true
+            testvisible:true,
+            showMiniBar:false
         }
     },
     mounted(){
         // this.popElm = this.$refs.popElm.$el
         // setTimeout(()=>{this.testvisible = false},5000)
+        this.showMiniBarFn()
+        addResizeListener(document.documentElement,this.showMiniBarFn)
+    },
+    beforeDestroy(){
+        removeResizeListener(document.documentElement,this.showMiniBarFn)
     },
     methods:{
         handleClose(){
             this.popperVisible = false
+        },
+        showMiniBarFn(){
+           let clientWidth =  document.documentElement.clientWidth
+           this.showMiniBar = clientWidth<=768
         }
     }
 }

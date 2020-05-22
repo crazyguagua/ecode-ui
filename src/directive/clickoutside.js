@@ -18,7 +18,7 @@ const createDocClickHandler = (el, binding, vnode) => {
         //指令的表达式 的方法在 vnode context 中是否存在方法
         // 需要判断 点击的元素是否在 el之外 ，同时还需要排除点击下拉的元素
         //或者 在触发点击上加修饰符.stop
-        let popElm = vnode.context.popElm
+        let popElm = vnode.context.popper
         if (!el.contains(target) && !(popElm && popElm.contains(target))) {
             if (expression && method) {
                 method()

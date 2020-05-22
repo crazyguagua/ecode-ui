@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     //处理列拖拽事件
-    onMouseDown(e, column) {
+    onMouseDown(e, column,index) {
       if(!this.border || !column.resize || !this.dragingColumn){ //鼠标没有出现拖拽cursor不让点击拖拽
         return
       }
@@ -68,7 +68,14 @@ export default {
         let newWidth = e.clientX - thLeft  //鼠标屏幕坐标 减去 当前th的left值
         this.isDragging = false
         resizeDiv.style.display = 'none'
-        column.width = newWidth
+        
+        //如果拖动的是最后一列的时候，可能会因为滚动条的关系，对不齐
+        if(this.table.verticalScroll && index === this.columns.length-1){
+          debugger
+          column.width = newWidth+this.table.layout.scrollbarWidth
+        }else{
+          column.width = newWidth
+        }
         //重新计算列宽
         this.table.layout.updateColumnWidth()
         document.removeEventListener('mousemove',handleMouseMove)
@@ -162,7 +169,7 @@ export default {
             return (
               <th
                  name={`${this.tableName}-column-${c.columnId}`}
-                onMousedown={e => this.onMouseDown(e, c)}
+                onMousedown={e => this.onMouseDown(e, c,index)}
                 onMousemove={e=>this.onMouseMove(e,c)}
                 key={c.columnId}
                 class="{'is-hidden':c.fixed != fixed}"

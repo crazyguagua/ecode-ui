@@ -1,12 +1,15 @@
 $font-size:14px;
 $button-height:34px;
 $button-bg:#fff;
-$button-active-bg:rgb(158, 158, 158);
-$button-hover-bg:rgb(192, 192, 192);
+$button-active-bg:#9e9e9e;
+$button-hover-bg:#c0c0c0;
 $button-color:#000;
 $border-radius:3px;
 $border-color:#5a5a5a;
-$border-active-color:rgb(22, 21, 21);
+$border-active-color:#161515;
+$default-button-focus-bg-color:#dddaf6;
+$default-button-focus-border-color:#4b4ef8;
+$default-button-focus-color:#4b4ef8;
 
 $text-color:#606266;//文本颜色
 $shadow-color:#5f5f5f;//阴影颜色
@@ -25,11 +28,12 @@ $primary-hover-color:#515da1; //主色调hover
 $default-color:#827397;//默认颜色
 $default-hover-color:#4d4c7d;//默认hover颜色
 $white-color:#fff;
-$grey-color:#ccc;
+$grey-color:#f0f0f0;
 $danger-color:#fa3d3d;
 $danger-hover-color:#f86060;
 $text-color:rgba(0,0,0,.65); //字体颜色
 $text-font-size:14px; //字体大小
+
 
 $table-td-hover-color:#f4f3f5; //单元格hover颜色
 $table-td-highlight-color: #e2e8f8; //行选中背景色
@@ -51,3 +55,6 @@ $back-to-top-shadow-color:#cdb7f1; //回到顶部阴影
 $tooltip-dark-bg-color: #303133;
 $tooltip-light-bg-color: #d3def1;
 $tooltip-dark-color: #FFF;
+
+/** popover*/
+$title-border-color:#615f5f;  //标题边框颜色

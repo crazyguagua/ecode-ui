@@ -27,7 +27,7 @@ tooltip 默认是鼠标移入的时候才插入document节点中，鼠标移出�
         </div>
     </e-tooltip>
 
-     <e-tooltip  content="这个tooltip可以一直显示" :value="true" >
+     <e-tooltip placement="top"  content="这个tooltip可以一直显示" :value="true" >
         <div class="inline-block marin-15 always"><e-icon name="ecode-fail"></e-icon>一直显示</div>
     </e-tooltip>
 </div>

@@ -1,4 +1,65 @@
 @import '../var/var.scss';
 .ecode-popover{
-
+    background: $white-color;
+    color:$text-color;
+    box-shadow:0 3px 6px -4px rgba(0,0,0,.12), 0 6px 16px 0 rgba(0,0,0,.08), 0 9px 28px 8px rgba(0,0,0,.05);
+    position: absolute;
+    border-radius: 3px;
+    > .arrow:after{
+        content:"";
+        width: 0;
+        position: absolute;
+        height: 0;
+        border:5px solid transparent;
+    }
+    &[data-popper-placement^=top] > .arrow{
+        bottom: 6px;   
+    }
+    &[data-popper-placement^=top] > .arrow:after{
+       
+        border-top-color:$white-color;
+        border-right-color:$white-color;
+        transform: rotate(135deg);
+        box-shadow: 1px -1px 3px rgba(0,0,0,.12);
+    }
+    &[data-popper-placement^=bottom] > .arrow{
+        top: -5px;   
+    }
+    &[data-popper-placement^=bottom] > .arrow:after{
+       
+        border-top-color:$white-color;
+        border-right-color:$white-color;
+        transform: rotate(-45deg);
+        box-shadow: 1px -1px 3px rgba(0,0,0,.12);
+    }
+    &[data-popper-placement^=left] > .arrow{
+        right: 5px;   
+    }
+    &[data-popper-placement^=left] > .arrow:after{
+       
+        border-top-color:$white-color;
+        border-right-color:$white-color;
+        transform: rotate(45deg);
+        box-shadow: 1px -1px 3px rgba(0,0,0,.12); //1,-1 右上角阴影
+    }
+    &[data-popper-placement^=right] > .arrow{
+        left: -5px;   
+    }
+    &[data-popper-placement^=right] > .arrow:after{
+       
+        border-top-color:$white-color;
+        border-left-color:$white-color;
+        transform: rotate(-45deg);
+        box-shadow: -1px -1px 3px rgba(0,0,0,.12);  // -1 ，-1 是左上角的阴影
+    }
+    >.title{
+        padding:10px;
+        font-size: 16px;
+        border-bottom: 1px solid $grey-color;
+        color: $text-color;
+        font-weight: bold;
+    }
+    > .content{
+        padding:15px;
+    }
 }

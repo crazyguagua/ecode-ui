@@ -104,6 +104,7 @@ export default {
       tableBodyWidth: null, //固定列父容器的宽度
       tableBodyHeight:null,//表格内容部分的高度
       tableTotalWidth: null,
+      verticalScroll:false, //是否出现纵向滚动条
       horizontalScroll: false, //是否出现横向滚动条
       totalHeight: null, //如果指定了表格的高度
       shadowPosition: "right", //横向滚动的方向，默认中间滚动，用于显示固定列的阴影
@@ -204,8 +205,9 @@ export default {
         width: fixedDivWidth + "px",
         bottom:this.layout.scrollbarWidth + "px"
       };
-      if (position == "right") {
+      if (position == "right" && this.verticalScroll) { //出现滚动条时才距离右边滚动条的宽度
         divStyle.right = this.layout.scrollbarWidth + "px";
+        bottom:this.layout.scrollbarWidth + "px";
       }
       let bodyStyle={}
 

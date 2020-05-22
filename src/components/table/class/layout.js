@@ -120,6 +120,7 @@ class Layout {
             let tableHeight = tableBody.offsetHeight
             let wrapperHeight = tableBodyWrapper.offsetHeight
             if(tableHeight > wrapperHeight ){
+                this.table.verticalScroll = true
                 this.adjustLastColumn()
             }
            

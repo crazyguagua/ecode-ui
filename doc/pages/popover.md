@@ -12,19 +12,36 @@ Popover 的属性与 Tooltip 很类似，因此对于重复属性，请参考 To
 :::demo trigger属性用于设置何时触发 Popover，支持四种触发方式：hover，click，focus 和 manual。对于触发 Popover 的元素，有两种写法：使用 slot="reference" 的具名插槽，或使用自定义指令v-popover指向 Popover 的索引ref。
 ```html
 <div class="margin-15">
-    <e-popover content="xxxxxxxxxxxxxx" placement="bottom-end">
-        <e-button slot="reference">hover 激活</e-button>
+    <e-popover title="标题" content="xxxxxxxxxxxxxx" placement="bottom-end">
+        <e-button slot="reference">click 激活</e-button>
     </e-popover>
-    <e-popover>
-     <e-button slot="reference">click 激活</e-button>
+    <e-popover trigger="hover" content="通过hover激活" placement="top-start" >
+     <e-button slot="reference">hover 激活</e-button>
     </e-popover>
-    <e-popover>
+    <e-popover trigger="focus"  title="激活显示popover">
         <e-button slot="reference">focus 激活</e-button>
+        <div slot="content">
+          <p >这是一段文本</p>
+        </div>
     </e-popover>
-    <e-popover>
-        <e-button slot="reference">手动 激活</e-button>
+    <e-popover trigger="manual" placement="right"  v-model="showPopper" title="手动显示popover" content="这是一段文本">
+        <e-button slot="reference" @click="showPopper = !showPopper">{{btnText}}</e-button>
     </e-popover>
 </div>
+<script>
+export default{
+    data(){
+        return {
+            showPopper:true
+        }
+    },
+    computed:{
+        btnText(){
+            return !this.showPopper?'点击显示':'点击关闭'
+        }
+    }
+}
+</script>
 ```
 :::
 

@@ -238,3 +238,10 @@
 .ecode-button.ecode-button-danger.ecode-click-animating:after{
     border: 0 solid $danger-color;
 }
+
+.ecode-button-default:focus{
+
+    background-color: $default-button-focus-bg-color;
+    border: 1px solid $default-button-focus-border-color;
+    color: $default-button-focus-color;
+}
