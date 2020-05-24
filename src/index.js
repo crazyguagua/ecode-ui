@@ -19,6 +19,7 @@ import ECheckbox from '@/components/form/checkbox/checkbox'
 import ECheckboxGroup from '@/components/form/checkbox/checkboxGroup'
 import ETooltip from '@/components/tooltip/tooltip'
 import EPopover from '@/components/popover'
+import EScrollbar from '@/components/scrollbar'
 import './style/index.scss'
 import './style/fonts/iconfont.js'
 import ClipBoardDirective from '@/directive/clipboard'
@@ -44,6 +45,8 @@ const install = (Vue)=>{
     Vue.component('ECheckboxGroup',ECheckboxGroup)
     Vue.component('ETooltip',ETooltip)
     Vue.component('EPopover',EPopover)
+    Vue.component('EScrollbar',EScrollbar)
+
     Vue.use(ESpin)
     Vue.prototype.eToast = Toast
     Vue.use(ClipBoardDirective)

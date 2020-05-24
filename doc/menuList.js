@@ -13,6 +13,10 @@ export default [{
                 title: '图标',
                 name: 'icon'
             },
+            {
+                title:'滚动条',
+                name:'scrollbar'
+            }
         ]
     }, 
     {
