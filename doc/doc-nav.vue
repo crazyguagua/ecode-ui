@@ -1,29 +1,35 @@
 <template>
-  <div class="doc-nav">
-    <div class="empty"></div>
-    <ul class="nav-list">
-      <template  v-for="(l,index) in list" >
-        <li class="nav-list-item" :class="{'active':$route.name=== l.name}"  v-if="!l.children">
-          <a @click="go(l.name)">
-            <span>{{l.title}}</span>
-          </a>
-        </li>
 
-          <div class="subMenu" v-else>
-            <div class="subMenuTitle">
-              {{l.title}}
+
+    <e-scrollbar class="doc-nav leftMenu">
+     <div class="wrapper" style="padding-right:10px;">
+      <div class="empty"></div>
+      <ul class="nav-list">
+        <template  v-for="(l,index) in list" >
+          <li class="nav-list-item" :class="{'active':$route.name=== l.name}"  v-if="!l.children">
+            <a @click="go(l.name)">
+              <span>{{l.title}}</span>
+            </a>
+          </li>
+
+            <div class="subMenu" v-else>
+              <div class="subMenuTitle">
+                {{l.title}}
+              </div>
+              <ul class="nav-list">
+                <li class="nav-list-item" :class="{'active':$route.name=== l.name}" v-for="(l,index) in l.children" :key="l.name">
+                  <a @click="go(l.name)">
+                    <span>{{l.title}}</span>
+                  </a>
+                </li>
+              </ul>
             </div>
-            <ul class="nav-list">
-              <li class="nav-list-item" :class="{'active':$route.name=== l.name}" v-for="(l,index) in l.children" :key="l.name">
-                <a @click="go(l.name)">
-                  <span>{{l.title}}</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-      </template>
-    </ul>
-  </div>
+        </template>
+      </ul>
+     </div>
+    </e-scrollbar>
+
+
 </template>
 
 <script>
@@ -57,9 +63,10 @@ export default {
   bottom: 0;
   width: 250px;
   left: 0;
-  overflow-y: auto;
+  overflow: hidden;
   box-shadow: 0px 1px 2px #cfccd4;
   padding: 10px 0px;
+
   .nav-list {
     list-style: none;
   }

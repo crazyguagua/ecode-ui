@@ -2,12 +2,13 @@
    <div class="example">
        <Doc-header>
        </Doc-header>
-       <div class="doc-content">
-           <Doc-Nav  class="leftMenu"/>
-              <router-view></router-view>
+    
+        <e-scrollbar class="doc-content">
+            <Doc-Nav/>
+            <router-view></router-view>
             <EBackToTop />
-       </div>
-     
+        </e-scrollbar>
+
        <Doc-footer />
 
    </div>
@@ -29,10 +30,12 @@ export default {
 </script>
 
 <style lang="scss">
-.doc-content{
-    padding-top:68px;
-    padding-left:200px;
-    padding:68px 10px 0 250px;
+.example > .doc-content{
+    position: absolute;
+    top:68px;
+    left:250px;
+    bottom: 0;
+    right: 0;
 }
 .example{
     

@@ -2,13 +2,21 @@
 .ecode-scrollbar{
     overflow: hidden;
     position: relative;
-    > .scroll-bar-div {
+    .bar-track{
+        position: absolute;
+        height: 100%;
+        right:2px;
+        width: 8px;
+        top:0;
+    }
+    .scroll-bar-div {
         position: absolute;
         &.vertical{
-            right:2px;
+            top:0;
+            right:0px;
             background: $scroll-bar-bg-color;
             border-radius: 3px;
-            width: 8px;
+            width: 6px;
             cursor: pointer;
             z-index: 1;
         }
@@ -22,7 +30,9 @@
         }
     }
     > .ecode-scrollbar-wrapper{
-       
+        overflow: scroll;
+        //设置高度和父元素一样高，内容超出，才能滚动
+        height: 100%;
     }
 
 }
