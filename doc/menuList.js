@@ -48,6 +48,10 @@ export default [{
             {
                 title: '多选框',
                 name: 'checkbox'
+            },
+            {
+                title: '单选框',
+                name: 'radio'
             }
         ]
     },{

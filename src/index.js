@@ -17,6 +17,8 @@ import EBackToTop from '@/components/backToTop'
 import EInput from '@/components/form/input/input'
 import ECheckbox from '@/components/form/checkbox/checkbox'
 import ECheckboxGroup from '@/components/form/checkbox/checkboxGroup'
+import ERadio from '@/components/form/radio/radio'
+import ERadioGroup from '@/components/form/radio/radioGroup'
 import ETooltip from '@/components/tooltip/tooltip'
 import EPopover from '@/components/popover'
 import EScrollbar from '@/components/scrollbar'
@@ -42,6 +44,8 @@ const install = (Vue)=>{
     Vue.component('ETable',ETable)
     Vue.component('EBackToTop',EBackToTop)
     Vue.component('ECheckbox',ECheckbox)
+    Vue.component('ERadio',ERadio)
+    Vue.component('ERadioGroup',ERadioGroup)
     Vue.component('ECheckboxGroup',ECheckboxGroup)
     Vue.component('ETooltip',ETooltip)
     Vue.component('EPopover',EPopover)
