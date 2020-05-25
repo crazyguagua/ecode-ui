@@ -5,7 +5,7 @@ import ECodeUI from '@/index'
 import router from './router'
 import './style/index.scss'
 import DemoBlock from './components/demo-block'
-
+window.log = console.log.bind()
 Vue.component('demo-block',DemoBlock)
 Vue.use(ECodeUI)
 
