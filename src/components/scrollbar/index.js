@@ -51,10 +51,11 @@ export default{
         updateScrollBar(){
             //更新滚动条的高度 
            let contentWrapper=  this.$refs.contentWrapper
-           let elHeight = this.$el.clientHeight
-           let elWidth = this.$el.clientWidth
-           let contentHeight =contentWrapper.clientHeight
-           let contentWidth =contentWrapper.clientWidth
+           let wrapper = this.$refs.wrapper
+           let elHeight = wrapper.offsetHeight
+           let elWidth = wrapper.offsetWidth
+           let contentHeight =contentWrapper.scrollHeight
+           let contentWidth =contentWrapper.scrollWidth
            this.scrollHeight = Math.max(60, ( elHeight / contentHeight) *elHeight ) + 'px';
            this.scrollWidth =  Math.max(60, ( elWidth / contentWidth) * elWidth ) + 'px';
            this.showVertical = elHeight < contentHeight 
