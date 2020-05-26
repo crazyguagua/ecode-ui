@@ -52,7 +52,11 @@ export default [{
             {
                 title: '单选框',
                 name: 'radio'
-            }
+            },
+            {
+                title: '选择器',
+                name: 'select'
+            },
         ]
     },{
         title:'反馈',
