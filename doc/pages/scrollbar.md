@@ -7,7 +7,7 @@
 <div class="margin-15 scrollbarDemo" >
     <e-scrollbar style="height:300px;width:400px;">
         
-                <div class="view" style="width:1000px;background:#ccc;">
+                <div class="view" style="width:1000px;background:#fff;">
                        <div>我只知道，阿森纳是冠军！！！！</div>
                         <div>我只知道，阿森纳是冠军！！！！</div>
                          <div>我只知道，阿森纳是冠军！！！！</div>
@@ -28,3 +28,38 @@
 </div>
 
 ```
+:::
+
+## 动态加载内容
+:::demo
+```html
+<div class="margin-15 scrollbarDemo" >
+    <e-scrollbar style="height:300px;width:400px;">
+        
+            <div class="view" style="width:1000px;background:#fff;min-height:100px;">
+                <div v-for="index of variable">
+                    我只知道 阿森纳是冠军 {{index}}
+                </div>
+            </div>
+    </e-scrollbar>
+</div>
+<script>
+    export default {
+        created(){
+            setTimeout(()=>{
+                this.variable = 10
+                 setTimeout(()=>{
+                    this.variable = 20
+                },5000)
+            },5000)
+        },
+        data(){
+            return {
+                variable:0
+            }
+        }
+    }
+</script>
+
+```
+:::
