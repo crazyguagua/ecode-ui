@@ -2,6 +2,17 @@ import Bar from  './bar'
 import { getScrollBarWith } from "@/util/scrollbar"; 
 import { addResizeListener, removeResizeListener } from "@/util/resize-event";
 const scrollbarWidth = getScrollBarWith()
+const getChildrenWidth = (node)=>{
+    let children = node.children
+    let maxWidth = 0
+    for (let index = 0; index < children.length; index++) {
+        const element = children[index];
+        if(maxWidth<element.offsetWidth){
+            maxWidth = element.offsetWidth
+        }
+    }
+    return maxWidth
+}
 export default{
     props:{
         native:{type:Boolean,default:false},//使用原生scroll
@@ -20,17 +31,23 @@ export default{
         }
         let style = {
             marginRight:`${scrollbarWidth*-1}px`,
-            marginBottom:`${scrollbarWidth*-1}px` //这个好像盖不住横向滚动条
+            height:`calc(100% + ${scrollbarWidth}px` //增加一个滚动条的高度 用来盖住横向滚动条
         }
         return (
-            <div class="ecode-scrollbar" >
-                 <Bar ref="verticalBar" distance={this.transformY} height={this.scrollHeight} v-show={this.showVertical}></Bar>
-                 <Bar ref="horizontalBar" distance={this.transformX} width={this.scrollWidth}  v-show={this.showHorizontal} direction="horizontal"></Bar>
+            <div class="ecode-scrollbar" onMouseenter={()=>{this.entered = true}} onMouseleave={()=>{this.entered = false}} >
+                <transition name="ecode-fade">
+                 <Bar ref="verticalBar" distance={this.transformY} height={this.scrollHeight} v-show={this.showVertical && this.entered }></Bar>
+                 </transition>
+                 <transition name="ecode-fade">
+                 <Bar ref="horizontalBar" distance={this.transformX} width={this.scrollWidth}  v-show={this.showHorizontal && this.entered} direction="horizontal"></Bar>
+                 </transition>
                 <div onScroll={this.onScroll} ref="wrapper" class="ecode-scrollbar-wrapper"  style={style}>
                    <div class="ecode-scroll-content" ref="contentWrapper">
                     {this.$slots.default}
                     </div>
+                    {/* <div class="bottomPadd" style={{height:`${scrollbarWidth}px`}}></div> */}
                 </div>
+                
             </div>
         ) 
     },
@@ -40,6 +57,7 @@ export default{
             scrollHeight:null,
             showVertical:false,
             showHorizontal:false,
+            entered:false,
             transformX:0,// 横向transform 距离
             transformY:0,//纵向transform
         }
@@ -54,24 +72,36 @@ export default{
            let wrapper = this.$refs.wrapper
            let elHeight = wrapper.offsetHeight
            let elWidth = wrapper.offsetWidth
+
            let contentHeight =contentWrapper.scrollHeight
-           let contentWidth =contentWrapper.scrollWidth
-           this.scrollHeight = Math.max(60, ( elHeight / contentHeight) *elHeight ) + 'px';
-           this.scrollWidth =  Math.max(60, ( elWidth / contentWidth) * elWidth ) + 'px';
+           let contentWidth = contentWrapper.scrollWidth
+
+            //是否应该显示滚动条
            this.showVertical = elHeight < contentHeight 
            this.showHorizontal = elWidth <contentWidth
+             //修改contentwrapper的宽度
+            if(this.showHorizontal){
+                contentWidth = getChildrenWidth(contentWrapper)
+                contentWrapper.style.width = contentWidth+'px'
+            }
 
-           //盖住横向滚动条
-           this.$refs.wrapper.style.height = this.$refs.wrapper.offsetHeight + scrollbarWidth+'px'
+            log('contentWidth',contentWidth)
+           this.scrollHeight = Math.max(60, ( elHeight / contentHeight) *elHeight ) + 'px';
+           this.scrollWidth =  Math.max(60, ( elWidth / contentWidth) * elWidth ) + 'px';
+           
+
+         
+        //    this.$refs.wrapper.style.height = this.$refs.wrapper.offsetHeight +scrollbarWidth + 'px'
 
            this.maxScroll = contentWrapper.offsetHeight - (this.$refs.wrapper.offsetHeight - scrollbarWidth)
         },
         onScroll(){
-           let scrollTop =  this.$refs.wrapper.scrollTop 
+           let {scrollTop,scrollLeft} =  this.$refs.wrapper 
         //    log('',this.$refs.wrapper.offsetHeight-scrollbarWidth - this.verticalBar.offsetHeight)
-        log('scrollTop',scrollTop)
+           log('scrollTop',scrollTop)
        
-           this.transformY = scrollTop / this.maxScroll * (this.$refs.wrapper.offsetHeight-scrollbarWidth - this.verticalBar.offsetHeight)
+           this.transformY = scrollTop / this.maxScroll * (this.verticalBar.parentNode.offsetHeight- this.verticalBar.offsetHeight)
+           this.transformX = scrollLeft / this.maxScroll * (this.verticalBar.parentNode.offsetWidth- this.verticalBar.offsetWidth)
         //    this.verticalBar.style.transform=`translateY(${translate}px)`
         }
     },

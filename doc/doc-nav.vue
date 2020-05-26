@@ -65,7 +65,7 @@ export default {
   left: 0;
   overflow: hidden;
   box-shadow: 0px 1px 2px #cfccd4;
-  padding: 10px 0px;
+  padding: 0px 0px;
 
   .nav-list {
     list-style: none;

@@ -2,31 +2,49 @@
 .ecode-scrollbar{
     overflow: hidden;
     position: relative;
-    .bar-track{
+    .bottomPadd{
+        //盖住底部的滚动条
         position: absolute;
-        height: 100%;
-        right:2px;
-        width: 8px;
-        top:0;
+        width: 100%;
+        left:0;
+        bottom: 0;
+        z-index: 1;
+        background: $white-color;
     }
-    .scroll-bar-div {
-        position: absolute;
-        &.vertical{
-            top:0;
-            right:0px;
-            background: $scroll-bar-bg-color;
-            border-radius: 3px;
-            width: 6px;
-            cursor: pointer;
-            z-index: 1;
-        }
+    .bar-track{
+       
         &.horizontal{
-            bottom:2px;
-            background: $scroll-bar-bg-color;
-            border-radius: 3px;
-            height: 6px;
-            cursor: pointer;
+            position: absolute;
+            right: 0;
+            bottom:0px;
+            height: $scroll-bar-width;
+            left:0;
+            z-index: 2;
+            > .scroll-bar-div {
+                bottom:0px;
+                left:0;
+                background: $scroll-bar-bg-color;
+                border-radius: 3px;
+                height: 100%;
+                cursor: pointer;
+                
+            }
+        }
+        &.vertical {
+            position: absolute;
+            bottom: 0;
+            top:0px;
+            width: $scroll-bar-width;
+            right:1px;
             z-index: 1;
+            > .scroll-bar-div{
+                right:0px;
+                background: $scroll-bar-bg-color;
+                border-radius: 3px;
+                width: 100%;
+                cursor: pointer;
+                position: absolute;
+            }
         }
     }
     > .ecode-scrollbar-wrapper{

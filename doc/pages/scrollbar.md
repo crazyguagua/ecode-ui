@@ -4,10 +4,10 @@
 ## 基本用法
 :::demo
 ```html
-<div class="margin-15 scrollbarDemo">
+<div class="margin-15 scrollbarDemo" >
     <e-scrollbar style="height:300px;width:400px;">
         
-                <div class="view">
+                <div class="view" style="width:1000px;background:#ccc;">
                        <div>我只知道，阿森纳是冠军！！！！</div>
                         <div>我只知道，阿森纳是冠军！！！！</div>
                          <div>我只知道，阿森纳是冠军！！！！</div>
