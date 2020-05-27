@@ -1,0 +1,28 @@
+@import '../var/var.scss';
+.ecode-select{
+    >.content{
+        padding:5px 0 0 0;
+    }
+    .options{
+        width: 100%;
+        > .noData{
+            text-align: center;
+        }
+        &.ecode-scrollbar{
+            height: 280px ;
+           
+        }
+        > .ecode-scrollbar-wrapper > .ecode-scroll-content{
+            > .ecode-option{
+                padding:10px 12px;
+                color:$option-color;
+                line-height: 22px;
+                cursor: pointer;
+                &:hover{
+                    background-color: $option-hover-bg-color;
+                }
+            }
+        }
+        
+    }
+}

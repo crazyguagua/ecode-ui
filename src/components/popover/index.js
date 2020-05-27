@@ -4,6 +4,11 @@ import Vue from 'vue'
 export default{
     name:'ecodePopover',
     props: {
+        trigger:{type:String,default:'click',validator:(value)=>{
+            return ['click','hover','focus','manual'].includes(value)
+        }},
+        title:{type:String},
+        popoverClass:{type:String}
     },
     beforeCreate(){
         const popperCtor = Vue.extend({
@@ -19,13 +24,18 @@ export default{
         this.popperVueIns = new popperCtor().$mount()
     },
     mixins:[PopperMixin],
+    data(){
+        return {
+            referenceWidth:null
+        }
+    },
     render(h){
         const popoverDiv = 
         <transition v-show={this.visible} name={this.transition}>
-            <div class="ecode-popover" ref="popper" onMouseenter={
+            <div class={["ecode-popover",this.popoverClass]} ref="popper" onMouseenter={
                 ()=>{
                     this.canClose = false
-                }}  
+                }}  style={{minWidth:this.referenceWidth}}
                 onMouseleave={
                 ()=>{
                     this.canClose = true;
@@ -38,10 +48,11 @@ export default{
                 </div>
             </div>
         </transition>
-        this.popperVueIns.child = popoverDiv
+        // this.popperVueIns.child = popoverDiv
         return (
             <span >
                 {this.$slots.reference}
+                {popoverDiv}
             </span>
         );
     },
@@ -72,7 +83,7 @@ export default{
            }else if(this.trigger === 'manual'){
                if(this.value){
                     this.showPopper(()=>{
-                        this.popper = this.popperVueIns.$el
+                        // this.popper = this.popperVueIns.$el
                     })
                 }
               this.$watch('value',
@@ -81,7 +92,7 @@ export default{
                         this.hidePopper()
                     }else{
                         this.showPopper(()=>{
-                            this.popper = this.popperVueIns.$el
+                            // this.popper = this.popperVueIns.$el
                         })
                     }
                 }
@@ -119,6 +130,7 @@ export default{
                 throw new Error('至少需要默认slot，或者reference具名插槽')
             }
             this.reference = slot.elm
+            this.referenceWidth = this.reference.offsetWidth+'px'
         },
       
     }

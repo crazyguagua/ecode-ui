@@ -50,3 +50,4 @@ export default{
 |---------- |-------------- |---------- |--------------------------------  |-------- |
 | trigger | popover触发方式 | String | hover/click/focus/manual | click |
 | title | 标题 | String | - | - |
+| popoverClass | poppover 弹出层的自定义样式 | String | - | - |

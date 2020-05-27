@@ -80,5 +80,10 @@ module.exports = {
             'vue$': 'vue/dist/vue.esm.js',
             '@': path.resolve(__dirname, '../src'),
         }
+    },
+    externals : {
+        'vue': 'Vue',
+        'vue-router': 'VueRouter',
+        'highlight.js': 'hljs'
     }
 };

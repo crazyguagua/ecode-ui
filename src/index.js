@@ -20,6 +20,7 @@ import ECheckboxGroup from '@/components/form/checkbox/checkboxGroup'
 import ERadio from '@/components/form/radio/radio'
 import ERadioGroup from '@/components/form/radio/radioGroup'
 import ESelect from '@/components/form/select/select'
+import EOption from '@/components/form/select/option'
 import ETooltip from '@/components/tooltip/tooltip'
 import EPopover from '@/components/popover'
 import EScrollbar from '@/components/scrollbar'
@@ -53,6 +54,7 @@ const install = (Vue)=>{
     Vue.component('EPopover',EPopover)
     Vue.component('EScrollbar',EScrollbar)
     Vue.component('ESelect',ESelect)
+    Vue.component('EOption',EOption)
     Vue.use(ESpin)
     Vue.prototype.eToast = Toast
     Vue.use(ClipBoardDirective)

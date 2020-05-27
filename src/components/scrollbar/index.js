@@ -13,6 +13,7 @@ const getChildrenWidth = (node)=>{
     }
     return maxWidth
 }
+/** e-scrollbar 这个组件需要给固定高度，宽度 */
 export default{
     props:{
         native:{type:Boolean,default:false},//使用原生scroll
@@ -84,8 +85,6 @@ export default{
                 contentWidth = getChildrenWidth(contentWrapper)
                 contentWrapper.style.width = contentWidth+'px'
             }
-
-            log('contentWidth',contentWidth)
            this.scrollHeight = Math.max(60, ( elHeight / contentHeight) *elHeight ) + 'px';
            this.scrollWidth =  Math.max(60, ( elWidth / contentWidth) * elWidth ) + 'px';
            
