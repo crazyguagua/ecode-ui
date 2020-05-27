@@ -31,8 +31,8 @@ export default{
     },
     render(h){
         const popoverDiv = 
-        <transition v-show={this.visible} name={this.transition}>
-            <div class={["ecode-popover",this.popoverClass]} ref="popper" onMouseenter={
+        <transition  name={this.transition}>
+            <div v-show={this.visible} class={["ecode-popover",this.popoverClass]} ref="popper" onMouseenter={
                 ()=>{
                     this.canClose = false
                 }}  style={{minWidth:this.referenceWidth}}
@@ -102,9 +102,7 @@ export default{
         //鼠标移入，因为在mixin里操作visible，所以先传个callback
         onMouseEnter(){
             this.canClose = false
-            this.showPopperByHover(()=>{
-                this.popper = this.popperVueIns.$el
-            })
+            this.showPopperByHover()
         },
         onMouseLeave(){ //鼠标移出
             this.canClose = true
@@ -112,9 +110,7 @@ export default{
         },
         toggle(e){ //切换显示popper
             if(!this.visible){
-                this.showPopper(()=>{
-                    this.popper = this.popperVueIns.$el
-                })
+                this.showPopper()
             }else{
                 this.hidePopper()
             }

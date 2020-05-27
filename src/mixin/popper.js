@@ -47,7 +47,6 @@ export default{
             }
             this.visible = true
             this.$nextTick(()=>{
-               if(cb)cb()
                 this.popperIns = this.createPopper()
             })
         },

@@ -12,13 +12,8 @@ Popover 的属性与 Tooltip 很类似，因此对于重复属性，请参考 To
 :::demo trigger属性用于设置何时触发 Popover，支持四种触发方式：hover，click，focus 和 manual。对于触发 Popover 的元素，有两种写法：使用 slot="reference" 的具名插槽，或使用自定义指令v-popover指向 Popover 的索引ref。
 ```html
 <div class="margin-15">
-    <e-popover title="标题" content="xxxxxxxxxxxxxx" placement="bottom-end">
-        <e-button slot="reference">click 激活</e-button>
-    </e-popover>
-    <e-popover trigger="hover" content="通过hover激活" placement="top-start" >
-     <e-button slot="reference">hover 激活</e-button>
-    </e-popover>
-    <e-popover trigger="focus"  title="激活显示popover">
+  
+    <e-popover trigger="focus"  title="激活状态显示popover">
         <e-button slot="reference">focus 激活</e-button>
         <div slot="content">
           <p >这是一段文本</p>
