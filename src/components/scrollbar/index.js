@@ -1,6 +1,7 @@
 import Bar from  './bar'
 import { getScrollBarWith } from "@/util/scrollbar"; 
 import { addResizeListener, removeResizeListener } from "@/util/resize-event";
+import {on,off} from '@/util/dom'
 const scrollbarWidth = getScrollBarWith()
 const getChildrenWidth = (node)=>{
     let children = node.children
@@ -42,7 +43,7 @@ export default{
                  <transition name="ecode-fade">
                  <Bar ref="horizontalBar" distance={this.transformX} width={this.scrollWidth}  v-show={this.showHorizontal && this.entered} direction="horizontal"></Bar>
                  </transition>
-                <div onScroll={this.onScroll} ref="wrapper" class="ecode-scrollbar-wrapper"  style={style}>
+                <div  ref="wrapper" class="ecode-scrollbar-wrapper"  style={style}>
                    <div class="ecode-scroll-content" ref="contentWrapper">
                     {this.$slots.default}
                     </div>
@@ -68,9 +69,13 @@ export default{
             //判断是否出现纵向滚动条
         },
         updateScrollBar(){
+          
             //更新滚动条的高度 
            let contentWrapper=  this.$refs.contentWrapper
            let wrapper = this.$refs.wrapper
+           if(!wrapper){
+             return
+           }
            let elHeight = wrapper.offsetHeight
            let elWidth = wrapper.offsetWidth
 
@@ -81,9 +86,13 @@ export default{
            this.showVertical = elHeight < contentHeight 
            this.showHorizontal = elWidth <contentWidth
              //修改contentwrapper的宽度
-            if(this.showHorizontal){
-                contentWidth = getChildrenWidth(contentWrapper)
-                contentWrapper.style.width = contentWidth+'px'
+            if(this.showHorizontal ){ 
+                //父元素不会被子元素的宽度撑开 手动调整宽度
+               let childContentWidth = getChildrenWidth(contentWrapper)
+               if(contentWrapper.offsetWidth !== childContentWidth){
+                    //这里需要判断一下宽度是否已经相等，否则会一直触发resize
+                contentWrapper.style.width = childContentWidth+'px'
+               } 
             }
            this.scrollHeight = Math.max(60, ( elHeight / contentHeight) *elHeight ) + 'px';
            this.scrollWidth =  Math.max(60, ( elWidth / contentWidth) * elWidth ) + 'px';
@@ -92,15 +101,16 @@ export default{
          
         //    this.$refs.wrapper.style.height = this.$refs.wrapper.offsetHeight +scrollbarWidth + 'px'
 
-           this.maxScroll = contentWrapper.offsetHeight - (this.$refs.wrapper.offsetHeight - scrollbarWidth)
+           this.maxScrollY = contentWrapper.offsetHeight - (this.$refs.wrapper.offsetHeight - scrollbarWidth)
+           this.maxScrollX = contentWrapper.offsetWidth - (this.$refs.wrapper.offsetWidth - scrollbarWidth)
         },
         onScroll(){
            let {scrollTop,scrollLeft} =  this.$refs.wrapper 
         //    log('',this.$refs.wrapper.offsetHeight-scrollbarWidth - this.verticalBar.offsetHeight)
-           log('scrollTop',scrollTop)
+        //    log('scrollTop',scrollTop)
        
-           this.transformY = scrollTop / this.maxScroll * (this.verticalBar.parentNode.offsetHeight- this.verticalBar.offsetHeight)
-           this.transformX = scrollLeft / this.maxScroll * (this.verticalBar.parentNode.offsetWidth- this.verticalBar.offsetWidth)
+           this.transformY = scrollTop / this.maxScrollY * (this.verticalBar.parentNode.offsetHeight- this.verticalBar.offsetHeight)
+           this.transformX = scrollLeft / this.maxScrollX * (this.verticalBar.parentNode.offsetWidth- this.verticalBar.offsetWidth)
         //    this.verticalBar.style.transform=`translateY(${translate}px)`
         }
     },
@@ -112,8 +122,9 @@ export default{
                 //不能对$el 监听，要监听内容部分的高度
                 //尺寸变化时从新计算滚动条高度，滚动最大距离等
                 addResizeListener(this.$refs.contentWrapper,this.updateScrollBar)
-            })
+            },30)
         }
+        on(this.$refs.wrapper,'scroll',this.onScroll)
     },
     computed:{
         verticalBar(){
@@ -125,7 +136,8 @@ export default{
     },
     beforeDestroy(){
         if(this.resize){
-            removeResizeListener(this.$el,this.updateScrollBar)
+            removeResizeListener(this.$refs.contentWrapper,this.updateScrollBar)
         }
+        off(this.$refs.wrapper,'scroll',this.onScroll)
     }
 }

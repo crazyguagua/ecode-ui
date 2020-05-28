@@ -49,8 +49,8 @@ $textaera-width:100%;
            background: $disabled-bg;
         }
         &[readonly]{
-            border-color:$disabled-border-color;
-            background: $disabled-bg;
+            // border-color:$disabled-border-color;
+            // background: $disabled-bg;
         }
     }
     .padding_r{

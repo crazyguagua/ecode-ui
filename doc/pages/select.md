@@ -9,7 +9,7 @@
 :::demo
 ```html
 <div class="margin-15">
-    <e-select v-model="selected" placeholder="请选择" @option-select="onChange">
+    <e-select v-model="selected" placeholder="请选择" >
         <e-option v-for="option in options" :key="option.value" :label="option.label" :value="option.value">
         </e-option>
     </e-select>
@@ -23,7 +23,7 @@ export default{
     },
     data(){
         return {
-            selected:'',
+            selected:1,
             options:[{
                 label:'利物浦【世俱杯冠军X1，欧洲超级杯冠军X4，欧冠冠军X6，联赛杯冠军X8，足总杯冠军X7，英格兰顶级联赛冠军X18】',value:1
             },{

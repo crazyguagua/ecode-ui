@@ -12,7 +12,12 @@ Popover 的属性与 Tooltip 很类似，因此对于重复属性，请参考 To
 :::demo trigger属性用于设置何时触发 Popover，支持四种触发方式：hover，click，focus 和 manual。对于触发 Popover 的元素，有两种写法：使用 slot="reference" 的具名插槽，或使用自定义指令v-popover指向 Popover 的索引ref。
 ```html
 <div class="margin-15">
-  
+     <e-popover trigger="click"  title="点击显示popover">
+        <e-button slot="reference">点击 激活</e-button>
+        <div slot="content">
+          <p >这是一段文本</p>
+        </div>
+    </e-popover>
     <e-popover trigger="focus"  title="激活状态显示popover">
         <e-button slot="reference">focus 激活</e-button>
         <div slot="content">
@@ -46,3 +51,11 @@ export default{
 | trigger | popover触发方式 | String | hover/click/focus/manual | click |
 | title | 标题 | String | - | - |
 | popoverClass | poppover 弹出层的自定义样式 | String | - | - |
+
+## Events
+| 事件名称      | 说明          | 回调参数      |
+|----------     |-------------- |---------- |
+| show | popover卡片显示时 | 无|
+| hide | popover卡片隐藏时 | 无|
+| after-enter | popover卡片入场动画完成后 | 无|
+| after-leave | popover卡片离开动画完成后 | 无|

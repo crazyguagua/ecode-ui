@@ -29,7 +29,7 @@ export default{
             let reference = this.reference||this.$refs.reference
             let popper = this.popper||this.$refs.popper
             this.popper = popper
-            if(this.showArrow){
+            if(this.showArrow && !this.arrow && !popper.contains(this.arrow)){
                 let arrow = document.createElement('div')
                 arrow.className='arrow'
                 arrow.setAttribute('data-popper-arrow',true)
@@ -47,7 +47,12 @@ export default{
             }
             this.visible = true
             this.$nextTick(()=>{
-                this.popperIns = this.createPopper()
+                if(!this.popperIns){
+                    this.popperIns = this.createPopper()
+                }else{
+                    this.popperIns.update()
+                }
+                this.$emit('show')
             })
         },
         showPopperByHover(cb){ //通过hover显示popper
@@ -56,8 +61,12 @@ export default{
             }
             this.visible = true
             this.$nextTick(()=>{
-                if(cb)cb()
-                this.popperIns = this.createPopper()
+                if(!this.popperIns){
+                    this.popperIns = this.createPopper()
+                }else{
+                    this.popperIns.update()
+                }
+                this.$emit('show')
             })
         },
         hidePopperByHover(){ //通过hover 离开隐藏popper
@@ -73,14 +82,20 @@ export default{
                 return
             }
             this.visible = false
-
-            this.$nextTick(()=>{
+            this.$emit('hide')
+           
+        },
+        destroy(){
+             this.$nextTick(()=>{
                if(document.body.contains(this.popper)) {
                    this.popper.removeChild(this.arrow)
                    document.body.removeChild(this.popper)
                }
                this.popperIns = null
             })
+        },
+        beforeDestroy(){
+            this.destroy()
         },
         handleClickOutSide(e){
             // 点击外部关闭

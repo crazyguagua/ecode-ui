@@ -5,7 +5,7 @@ export default{
         //向上层元素发射事件
         dispatch(componentName,eventName,arg){
             let parent = this.findParent(componentName)
-            parent.$emit(eventName,arg)
+            parent.$emit.call(parent,eventName,arg)
         
         },
         findParent(componentName){

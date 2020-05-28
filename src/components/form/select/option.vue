@@ -1,5 +1,5 @@
 <template>
-  <div :class="['ecode-option',{'selected':value == select.cValue}]" @click.stop="select" >
+  <div :class="['ecode-option',{'selected':value == parentSelect.cValue}]" @click.stop="select" >
       <slot>
          <span> {{label}}</span>
       </slot>
@@ -9,20 +9,21 @@
 <script>
 import emit from '@/util/emit'
 export default {
-    name:'ecodeOption',
+    name:'eOption',
     mixins:[emit],
-    inject:['select'],
     props:{
       value:{type:[String,Number]},
       label:{type:[String,Number]}
     },
     methods:{
       select(){
-         this.$emit('option-select',this)
+         this.parentSelect.$emit('option-select',this)
       }
     },
     computed:{
-
+      parentSelect(){
+        return this.findParent('ESelect')
+      }
     }
 }
 </script>

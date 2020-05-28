@@ -1,27 +1,13 @@
 import PopperMixin from '@/mixin/popper.js'
 import {on,off} from '@/util/dom'
-import Vue from 'vue'
 export default{
-    name:'ecodePopover',
+    name:'ePopover',
     props: {
         trigger:{type:String,default:'click',validator:(value)=>{
             return ['click','hover','focus','manual'].includes(value)
         }},
         title:{type:String},
         popoverClass:{type:String}
-    },
-    beforeCreate(){
-        const popperCtor = Vue.extend({
-            data:()=>{
-                return {
-                    child:''
-                }
-            },
-            render(h){
-                return this.child
-            }
-        })
-        this.popperVueIns = new popperCtor().$mount()
     },
     mixins:[PopperMixin],
     data(){
@@ -31,7 +17,7 @@ export default{
     },
     render(h){
         const popoverDiv = 
-        <transition  name={this.transition}>
+        <transition  name={this.transition} onAfterEnter={this.onAfterEnter} onAfterLeave={this.onAfterLeave} >
             <div v-show={this.visible} class={["ecode-popover",this.popoverClass]} ref="popper" onMouseenter={
                 ()=>{
                     this.canClose = false
@@ -67,6 +53,7 @@ export default{
         off(this.reference,'mouseleave',this.onMouseLeave)
         off(this.reference,'focusin',this.onMouseEnter)
         off(this.reference,'focusout',this.focusLeave)
+        this.destroy()
     },
     methods:{
         //根据trigger绑定不同的时间
@@ -128,6 +115,12 @@ export default{
             this.reference = slot.elm
             this.referenceWidth = this.reference.offsetWidth+'px'
         },
+        onAfterLeave(){
+            this.$emit('after-leave')
+        },
+        onAfterEnter(){
+            this.$emit('after-enter')
+        }
       
     }
 }
