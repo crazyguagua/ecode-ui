@@ -1,5 +1,5 @@
 <template>
-    <div class="eocde-inputWrapper" :class="[type ==='textarea'? 'ecode-textarea' : 'ecode-input',{error,[`ecode-input-${size}`]:size}]"   @mouseover="hovering =true"
+    <div class="eocde-inputWrapper" :class="[type ==='textarea'? 'ecode-textarea' : 'ecode-input',{error,[`ecode-input-${size}`]:size}]" @mouseover="hovering =true"
         @mouseout="hovering =false">
 
         <template v-if="type !== 'textarea'">
