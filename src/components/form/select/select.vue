@@ -1,7 +1,7 @@
 <template>
     <div class="ecode-select-wrapper">
         <e-popover @show="showPopover = true" @hide="showPopover=false" popoverClass="ecode-select" placement="bottom-end" ref="popover" >
-            <e-input :readonly="filterable" slot="reference" v-bind="$attrs" v-model="cLabel" >
+            <e-input :readonly="!filterable" slot="reference" v-bind="$attrs" v-model="cLabel" >
                 <e-icon v-if="!showPopover" slot="suffixIcon" name="ecode-arrowdropdown-copy"  />
                 <e-icon v-else slot="suffixIcon" name="ecode-arrowdropdown-copy-copy"  />
             </e-input>

@@ -18,7 +18,7 @@ const getChildrenWidth = (node)=>{
 export default{
     props:{
         native:{type:Boolean,default:false},//使用原生scroll
-        resize:{type:Boolean,default:true} //容器的尺寸是否会发生变化
+        resize:{type:Boolean,default:true} //是否监听容器的尺寸变化
     },
     components:{Bar},
     name:'ecodeScrollbar',

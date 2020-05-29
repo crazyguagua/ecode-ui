@@ -29,7 +29,7 @@ export default{
             let reference = this.reference||this.$refs.reference
             let popper = this.popper||this.$refs.popper
             this.popper = popper
-            if(this.showArrow && !this.arrow && !popper.contains(this.arrow)){
+            if(this.showArrow ){
                 let arrow = document.createElement('div')
                 arrow.className='arrow'
                 arrow.setAttribute('data-popper-arrow',true)
@@ -47,11 +47,12 @@ export default{
             }
             this.visible = true
             this.$nextTick(()=>{
-                if(!this.popperIns){
-                    this.popperIns = this.createPopper()
-                }else{
-                    this.popperIns.update()
-                }
+                // if(!this.popperIns){
+                //     this.popperIns = this.createPopper()
+                // }else{
+                //     this.popperIns.update()
+                // }
+                this.popperIns = this.createPopper()
                 this.$emit('show')
             })
         },
@@ -82,6 +83,7 @@ export default{
                 return
             }
             this.visible = false
+            this.destroy()
             this.$emit('hide')
            
         },
@@ -92,6 +94,7 @@ export default{
                    document.body.removeChild(this.popper)
                }
                this.popperIns = null
+               this.popper = null
             })
         },
         beforeDestroy(){

@@ -16,9 +16,9 @@ export default{
         }
     },
     render(h){
-        const popoverDiv = 
-        <transition  name={this.transition} onAfterEnter={this.onAfterEnter} onAfterLeave={this.onAfterLeave} >
-            <div v-show={this.visible} class={["ecode-popover",this.popoverClass]} ref="popper" onMouseenter={
+        const popoverDiv = this.visible?
+       ( <transition  name={this.transition} onAfterEnter={this.onAfterEnter} onAfterLeave={this.onAfterLeave} >
+            <div  class={["ecode-popover",this.popoverClass]} ref="popper" onMouseenter={
                 ()=>{
                     this.canClose = false
                 }}  style={{minWidth:this.referenceWidth}}
@@ -33,7 +33,7 @@ export default{
                     {this.content||this.$slots.content}
                 </div>
             </div>
-        </transition>
+        </transition>):null
         // this.popperVueIns.child = popoverDiv
         return (
             <span >
@@ -53,6 +53,7 @@ export default{
         off(this.reference,'mouseleave',this.onMouseLeave)
         off(this.reference,'focusin',this.onMouseEnter)
         off(this.reference,'focusout',this.focusLeave)
+        this.visible = false
         this.destroy()
     },
     methods:{
