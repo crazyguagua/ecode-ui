@@ -107,7 +107,7 @@ export default{
         onScroll(){
            let {scrollTop,scrollLeft} =  this.$refs.wrapper 
         //    log('',this.$refs.wrapper.offsetHeight-scrollbarWidth - this.verticalBar.offsetHeight)
-        //    log('scrollTop',scrollTop)
+        // log('scrollTop',scrollTop)
        
            this.transformY = scrollTop / this.maxScrollY * (this.verticalBar.parentNode.offsetHeight- this.verticalBar.offsetHeight)
            this.transformX = scrollLeft / this.maxScrollX * (this.verticalBar.parentNode.offsetWidth- this.verticalBar.offsetWidth)
