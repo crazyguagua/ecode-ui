@@ -22,6 +22,9 @@ ul,li{
 .margin-bottom-15{
     margin-bottom: 15px;
 }
+.margin-right-15{
+    margin-right: 15px;
+}
 .margin-15{
     margin:15px;
 }
@@ -132,11 +135,15 @@ ul,li{
         display: block;
         padding-top: 3px;
         height: calc( 100vh - 60px);
-        overflow: auto;
+        // overflow: auto;
+        width: 100%;
+        right: 0;
+        position: inherit;
+        top: 0;
     }
-    .doc-content{
+    .example > .doc-content{
         padding-left:10px;
-
+        left:0;
         .table{
             overflow: auto;
         }

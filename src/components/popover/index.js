@@ -16,25 +16,32 @@ export default{
         }
     },
     render(h){
-        const popoverDiv = this.visible?
-       ( <transition  name={this.transition} onAfterEnter={this.onAfterEnter} onAfterLeave={this.onAfterLeave} >
-            <div  class={["ecode-popover",this.popoverClass]} ref="popper" onMouseenter={
+        
+        let popoverDivJsx =  <transition  name={this.transition} onAfterEnter={this.onAfterEnter} onAfterLeave={this.onAfterLeave} >
+            <div v-show={this.visible}   class={["ecode-popover",this.popoverClass]} ref="popper" onMouseenter={
                 ()=>{
                     this.canClose = false
                 }}  style={{minWidth:this.referenceWidth}}
                 onMouseleave={
                 ()=>{
                     this.canClose = true;
-                    if(this.tirgger === 'hover')this.hidePopperByHover();
+                    if(this.trigger === 'hover'){
+                        this.hidePopperByHover();
+                    }
                 }
             }>
-               { this.title||this.$slots.title?<div class="title">{this.title||this.$slots.title}</div>:null}
+            { this.title||this.$slots.title?<div class="title">{this.title||this.$slots.title}</div>:null}
                 <div class="content">
-                    {this.content||this.$slots.content}
+                        {this.content||this.$slots.content}
+                    </div>
                 </div>
-            </div>
-        </transition>):null
-        // this.popperVueIns.child = popoverDiv
+        </transition>
+        let popoverDiv = null
+        if(this.lazyRender){
+            popoverDiv = this.visible?popoverDivJsx:null
+        }else{
+            popoverDiv = popoverDivJsx
+        }
         return (
             <span >
                 {this.$slots.reference}
@@ -70,18 +77,14 @@ export default{
             on(this.reference,'focusout',this.onFocusLeave)
            }else if(this.trigger === 'manual'){
                if(this.value){
-                    this.showPopper(()=>{
-                        // this.popper = this.popperVueIns.$el
-                    })
+                    this.showPopper()
                 }
               this.$watch('value',
                (newVal,oldVal)=>{
                     if(!newVal){
                         this.hidePopper()
                     }else{
-                        this.showPopper(()=>{
-                            // this.popper = this.popperVueIns.$el
-                        })
+                        this.showPopper()
                     }
                 }
               )

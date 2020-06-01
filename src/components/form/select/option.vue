@@ -1,5 +1,5 @@
 <template>
-  <div :class="['ecode-option',{'selected':value == parentSelect.cValue}]" @click.stop="select" >
+  <div :class="['ecode-option',{'selected':value == parentSelect.cValue,'disabled':this.disabled}]" @click.stop="select" >
       <slot>
          <span> {{label}}</span>
       </slot>
@@ -13,7 +13,8 @@ export default {
     mixins:[emit],
     props:{
       value:{type:[String,Number]},
-      label:{type:[String,Number]}
+      label:{type:[String,Number]},
+      disabled:{type:Boolean,default:false}
     },
     methods:{
       select(){
@@ -24,6 +25,9 @@ export default {
       parentSelect(){
         return this.findParent('ESelect')
       }
+    },
+    mounted(){
+      this.parentSelect.options.push(this)
     }
 }
 </script>

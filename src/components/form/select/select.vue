@@ -1,7 +1,7 @@
 <template>
     <div class="ecode-select-wrapper">
-        <e-popover @show="showPopover = true" @hide="showPopover=false" popoverClass="ecode-select" placement="bottom-end" ref="popover" >
-            <e-input :readonly="!filterable" slot="reference" v-bind="$attrs" v-model="cLabel" >
+        <e-popover :beforeShow="beforeShow" @show="showPopover = true" @hide="showPopover=false" popoverClass="ecode-select" placement="bottom-end" ref="popover" >
+            <e-input :disabled="disabled" :readonly="!filterable" slot="reference" v-bind="$attrs" v-model="cLabel" >
                 <e-icon v-if="!showPopover" slot="suffixIcon" name="ecode-arrowdropdown-copy"  />
                 <e-icon v-else slot="suffixIcon" name="ecode-arrowdropdown-copy-copy"  />
             </e-input>
@@ -26,6 +26,7 @@ export default {
     name:'ESelect',
     props:{
         value:{type:[String,Number]},
+        disabled:{type:Boolean,default:false},
         noDataText:{
             type:String,default:'暂无数据'
         },
@@ -52,6 +53,7 @@ export default {
         }
     },
     created(){
+        this.options = []
         this.$on('option-select',this.onOptionSelect) //监听 option的选中事件
     },
     methods:{
@@ -62,13 +64,33 @@ export default {
                 //关闭
                 this.$refs.popover.hidePopper()
             }
+            this.$emit('input',this.cValue)
+        },
+        //设置选中的label
+        setSelect(){
+            let children = this.options
+            let selected = children.find(item=>{
+                return item.value === this.cValue
+            })
+            if(selected){
+                this.cLabel = selected.label
+            }
+        },
+        beforeShow(){
+            return !this.disabled
         }
+    },
+    mounted(){
+        this.cValue = this.value
+        this.setSelect()
     },
     watch:{
         value:{
-            immediate:true,
-            handler(newVal){
-
+            handler(newVal,oldVal){
+                if(newVal && newVal!=oldVal){
+                    this.cValue = newVal
+                    this.setSelect()
+                }
             }
         }
     }

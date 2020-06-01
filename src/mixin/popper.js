@@ -20,6 +20,8 @@ export default{
         value:Boolean, //手动控制popper显示
         title:String,   //popper标题
         content:String, //popper内容
+        lazyRender:{type:Boolean,default:false}, //是否展开的时候才渲染内容
+        beforeShow:{type:Function}  //控制是否可以显示popper
     },
     beforeDestroy(){
         this.hidePopper()
@@ -42,33 +44,31 @@ export default{
             this.popperIns = popperIns
         },
         showPopper(cb){
+            if(this.beforeShow && !this.beforeShow()) return
             if(this.visible){
                 return
             }
             this.visible = true
-            this.$nextTick(()=>{
-                // if(!this.popperIns){
-                //     this.popperIns = this.createPopper()
-                // }else{
-                //     this.popperIns.update()
-                // }
-                this.popperIns = this.createPopper()
-                this.$emit('show')
-            })
+            //lazy渲染 或者显示隐藏    
+            if(this.lazyRender){
+                if(!this.popperIns){
+                    this.$nextTick(()=>{
+                        this.popperIns = this.createPopper()
+                    })
+                }
+            }else{
+                if(!this.popperIns){
+                    this.createPopper()
+                }
+                this.popperIns.update()
+            }
+            this.$emit('show')
         },
         showPopperByHover(cb){ //通过hover显示popper
             if(this.visible){
                 return
             }
-            this.visible = true
-            this.$nextTick(()=>{
-                if(!this.popperIns){
-                    this.popperIns = this.createPopper()
-                }else{
-                    this.popperIns.update()
-                }
-                this.$emit('show')
-            })
+           this.showPopper()
         },
         hidePopperByHover(){ //通过hover 离开隐藏popper
             this.hidePopperTimer = setTimeout(()=>{
@@ -83,7 +83,10 @@ export default{
                 return
             }
             this.visible = false
-            this.destroy()
+            if(this.lazyRender){
+                this.destroy()
+            }
+          
             this.$emit('hide')
            
         },

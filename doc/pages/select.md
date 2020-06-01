@@ -9,23 +9,31 @@
 :::demo
 ```html
 <div class="margin-15">
-    <e-select v-model="selected" placeholder="请选择" >
-        <e-option v-for="option in options" :key="option.value" :label="option.label" :value="option.value">
+    <div class="margin-bottom-15"><span>当前选中：{{selected}} </span></div>
+    <e-select class="margin-bottom-15" v-model="selected" placeholder="请选择" >
+        <e-option v-for="option in options" :disabled="option.disabled" :key="option.value" :label="option.label" :value="option.value">
+        </e-option>
+    </e-select>
+    <e-select class="margin-bottom-15" disabled v-model="selected1" placeholder="请选择" >
+        <e-option v-for="option in options" :disabled="option.disabled" :key="option.value" :label="option.label" :value="option.value">
         </e-option>
     </e-select>
 </div>
 <script>
 export default{
     methods:{
-        onChange(){
-            alert(0)
-        }
+    },
+    created(){
+        setTimeout(()=>{
+            this.selected = 15
+        },3000)
     },
     data(){
         return {
             selected:1,
+            selected1:1,
             options:[{
-                label:'利物浦【世俱杯冠军X1，欧洲超级杯冠军X4，欧冠冠军X6，联赛杯冠军X8，足总杯冠军X7，英格兰顶级联赛冠军X18】',value:1
+                label:'利物浦',value:1
             },{
                 label:'曼城',value:2
             },{
@@ -33,7 +41,7 @@ export default{
             },{
                 label:'切尔西',value:4
             },{
-                label:'曼联',value:5
+                label:'曼联',value:5,disabled:true
             },{
                 label:'狼队',value:6
             },{

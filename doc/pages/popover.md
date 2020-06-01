@@ -18,6 +18,12 @@ Popover 的属性与 Tooltip 很类似，因此对于重复属性，请参考 To
           <p >这是一段文本</p>
         </div>
     </e-popover>
+     <e-popover trigger="hover"  title="移入显示popover">
+        <e-button slot="reference">移入 激活</e-button>
+        <div slot="content">
+          <p >这是一段文本</p>
+        </div>
+    </e-popover>
     <e-popover trigger="focus"  title="激活状态显示popover">
         <e-button slot="reference">focus 激活</e-button>
         <div slot="content">
