@@ -144,7 +144,7 @@ export default {
         <e-radio label="北京" disabled ></e-radio>
         <e-radio label="广州"></e-radio>
         <e-radio label="深圳"></e-radio>
-    </el-radio-group>
+    </e-radio-group>
 </div>
 <div style="margin-top: 20px">
     <e-radio-group v-model="radio4" disabled size="mini" button>
@@ -171,3 +171,4 @@ export default {
 
 </script>
 ```
+:::
