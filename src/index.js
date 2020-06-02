@@ -24,7 +24,7 @@ import EOption from '@/components/form/select/option'
 import ETooltip from '@/components/tooltip/tooltip'
 import EPopover from '@/components/popover'
 import EScrollbar from '@/components/scrollbar'
-
+import ETag from '@/components/tag/tag'
 import './style/index.scss'
 import './style/fonts/iconfont.js'
 import ClipBoardDirective from '@/directive/clipboard'
@@ -56,6 +56,7 @@ const install = (Vue)=>{
     Vue.component('EScrollbar',EScrollbar)
     Vue.component('ESelect',ESelect)
     Vue.component('EOption',EOption)
+    Vue.component('ETag',ETag)
     Vue.use(ESpin)
     Vue.prototype.eToast = Toast
     Vue.use(ClipBoardDirective)

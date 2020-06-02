@@ -18,7 +18,7 @@ export default {
     },
     methods:{
       select(){
-         this.parentSelect.$emit('option-select',this)
+         if(!this.disabled)this.parentSelect.$emit('option-select',this)
       }
     },
     computed:{

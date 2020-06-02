@@ -15,7 +15,7 @@
 //     --border-active-color:rgb(22, 21, 21);
 // }
 body{
-    font-family: -apple-system,BlinkMacSystemFont,segoe ui,Roboto,helvetica neue,Arial,noto sans,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol,noto color emoji;
+    font-family:  Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
 }
 
 @import './button.scss';
@@ -28,3 +28,4 @@ body{
 @import './input/input.scss';
 @import './scrollbar/scrollbar.scss';
 @import './select/select.scss';
+@import './tag/tag.scss';

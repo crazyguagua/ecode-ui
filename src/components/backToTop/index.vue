@@ -18,7 +18,8 @@ export default {
     props:{
         visibleHeight:{type:Number,default:100},
         right:{type:Number,default:30},
-        bottom:{type:Number,default:30}
+        bottom:{type:Number,default:30},
+        containerEl:{type:String} ,// 如果是在e-scroll中滚动，不是window滚动 这种情况，需要传入选择器
     },
     data(){
         return {
@@ -33,8 +34,18 @@ export default {
     },
     methods:{
         init(){
-            this.container = document
-            this.el = document.documentElement
+            if(this.containerEl){
+                let container = document.querySelector(this.containerEl)
+                if(!container){
+                    throw new Error('根据选择器找不到滚动容器')
+                }
+                this.el = this.container = container
+                 
+            }else{
+                this.container = document
+                this.el = document.documentElement
+            }
+
             this.scrollThrottle = throttle(300,this.onScroll)
             this.container.addEventListener('scroll',this.scrollThrottle) //给document加事件 不是给documentElement加
         },
@@ -44,6 +55,7 @@ export default {
             this.isVisible = scrollTop >= this.visibleHeight
         },
         scrollToTop(){
+            // 1000/60
             const raf = window.requestAnimationFrame || ( (fn)=>{ setTimeout(fn,16)} ) //这个raf 就相当于根据性能决定多少ms后执行fn
             //在 500ms 内运动完成
             const start = Date.now()

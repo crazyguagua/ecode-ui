@@ -3,10 +3,10 @@
        <Doc-header>
        </Doc-header>
     
-        <e-scrollbar class="doc-content">
+        <e-scrollbar class="doc-content" >
             <Doc-Nav/>
             <router-view></router-view>
-            <EBackToTop />
+            <EBackToTop container-el=".doc-content > .ecode-scrollbar-wrapper" />
         </e-scrollbar>
 
        <Doc-footer />

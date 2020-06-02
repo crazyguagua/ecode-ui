@@ -41,4 +41,8 @@
     span > .ecode-input.disabled .ecode-icon{
         fill: $disabled-text-color;
     }
+    span > .ecode-input.popper-visible > .ecode-input-inner{
+        box-shadow: 0 0 0 2px  $select-visible-shadow-color;
+        border:1px solid $select-visible-color;
+    }
 }

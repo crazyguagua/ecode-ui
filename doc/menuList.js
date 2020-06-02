@@ -36,9 +36,17 @@ export default [{
         title: '选项卡',
         name: 'tab'
     },{
-        title: "表格",
-        name: 'table'
-    }, {
+        title:'数据展示',
+        children:[
+            {
+                title: "表格",
+                name: 'table'
+            },{
+                title:'标签',
+                name:'tag'
+            }
+        ]
+    } ,{
         title: "表单",
         name: 'form',
         children: [{

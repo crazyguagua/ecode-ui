@@ -1,9 +1,18 @@
 <template>
     <div class="ecode-select-wrapper">
-        <e-popover :beforeShow="beforeShow" @show="showPopover = true" @hide="showPopover=false" popoverClass="ecode-select" placement="bottom-end" ref="popover" >
-            <e-input :disabled="disabled" :readonly="!filterable" slot="reference" v-bind="$attrs" v-model="cLabel" >
-                <e-icon v-if="!showPopover" slot="suffixIcon" name="ecode-arrowdropdown-copy"  />
-                <e-icon v-else slot="suffixIcon" name="ecode-arrowdropdown-copy-copy"  />
+        <e-popover :beforeShow="beforeShow" @show="onShow" @hide="onHide" popoverClass="ecode-select" placement="bottom-end" ref="popover" >
+            <e-input  :readonly="cReadOnly" :class="{'popper-visible':showPopover}" ref="input" slot="reference" v-bind="$attrs" v-model="cLabel" >
+             <template slot="prefix" v-if="$slots.prefix">
+                 <slot   name="prefix" />
+             </template> 
+             <!-- 相当于透传 -->
+             <template slot="suffixIcon" >
+                 <slot name="suffix" >
+                    <e-icon v-if="showClear" name="ecode-Fail" @mousedown.prevent @click.native.stop="onClear" />
+                    <e-icon v-else-if="!showClear && !showPopover"  name="ecode-arrowdropdown-copy"  />
+                    <e-icon v-else  name="ecode-arrowdropdown-copy-copy"  />
+                 </slot>
+             </template>
             </e-input>
             <div class="options" slot="content" >
                 <template v-if="!$slots.default">
@@ -26,11 +35,12 @@ export default {
     name:'ESelect',
     props:{
         value:{type:[String,Number]},
-        disabled:{type:Boolean,default:false},
         noDataText:{
             type:String,default:'暂无数据'
         },
         filterable:{type:Boolean,default:false},
+        clearable:{type:Boolean,default:false},
+        readonly:{type:Boolean,default:false},
         multiple:{type:Boolean,default:false},
         maxCount:{type:Number,default:100} //准备超过100 采用虚拟滚动
     },
@@ -38,7 +48,16 @@ export default {
         EInput,EScrollbar,EIcon
     },
     computed:{
-        
+        showClear(){
+            return this.clearable && this.cValue && this.cLabel
+        },
+        suffixIcon(){
+            return this.showPopover?'ecode-arrowdropdown-copy-copy':'ecode-arrowdropdown-copy'
+        },
+        cReadOnly(){
+            //是否显示清空的按钮时有用到
+            return this.readonly || !this.filterable
+        }
     },
     provide(){
        return {
@@ -66,6 +85,11 @@ export default {
             }
             this.$emit('input',this.cValue)
         },
+        onClear(){
+            this.cValue = ''
+            this.cLabel = ''
+            this.$emit('input',this.cValue)
+        },
         //设置选中的label
         setSelect(){
             let children = this.options
@@ -77,7 +101,15 @@ export default {
             }
         },
         beforeShow(){
-            return !this.disabled
+            return !this.disabled && !this.readonly
+        },
+        onShow(){
+            this.showPopover = true
+            this.$emit('show')
+        },
+        onHide(){
+            this.showPopover = false
+            this.$emit('hide')
         }
     },
     mounted(){

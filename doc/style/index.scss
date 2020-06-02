@@ -14,7 +14,7 @@
 }
 html{
     height: 100%;
-    font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
+    font-family:  Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
 }
 ul,li{
     list-style: none;
@@ -44,7 +44,7 @@ ul,li{
         font-size: 30px;
         font-weight: 500;
         line-height: 35px;
-        font-family: Avenir,-apple-system,BlinkMacSystemFont,segoe ui,Roboto,helvetica neue,Arial,noto sans,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol,noto color emoji,sans-serif;;
+        font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
     }
     > h2, > h3{
         font-weight: 400;
@@ -65,10 +65,10 @@ ul,li{
         color: #616164;
         line-height: 28px;
         > code{
-            padding:8px;
+            padding: 6px;
             vertical-align: middle;
-            margin-bottom: 5px;
-            background: #5e5ee6;
+            margin: 3px;
+            background: #6767e2;
             border-radius: 3px;
             color: #fff;
         }
