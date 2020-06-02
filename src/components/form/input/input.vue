@@ -168,6 +168,7 @@
             },
             onblur(ev) {
                 this.focusing = false
+                 this.$emit('blur', ev);
             },
             clear(ev) {
                 this.$emit('input', '')

@@ -51,6 +51,10 @@ export default {
   beforeDestroy(){
     this.removeScrollHandler()
   },
+  mounted(){
+     this.scrollContainer = document.querySelector('.doc-content > .ecode-scrollbar-wrapper')
+   
+  },
   methods: {
     showCodeFn() {
       this.showCode = !this.showCode
@@ -62,7 +66,7 @@ export default {
               hljs.highlightBlock(b)
           })
          
-          document.addEventListener('scroll',this.scrollHandler)
+          this.scrollContainer.addEventListener('scroll',this.scrollHandler)
           this.scrollHandler()
         })
       }else{
@@ -71,10 +75,11 @@ export default {
       }
     },
     scrollHandler(e){
-       let {bottom,top} = this.$refs.showDemo.getBoundingClientRect()
+      let showDemoDiv = this.$refs.showDemo
+       let {bottom,top} = showDemoDiv.getBoundingClientRect()
       //  console.log(`bottom:${bottom}    top:${top}`)
        //代码部分在屏幕外 或者代码最上方加上按钮的高度 小于屏幕高度（即将滚动到屏幕外去了）
-       if(bottom > document.documentElement.clientHeight && top+44<=document.documentElement.clientHeight){
+       if(bottom -80 > this.scrollContainer.clientHeight && top+44<=this.scrollContainer.clientHeight){
           let buttonDiv = this.$refs.buttonDiv
           let width = buttonDiv.offsetWidth
           this.fixedStyle =  {
@@ -87,7 +92,7 @@ export default {
        }
     },
     removeScrollHandler(){
-       document.removeEventListener('scroll',this.scrollHandler)
+       this.scrollContainer.removeEventListener('scroll',this.scrollHandler)
     }
   }
 };

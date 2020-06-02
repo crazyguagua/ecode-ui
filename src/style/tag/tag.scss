@@ -1,4 +1,5 @@
 @import '../var/var.scss';
+@import '../transition/transition.scss';
 .ecode-tag{
     padding:3px 5px;
     color:$text-color;
@@ -7,10 +8,73 @@
     font-size: $tag-text-font-size;
     background: $tag-bg-color;
     display: inline-block;
-    border-radius: 5px;
+    border-radius: $border-radius;
     border:1px solid $tag-border-color;
-    cursor: pointer;
     &:hover{
-        background: $tag-hover-bg-color;
+        opacity: .85;
     }
+    > .ecode-icon{
+        cursor: pointer;
+    }
+
+    &.magenta{
+        color: #eb2f96;
+        background: #fff0f6;
+        border-color: #ffadd2;
+    }
+    &.red{
+        color: #f5222d;
+        background: #fff1f0;
+        border-color: #ffa39e;
+    }
+    &.volcano{
+        color: #fa541c;
+        background: #fff2e8;
+        border-color: #ffbb96;
+    }
+
+    &.orange{
+        color: #fa8c16;
+        background: #fff7e6;
+        border-color: #ffd591;
+    }
+    &.gold{
+        color: #faad14;
+        background: #fffbe6;
+        border-color: #ffe58f;
+    }
+    &.lime{
+        color: #a0d911;
+        background: #fcffe6;
+        border-color: #eaff8f;
+    }
+    &.green{
+        color: #52c41a;
+        background: #f6ffed;
+        border-color: #b7eb8f;
+    }
+    &.cyan{
+        color: #13c2c2;
+        background: #e6fffb;
+        border-color: #87e8de;
+    }
+    &.blue{
+        color: #1890ff;
+        background: #e6f7ff;
+        border-color: #91d5ff;
+    }
+    &.geekblue{
+        color: #2f54eb;
+        background: #f0f5ff;
+        border-color: #adc6ff;
+    }
+    &.purple{
+        color: #722ed1;
+        background: #f9f0ff;
+        border-color: #d3adf7;
+    }
+    &.has-color{
+        color: $white-color;
+    }
+
 }
