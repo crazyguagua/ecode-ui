@@ -21,7 +21,7 @@ export default {
     components:{EIcon},
     props:{
         closable:{type:Boolean,default:false},
-        transitionName:{type:Boolean,default:'ecode-fade'},
+        transitionName:{type:String,default:'ecode-fade'},
         color:{
             type:String,
             validator:(val)=>{

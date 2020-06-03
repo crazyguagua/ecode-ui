@@ -41,6 +41,47 @@ Vue.prototype.tableData2 =  [
       {rank:6,name:'ES',score:'9/7',star:"bai wei cryin wink shuaiC",id:"006",
   column1:'column1', column2:'column2', column3:'column3', column4:'column4', column5:'column5',}
   ]
+Vue.prototype.$teams = [{
+  label:'利物浦',value:1
+},{
+  label:'曼城',value:2
+},{
+  label:'莱切斯特',value:3
+},{
+  label:'切尔西',value:4
+},{
+  label:'曼联',value:5,disabled:true
+},{
+  label:'狼队',value:6
+},{
+  label:'谢菲尔德联',value:7
+},{
+  label:'热刺',value:8
+},{
+  label:'阿森纳',value:9
+},{
+  label:'伯恩利',value:10
+},{
+  label:'水晶宫',value:11
+},{
+  label:'埃弗顿',value:12
+},{
+  label:'纽卡斯尔',value:13
+},{
+  label:'南安普顿',value:14
+},{
+  label:'布莱顿',value:15
+},{
+  label:'西汉姆',value:16
+},{
+  label:'沃特福德',value:17
+},{
+  label:'伯恩茅斯',value:18
+},{
+  label:'阿斯顿维拉',value:19
+},{
+  label:'诺维奇',value:20
+}]
 const hljsFn = () => {
     let blocks = document.querySelectorAll('pre > code:not(.hljs)')
     blocks.forEach(b => {

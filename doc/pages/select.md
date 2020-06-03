@@ -40,6 +40,7 @@ export default{
     created(){
         setTimeout(()=>{
             this.selected = 15
+            this.options.splice(1,1)
         },3000)
     },
     data(){
@@ -49,47 +50,7 @@ export default{
             selected2:3,
             selected3:null,
             selected4:null,
-            options:[{
-                label:'利物浦',value:1
-            },{
-                label:'曼城',value:2
-            },{
-                label:'莱切斯特',value:3
-            },{
-                label:'切尔西',value:4
-            },{
-                label:'曼联',value:5,disabled:true
-            },{
-                label:'狼队',value:6
-            },{
-                label:'谢菲尔德联',value:7
-            },{
-                label:'热刺',value:8
-            },{
-                label:'阿森纳',value:9
-            },{
-                label:'伯恩利',value:10
-            },{
-                label:'水晶宫',value:11
-            },{
-                label:'埃弗顿',value:12
-            },{
-                label:'纽卡斯尔',value:13
-            },{
-                label:'南安普顿',value:14
-            },{
-                label:'布莱顿',value:15
-            },{
-                label:'西汉姆',value:16
-            },{
-                label:'沃特福德',value:17
-            },{
-                label:'伯恩茅斯',value:18
-            },{
-                label:'阿斯顿维拉',value:19
-            },{
-                label:'诺维奇',value:20
-            }]
+            options:this.$teams
         }
     }
 }
@@ -97,6 +58,30 @@ export default{
 ```
 :::
 
+## 基础多选
+
+:::demo
+```html
+    <e-select multiple class="margin-bottom-15" v-model="selected" placeholder="请选择" >
+        <e-option v-for="option in options" :disabled="option.disabled" :key="option.value" :label="option.label" :value="option.value">
+        </e-option>
+    </e-select>
+<script>
+export default{
+    methods:{
+    },
+    created(){
+    },
+    data(){
+        return {
+            selected:[1,2,],
+            options:this.$teams
+        }
+    }
+}
+</script>
+```
+:::
 ## ESelect API
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |

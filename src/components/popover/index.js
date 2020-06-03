@@ -43,10 +43,10 @@ export default{
             popoverDiv = popoverDivJsx
         }
         return (
-            <span >
+            <div class="ecode-popover-wrapper" >
                 {this.$slots.reference}
                 {popoverDiv}
-            </span>
+            </div>
         );
     },
     mounted(){
