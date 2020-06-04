@@ -36,7 +36,7 @@ export default{
             height:`calc(100% + ${scrollbarWidth}px` //增加一个滚动条的高度 用来盖住横向滚动条
         }
         return (
-            <div class="ecode-scrollbar" onMouseenter={()=>{this.entered = true}} onMouseleave={()=>{this.entered = false}} >
+            <div class="ecode-scrollbar" onMouseenter={()=>{this.onEnter()}} onMouseleave={()=>{this.entered = false}} >
                 <transition name="ecode-fade">
                  <Bar ref="verticalBar" distance={this.transformY} height={this.scrollHeight} v-show={this.showVertical && this.entered }></Bar>
                  </transition>
@@ -54,6 +54,8 @@ export default{
         ) 
     },
     data(){
+        this.scrollTop = 0;
+        this.scrollLeft = 0;
         return {
             scrollWidth:null,
             scrollHeight:null,
@@ -108,10 +110,24 @@ export default{
            let {scrollTop,scrollLeft} =  this.$refs.wrapper 
         //    log('',this.$refs.wrapper.offsetHeight-scrollbarWidth - this.verticalBar.offsetHeight)
         // log('scrollTop',scrollTop)
-       
-           this.transformY = scrollTop / this.maxScrollY * (this.verticalBar.parentNode.offsetHeight- this.verticalBar.offsetHeight)
-           this.transformX = scrollLeft / this.maxScrollX * (this.verticalBar.parentNode.offsetWidth- this.verticalBar.offsetWidth)
+          this.scrollTop = scrollTop
+          this.scrollLeft = scrollLeft
+          if(this.entered){
+              this.setBarDistance()
+          }
         //    this.verticalBar.style.transform=`translateY(${translate}px)`
+        },
+        //设置滚动条的滚动距离
+        setBarDistance(){
+            //
+            this.transformY = this.scrollTop / this.maxScrollY * (this.verticalBar.parentNode.offsetHeight- this.verticalBar.offsetHeight)
+            this.transformX = this.scrollLeft / this.maxScrollX * (this.horizontalBar.parentNode.offsetWidth- this.horizontalBar.offsetWidth)
+        },
+        onEnter(){
+            this.entered = true
+            this.$nextTick(()=>{
+                this.setBarDistance()
+            })
         }
     },
     mounted(){

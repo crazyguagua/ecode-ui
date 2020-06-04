@@ -85,6 +85,7 @@ export default {
                         this.popperIns.update()
                     }
                 }
+                this.$emit('show')
             })
 
         },

@@ -1,5 +1,5 @@
 <template>
-  <div @mouseenter="hover =true" @mouseleave="hover=false" :class="['ecode-option',{'selected':value == parentSelect.cValue,'disabled':this.disabled},{'hover':hover}]" @click.stop="select" >
+  <div @mouseenter="hover =true" @mouseleave="hover=false" :class="['ecode-option',{'selected':isSelected,'disabled':this.disabled},{'hover':isHover}]" @click.stop="select" >
       <slot>
          <span> {{label}}</span>
       </slot>
@@ -24,7 +24,14 @@ export default {
     computed:{
       parentSelect(){
         return this.findParent('ESelect')
-      }
+      },
+      isSelected(){
+        return this.value == this.parentSelect.cValue
+      },
+      isHover(){
+        let hoverIndex = this.parentSelect.hoverIndex
+        return this.hover || this.parentSelect.options[hoverIndex] === this
+      },
     },
     created(){
       this.parentSelect.options.push(this)

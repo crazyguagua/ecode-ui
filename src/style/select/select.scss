@@ -28,9 +28,10 @@
                     // background-color: $disabled-bg;
                     color:$disabled-text-color;
                 }
-                &.selected{
+                &.selected:not(.disabled){
                     color:$primary-color;
-                    background-color: $option-hover-bg-color;
+                    font-weight: bold;
+                    background-color: $option-selected-bg-color;
                 }
             }
         }
@@ -60,7 +61,7 @@
             fill: $select-arrow-color;
         }
         > .select-tags{
-            padding:3px;
+            padding:3px 3px 1px 3px;
             > .ecode-tag{
                 margin :0 3px 3px 0;
             }
