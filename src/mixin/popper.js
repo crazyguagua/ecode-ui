@@ -128,6 +128,11 @@ export default {
         beforeDestroy() {
             this.destroy()
         },
+        update(){
+            if(this.popperIns){
+                this.popperIns.update()
+            }
+        },
         handleClickOutSide(e) {
             // 点击外部关闭
             let target = e.target

@@ -1,3 +1,9 @@
 .ecode-select{
     width: 180px;
+    .ecode-option > .rank{
+        float: left;
+    }
+    .ecode-option > .name{
+        float: right;
+    }
 }

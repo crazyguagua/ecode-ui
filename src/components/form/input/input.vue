@@ -26,7 +26,7 @@
             <span class="ecode-input-suffix" v-if="showSuffixIcon">
                 <span class="ecode-input-suffix-inner">
                     <e-icon v-if="suffixIcon" :name="suffixIcon || ''" @mousedown.prevent />
-                    <e-icon v-if="showClear" name="ecode-Fail" @mousedown.prevent @click.native="clear" />
+                    <e-icon v-if="showClear" name="ecode-clear" @mousedown.prevent @click.native="clear" />
                     <e-icon v-if="showPswVisible" name="ecode-show-password" @mousedown.prevent
                         @click.native="handleShowPsw" />
                 </span>

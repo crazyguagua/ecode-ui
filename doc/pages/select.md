@@ -10,7 +10,7 @@
 :::demo 
 ```html
 <div class="margin-15">
-    <!-- <div class="margin-bottom-15"><span>当前选中：{{selected}} </span></div> -->
+    
     <e-select class="margin-bottom-15" v-model="selected" placeholder="请选择" >
         <e-option v-for="option in options" :disabled="option.disabled" :key="option.value" :label="option.label" :value="option.value">
         </e-option>
@@ -38,19 +38,24 @@ export default{
     methods:{
     },
     created(){
+        let t1 = Math.random()*5000
+        let t2 = Math.random()*5000
         setTimeout(()=>{
-            this.selected = 15
-            this.options.splice(1,1)
-        },3000)
+            this.options = Object.assign([],this.$teams)
+        },t1)
+        setTimeout(()=>{
+            this.selected = 1
+            this.selected4=11
+        },t2)
     },
     data(){
         return {
-            selected:1,
+            selected:null,
             selected1:1,
             selected2:3,
-            selected3:null,
+            selected3:10,
             selected4:null,
-            options:this.$teams
+            options:[]
         }
     }
 }
@@ -58,11 +63,41 @@ export default{
 ```
 :::
 
+## 自定义option模板
+e-option 的slot可以自定义内容。
+:::demo
+```html
+    <e-select class="margin-bottom-15" v-model="selected" placeholder="请选择" >
+        <e-option v-for="option in options" :disabled="option.disabled" :key="option.value" :label="option.label" :value="option.value">
+            <span class="rank">
+            第{{option.value}}名
+            </span>
+            <span class="name">
+            {{option.label}}
+            </span>
+        </e-option>
+    </e-select>
+    <script>
+export default{
+    methods:{
+    },
+    created(){
+    },
+    data(){
+        return {
+            selected:1,
+            options:this.$teams
+        }
+    }
+}
+</script>
+```
+:::
 ## 基础多选
 
 :::demo
 ```html
-    <e-select multiple class="margin-bottom-15" v-model="selected" placeholder="请选择" >
+    <e-select style="width:300px;" multiple clearable class="margin-bottom-15" v-model="selected" placeholder="请选择" >
         <e-option v-for="option in options" :disabled="option.disabled" :key="option.value" :label="option.label" :value="option.value">
         </e-option>
     </e-select>

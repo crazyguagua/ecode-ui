@@ -1,16 +1,20 @@
 <template>
-  <div @mouseenter="hover =true" @mouseleave="hover=false" :class="['ecode-option',{'selected':isSelected,'disabled':this.disabled},{'hover':isHover}]" @click.stop="select" >
+  <div @mouseenter="hover =true" @mouseleave="hover=false"
+   :class="['ecode-option',{'selected':isSelected,'disabled':this.disabled,'multiple':multiple},{'hover':isHover}]" @click.stop="select" >
       <slot>
          <span> {{label}}</span>
+         <e-icon class="selectedIcon" name="ecode-ok-no-bg" v-if="multiple && isSelected"  />
       </slot>
   </div>
 </template>
 
 <script>
 import emit from '@/util/emit'
+import EIcon from '@/components/icon/icon'
 export default {
     name:'eOption',
     mixins:[emit],
+    components:{EIcon},
     props:{
       value:{type:[String,Number]},
       label:{type:[String,Number]},
@@ -26,15 +30,22 @@ export default {
         return this.findParent('ESelect')
       },
       isSelected(){
-        return this.value == this.parentSelect.cValue
+        if(!this.parentSelect.multiple){
+          return this.value == this.parentSelect.cValue
+        }else{
+          return this.parentSelect.cArrayValue.includes(this.value)
+        }
       },
       isHover(){
         let hoverIndex = this.parentSelect.hoverIndex
         return this.hover || this.parentSelect.options[hoverIndex] === this
       },
+      multiple(){
+        return this.parentSelect.multiple;
+      }
     },
     created(){
-      this.parentSelect.options.push(this)
+      this.parentSelect.addOption(this)
     },
     data(){
       return {

@@ -1,9 +1,9 @@
 <template>
-    <div class="ecode-select">
+    <div class="ecode-select" >
         <e-popover :beforeShow="beforeShow" @show="onShow" @hide="onHide" popoverClass="ecode-select" placement="bottom-end" ref="popover" >
            
-            <template v-if="!multiple">
-                  <e-input :placeholder="placeholder" slot="reference"  :readonly="cReadOnly"
+           <div slot="reference" class="reference">
+                  <e-input :style="{width:`${inputWidth}px`}" @mouseenter.native="hoveredIcon = true" @mouseleave.native="hoveredIcon = false" :placeholder="cPlaceholder"  :readonly="cReadOnly"
                         :class="{'popper-visible':showPopover}" ref="input"
                         @keydown.native.down.stop.prevent="navigateOption('next')"
                         @keydown.native.up.stop.prevent="navigateOption('back')"
@@ -22,20 +22,26 @@
                             </slot>
                         </template>
                 </e-input>
-            </template>
-            <div class="select-reference" v-else   slot="reference">
-              
-                <div class="select-tags" :style="{width:`${inputWidth}px`}" >
-                    <e-tag closable @close="handleClose(tag)"  v-for="tag in tags" :key="tag.value" >{{tag.label}}</e-tag>
-                    <input v-if="filterable" :style="{width:`${inputWidth}px`}"   class="select-input" :placeholder="cPlaceholder">
+
+                <div v-if="multiple" class="select-reference"  ref="selectReference" >
+                    <div class="wrapper" >
+                        <div class="select-tags"  :style="{width:`${inputWidth -30 }px`}" >
+                            <e-tag closable @close="handleClose(tag)"  v-for="tag in tags" :key="tag.value" >{{tag.label}}</e-tag>
+                            <input v-if="filterable" :style="{width:`${inputWidth}px`}"   class="select-input" :placeholder="cPlaceholder">
+                        </div>
+                        <!-- <div class="icon" @mouseenter="hoveredIcon = true" @mouseleave="hoveredIcon = false">
+                            <e-icon :name="dropDownIconName" v-if="!showClear" />
+                            <e-icon name="ecode-clear" v-else />
+                        </div> -->
+                    
+                    </div>
                 </div>
-                <e-icon :name="dropDownIconName"  />
-            </div>
+           </div>
             <div class="options" slot="content" >
-                <template v-if="!$slots.default">
+                <template v-if="!$slots.default || $slots.default.length==0">
                  <div class="noData"><span> {{noDataText}} </span></div>
                 </template>
-                <e-scrollbar ref="scrollbar" class="options"  v-if="$slots.default.length<=maxCount">
+                <e-scrollbar ref="scrollbar" class="options"  v-if="$slots.default && $slots.default.length>0 && $slots.default.length<=maxCount">
                     <slot  />
                 </e-scrollbar>
             </div>
@@ -51,6 +57,7 @@ import EIcon from '@/components/icon/icon'
 import ETag from '@/components/tag/tag'
 const isArray =(obj)=> Object.prototype.toString.call(obj) === "[object Array]"
 import { getScrollBarWith } from "@/util/scrollbar"; 
+import { addResizeListener, removeResizeListener } from "@/util/resize-event";
 const scrollbarWidth = getScrollBarWith()
 export default {
     name:'ESelect',
@@ -71,7 +78,7 @@ export default {
     },
     computed:{
         showClear(){
-            return this.clearable && this.cValue && this.cLabel
+            return this.clearable  && this.hoveredIcon && (this.cValue || this.cArrayValue)
         },
         suffixIcon(){
             return this.showPopover?'ecode-arrowdropdown-copy-copy':'ecode-arrowdropdown-copy'
@@ -84,7 +91,7 @@ export default {
             return this.showPopover?'ecode-arrow-up':'ecode-arrow-down'
         },
         cPlaceholder(){
-           return this.cArrayValue?'':this.placeholder
+           return (this.cArrayValue||this.value)?'':this.placeholder
         }
     },
     data(){
@@ -96,29 +103,44 @@ export default {
             tags:[],
             inputWidth:0,//输入框的宽度
             showPopover:false, //是否打开popover
-            hoverIndex:-1  //鼠标移入的索引，键盘控制
+            hoverIndex:-1,  //鼠标移入的索引，键盘控制
+            hoveredIcon:false //控制是否显示清空
         }
     },
     created(){
+        // log(this.$slots.default)
         this.options = []
         this.$on('option-select',this.onOptionSelect) //监听 option的选中事件
     },
     methods:{
+        //option点击处理
         onOptionSelect(option){
-            this.cLabel = option.label
-            this.cValue = option.value
+           
             if(!this.multiple){
+                this.cLabel = option.label
+                this.cValue = option.value
                 //关闭
                 this.$refs.popover.hidePopper()
+                 this.$emit('input',this.cValue)
+            }else{
+                let index = this.cArrayValue.indexOf(option.value)
+                if(index>-1){
+                    this.cArrayValue.splice(index,1)
+                }else{
+                    this.cArrayValue.push(option.value)
+                }
+                this.setSelect()
+                this.$emit('input',this.cArrayValue)
             }
-            this.$emit('input',this.cValue)
+           
         },
+        //点击清空
         onClear(){
             this.cValue = ''
             this.cLabel = ''
             this.$emit('input',this.cValue)
         },
-        //设置选中的label,区分multiple
+        //设置选中项,区分multiple
         setSelect(){
             let children = this.options
             let hoverIndex = -1 //设置hover索引
@@ -128,17 +150,17 @@ export default {
                  
                  children.forEach((item,index)=>{
                       if(this.cArrayValue.includes(item.value)){
-                          selectedArray.push(item)
+                        selectedArray.push(item)
+                        if(hoverIndex==-1){
+                            hoverIndex = index //多选设置hoverIndex 为数组第一位
+                        }
                       }
-                      if(hoverIndex==-1){
-                          item.hover = true
-                          hoverIndex = index //多选设置hoverIndex 为数组第一位
-                      }
+                    
                  })
                  this.tags = selectedArray
-                 this.selected = selectedArray[0]
                  if(selectedArray.length>0){
-                     this.hoverIndex
+                     this.hoverIndex = hoverIndex
+                      this.selected = selectedArray[0]
                  }
             }else{
                  let selected = null
@@ -163,9 +185,13 @@ export default {
         onShow(){
             this.showPopover = true
             //打开时滚动到当前选中的index处
-           this.$nextTick(()=>{
-               this.scrollToOption()
-           }) 
+            if(this.selected){
+                //没有选中，不需要滚动
+                 this.$nextTick(()=>{
+                    this.scrollToOption()
+                }) 
+            }
+          
             this.$emit('show')
             //恢复 hoverIndex
             this.hoverIndex = this.selectedIndex
@@ -178,9 +204,9 @@ export default {
         handleClose(){
 
         },
-        //设置input的宽度，需要总宽度减去右边按钮的宽度
+        //设置input的宽度
         setInputWidth(){
-            this.inputWidth = this.$el.getBoundingClientRect().width - 30
+            this.inputWidth = this.$el.getBoundingClientRect().width 
         },
         //键盘切换选项
         navigateOption(direction){
@@ -236,7 +262,26 @@ export default {
             // } 
             //滚动条是在鼠标移入之后才显示的，这时候获取不到滚动条div的高度，没有成功的更新滚动条的位置。
 
-        }
+        },
+        //option created 时通知select
+        addOption(option){
+            this.options.push(option)
+            //设置label
+            if(!this.multiple && this.cValue == option.value){
+                this.cLabel = option.label
+            }else{
+                
+                this.setSelect()
+            }
+        },
+        //多选的情况下可能会发生tag的容器高度变化，需要更新popper的位置
+         onInputHeightResize(){
+             this.$refs.input.$el.querySelector('.ecode-input-inner').style.height = this.$refs.selectReference.offsetHeight+'px'
+             this.$refs.popover.update()
+        },
+    },
+    beforeDestroy(){
+       if(this.$refs.selectReference) removeEventListener(this.$refs.selectReference,this.onInputHeightResize)
     },
     mounted(){
         if(this.multiple && isArray(this.value)){
@@ -245,7 +290,11 @@ export default {
             this.cValue = this.value
         }
         this.setSelect()
-        this.setInputWidth()
+        this.$nextTick(()=>{
+            this.setInputWidth()
+        })
+        //如果输入框高度发生变化，需要更新popover
+        if(this.$refs.selectReference) addResizeListener(this.$refs.selectReference,this.onInputHeightResize)
     },
     watch:{
         value:{

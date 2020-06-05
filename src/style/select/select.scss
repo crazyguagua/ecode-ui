@@ -1,6 +1,7 @@
 @import '../var/var.scss';
 .ecode-select{
     display: inline-block;
+    position: relative;
     >.content{
         padding:5px 0 0 0;
     }
@@ -8,6 +9,7 @@
         width: 100%;
         > .noData{
             text-align: center;
+            padding:10px;
         }
         &.ecode-scrollbar{
             height: 280px ;
@@ -20,6 +22,14 @@
                 color:$option-color;
                 line-height: 22px;
                 cursor: pointer;
+                > .selectedIcon{
+                    float: right;
+                }
+                &:after{
+                    content:"";
+                    display: block;
+                    clear: both;
+                }
                 &.hover:not(.disabled){
                     background-color: $option-hover-bg-color;
                 }
@@ -32,6 +42,9 @@
                     color:$primary-color;
                     font-weight: bold;
                     background-color: $option-selected-bg-color;
+                }
+                &.selected.multiple:not(.disabled){
+                    background-color: inherit;
                 }
             }
         }
@@ -47,20 +60,34 @@
         box-shadow: 0 0 0 2px  $select-visible-shadow-color;
         border:1px solid $select-visible-color;
     }
-    >.ecode-popover-wrapper > .select-reference{
-        position: relative;
-        border: 1px solid $border-color;
-        box-shadow: 0 0 2px $shadow-color;
+    >.ecode-popover-wrapper >.reference > .select-reference{
+        position: absolute;
+        top:0;
+        z-index: 1;
+        left:0;
+        width: 100%;
+        // border: 1px solid $border-color;
+        // box-shadow: 0 0 2px $shadow-color;
         cursor: pointer;
         border-radius: $border-radius;
-        >.ecode-icon{
+        .wrapper >.icon{
             position: absolute;
             right:2px;
             height: 100%;
             top:0;
-            fill: $select-arrow-color;
+            width:16px ;
+            > .ecode-icon{
+                position: absolute;
+                top:50%;
+                margin-top:-8px;
+                margin-left:-8px;
+                left:50%;
+                width: 16px;
+                height: 16px;
+                fill: $select-arrow-color;
+            }
         }
-        > .select-tags{
+        .wrapper > .select-tags{
             padding:3px 3px 1px 3px;
             > .ecode-tag{
                 margin :0 3px 3px 0;
@@ -72,6 +99,9 @@
                 font-size: $font-size;
                 padding: 3px;
             }
+        }
+        .wrapper{
+           
         }
        
        
