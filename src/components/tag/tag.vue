@@ -1,5 +1,5 @@
 <template>
-  <transition :name="transitionName">
+  <transition :name="transition" >
     <div class="ecode-tag" @click="$emit('click')" :class="[{[color]:color&&!hasColor},{'has-color':hasColor}]" :style="{'background-color':hasColor?color:'','border-color':hasColor?color:''}">
         <slot name="default" />
         <template v-if="closable">
@@ -22,6 +22,7 @@ export default {
     props:{
         closable:{type:Boolean,default:false},
         transitionName:{type:String,default:'ecode-fade'},
+        hasTransition:{type:Boolean,default:true},
         color:{
             type:String,
             validator:(val)=>{
@@ -34,6 +35,9 @@ export default {
     computed:{
          hasColor(){
             return reg.test(this.color)
+        },
+        transition(){
+            return this.hasTransition?this.transitionName:''
         }
     },
     methods:{

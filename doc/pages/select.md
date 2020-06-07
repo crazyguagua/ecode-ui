@@ -109,8 +109,41 @@ export default{
     },
     data(){
         return {
-            selected:[1,2,],
+            selected:[],
             options:this.$teams
+        }
+    }
+}
+</script>
+```
+:::
+
+:::
+## 大数据下拉框
+
+:::demo
+```html
+    <e-select  clearable class="margin-bottom-15" v-model="selected" placeholder="请选择" :data="options" >
+        <e-option v-for="option in options" :disabled="option.disabled" :key="option.value" :label="option.label" :value="option.value">
+        </e-option>
+    </e-select>
+<script>
+export default{
+    methods:{
+    },
+    created(){
+    },
+    data(){
+        var arr = []
+        for(let i=0;i<100000;i++){
+            arr.push({
+                label:'数据'+i,
+                value:'值：'+i
+            })
+        }
+        return {
+            selected:[],
+            options:arr
         }
     }
 }

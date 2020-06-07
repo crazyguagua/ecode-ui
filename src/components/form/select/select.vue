@@ -26,14 +26,9 @@
                 <div v-if="multiple" class="select-reference"  ref="selectReference" >
                     <div class="wrapper" >
                         <div class="select-tags"  :style="{width:`${inputWidth -30 }px`}" >
-                            <e-tag closable @close="handleClose(tag)"  v-for="tag in tags" :key="tag.value" >{{tag.label}}</e-tag>
+                            <e-tag :hasTransition="false" closable @close="handleClose(tag)"  v-for="tag in tags" :key="tag.value" >{{tag.label}}</e-tag>
                             <input v-if="filterable" :style="{width:`${inputWidth}px`}"   class="select-input" :placeholder="cPlaceholder">
                         </div>
-                        <!-- <div class="icon" @mouseenter="hoveredIcon = true" @mouseleave="hoveredIcon = false">
-                            <e-icon :name="dropDownIconName" v-if="!showClear" />
-                            <e-icon name="ecode-clear" v-else />
-                        </div> -->
-                    
                     </div>
                 </div>
            </div>
@@ -44,6 +39,13 @@
                 <e-scrollbar ref="scrollbar" class="options"  v-if="$slots.default && $slots.default.length>0 && $slots.default.length<=maxCount">
                     <slot  />
                 </e-scrollbar>
+                <virtual-list style="height: 360px; overflow-y: auto;" v-if="isVisual"
+                    data-key="value"
+                    :keeps="20"
+                    :estimate-size="42"
+                    :data-sources="data"
+                    :data-component="itemComponent"
+                />
             </div>
         </e-popover>
     </div>
@@ -58,6 +60,8 @@ import ETag from '@/components/tag/tag'
 const isArray =(obj)=> Object.prototype.toString.call(obj) === "[object Array]"
 import { getScrollBarWith } from "@/util/scrollbar"; 
 import { addResizeListener, removeResizeListener } from "@/util/resize-event";
+import VirtualList from 'vue-virtual-scroll-list'
+import EOption from './option'
 const scrollbarWidth = getScrollBarWith()
 export default {
     name:'ESelect',
@@ -71,10 +75,11 @@ export default {
         readonly:{type:Boolean,default:false},
         multiple:{type:Boolean,default:false},
         placeholder:{type:String,default:'请选择'},
+        data:Array,
         maxCount:{type:Number,default:100} //准备超过100 采用虚拟滚动
     },
     components:{
-        EInput,EScrollbar,EIcon,ETag
+        EInput,EScrollbar,EIcon,ETag,EOption
     },
     computed:{
         showClear(){
@@ -92,6 +97,10 @@ export default {
         },
         cPlaceholder(){
            return (this.cArrayValue||this.value)?'':this.placeholder
+        },
+        isVisual(){
+            
+            return this.$slots.default&& this.$slots.default.length>0 && this.$slots.default.length>this.maxCount;
         }
     },
     data(){
@@ -101,6 +110,7 @@ export default {
             cArrayValue:[],
             cLabel:'',
             tags:[],
+            itemComponent:EOption,
             inputWidth:0,//输入框的宽度
             showPopover:false, //是否打开popover
             hoverIndex:-1,  //鼠标移入的索引，键盘控制
@@ -201,8 +211,12 @@ export default {
             this.$emit('hide')
         },
         //多选删除
-        handleClose(){
+        handleClose(option){
 
+           let index = this.tags.findIndex((item)=>option === item)
+           this.tags.splice(index,1)
+           this.cArrayValue.splice(index,1)
+           this.$emit('input',this.cArrayValue)
         },
         //设置input的宽度
         setInputWidth(){
@@ -239,8 +253,15 @@ export default {
             let index = this.options.indexOf(option)
             this.options.splice(index,1)
         },
+        visualScrollToOption(){
+
+        },
         //滚动到选中的option
         scrollToOption(targetEl){
+            //如果是大数据就另外处理
+            if(this.isVisual){
+                this.visualScrollToOption()
+            }
             let container = this.$refs.scrollbar.$refs.wrapper //外层盒子，高度固定
             let scrollContent =this.$refs.scrollbar.$refs.contentWrapper //滚动内容的盒子
             let scrollContentRect = scrollContent.getBoundingClientRect()

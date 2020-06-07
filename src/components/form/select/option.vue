@@ -2,8 +2,14 @@
   <div @mouseenter="hover =true" @mouseleave="hover=false"
    :class="['ecode-option',{'selected':isSelected,'disabled':this.disabled,'multiple':multiple},{'hover':isHover}]" @click.stop="select" >
       <slot>
+        <template v-if="!source">
          <span> {{label}}</span>
          <e-icon class="selectedIcon" name="ecode-ok-no-bg" v-if="multiple && isSelected"  />
+        </template>
+         <template v-else>
+         <span> {{source.label}}</span>
+         <e-icon class="selectedIcon" name="ecode-ok-no-bg" v-if="multiple && isSelected"  />
+        </template>
       </slot>
   </div>
 </template>
@@ -18,7 +24,8 @@ export default {
     props:{
       value:{type:[String,Number]},
       label:{type:[String,Number]},
-      disabled:{type:Boolean,default:false}
+      disabled:{type:Boolean,default:false},
+      source:Object
     },
     methods:{
       select(){
@@ -40,12 +47,17 @@ export default {
         let hoverIndex = this.parentSelect.hoverIndex
         return this.hover || this.parentSelect.options[hoverIndex] === this
       },
+      setHover(){
+        this.hover = true
+        this.parentSelect.hoverIndex = this.index
+      },
       multiple(){
         return this.parentSelect.multiple;
       }
     },
     created(){
       this.parentSelect.addOption(this)
+      this.index = this.parentSelect.options.indexOf(this)
     },
     data(){
       return {
