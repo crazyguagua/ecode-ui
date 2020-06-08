@@ -39,9 +39,11 @@
                 <e-scrollbar ref="scrollbar" class="options"  v-if="$slots.default && $slots.default.length>0 && $slots.default.length<=maxCount">
                     <slot  />
                 </e-scrollbar>
-                <virtual-list style="height: 360px; overflow-y: auto;" v-if="isVisual"
+                <virtual-list  style="height: 360px; overflow-y: auto;" v-if="isVisual"
                     data-key="value"
                     :keeps="20"
+                    wrapClass="virtual-wrap"
+                    itemClass="virtual-item"
                     :estimate-size="42"
                     :data-sources="data"
                     :data-component="itemComponent"
@@ -127,8 +129,8 @@ export default {
         onOptionSelect(option){
            
             if(!this.multiple){
-                this.cLabel = option.label
-                this.cValue = option.value
+                this.cLabel =  option.source? option.source.label:option.label
+                this.cValue = option.source?option.source.value:option.value
                 //关闭
                 this.$refs.popover.hidePopper()
                  this.$emit('input',this.cValue)
@@ -159,7 +161,8 @@ export default {
                  let selectedArray = []
                  
                  children.forEach((item,index)=>{
-                      if(this.cArrayValue.includes(item.value)){
+                     let value = item.source?item.source.value:item.value
+                      if(this.cArrayValue.includes(value)){
                         selectedArray.push(item)
                         if(hoverIndex==-1){
                             hoverIndex = index //多选设置hoverIndex 为数组第一位
@@ -175,14 +178,15 @@ export default {
             }else{
                  let selected = null
                  children.forEach((item,index)=>{
-                      if(this.cValue == item.value){
+                      let value = item.source?item.source.value:item.value
+                      if(this.cValue == value){
                           selected = item
                           hoverIndex = index
                           item.hover = true
                       }
                  })
                  if(selected){
-                    this.cLabel = selected.label
+                    this.cLabel =  selected.source?selected.source.label:selected.label
                     this.selected = selected
                  }        
             }
@@ -261,6 +265,7 @@ export default {
             //如果是大数据就另外处理
             if(this.isVisual){
                 this.visualScrollToOption()
+                return
             }
             let container = this.$refs.scrollbar.$refs.wrapper //外层盒子，高度固定
             let scrollContent =this.$refs.scrollbar.$refs.contentWrapper //滚动内容的盒子
@@ -286,6 +291,7 @@ export default {
         },
         //option created 时通知select
         addOption(option){
+            log(this.options)
             this.options.push(option)
             //设置label
             if(!this.multiple && this.cValue == option.value){
@@ -329,7 +335,7 @@ export default {
                         this.cValue = newVal
                     }
                     this.setSelect()
-                    this.scrollToOption()
+                    if(this.showPopover)this.scrollToOption()
                 }
             }
         }

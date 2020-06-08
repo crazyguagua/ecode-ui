@@ -56,8 +56,12 @@ export default {
       }
     },
     created(){
+      log('created')
       this.parentSelect.addOption(this)
       this.index = this.parentSelect.options.indexOf(this)
+    },
+    updated(){
+      log('updated')
     },
     data(){
       return {
