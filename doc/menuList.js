@@ -44,6 +44,9 @@ export default [{
             },{
                 title:'标签',
                 name:'tag'
+            },{
+                title:'虚拟滚动',
+                name:'virtualScroll'
             }
         ]
     } ,{

@@ -1,0 +1,26 @@
+.virtualScroll{
+    height: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    /* width */
+   &::-webkit-scrollbar {
+     width: 10px;
+   }
+   /* Track */
+   &::-webkit-scrollbar-track {
+     background: #f4f4f4;
+   }
+   /* Handle */
+   &::-webkit-scrollbar-thumb {
+     border-radius: 0px;
+     background: rgba(0, 0, 0, 0.12);
+   }
+   /* Handle on hover */
+   &::-webkit-scrollbar-thumb:hover {
+     background: #b2b2b2;
+   }
+   >.listWrapper > .scrollItem{
+       border-bottom: 1px solid #ccc;
+       padding:10px;
+   }
+}
