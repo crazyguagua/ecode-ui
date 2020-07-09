@@ -5,6 +5,7 @@ export default {
         size:{
             type:Number,
         },
+        paddCount:{type:Number,default:3},
         itemRender:{
             default(){
                 return DefItemRender
@@ -26,13 +27,16 @@ export default {
                    obj:item,
                    index:i
                },
+               attrs:{
+                   idx:item.index
+               },
                style:itemStyle
            }))
        }
       
         return (
             <div class="virtualScroll">
-                <div class="listWrapper" style="{ {'height':this.totalHeight }}">
+                <div ref="wrapper" class="listWrapper" style={{'height':this.totalHeight,'padding-top':this.paddingTop}}>
                 {
                    arr
                 }
@@ -45,16 +49,35 @@ export default {
             range:{
                 start:0,
                 end:10
-            }
+            },
+            showCount:0
         }
     },
     methods:{
         initRange(){
 
         },
-        calcCount(){
-           
+        calc(){
+            
+           let count = Math.ceil(this.$el.offsetHeight / this.size)
+            this.showCount = count
+            this.range.end = this.range.start + count
+            let maxPaddingTop = this.$refs.wrapper.offsetHeight - this.$el.offsetHeight
+            this.maxPaddingTop = maxPaddingTop
+        },
+        handleScroll(){
+            let {scrollTop} = this.$el
+            console.log(scrollTop)
+            let topCount = Math.ceil(scrollTop / this.size)
+            this.range.start = Math.max(0,topCount - this.paddCount )
+            this.range.end = topCount + this.showCount + this.paddCount 
+        },
+        bindEvents(){
+            this.$el.addEventListener("scroll", this.handleScroll, { passive: true });
         }
+    },
+    beforeDestory(){
+        this.$el.removeListener('scroll',this.handleScroll)
     },
     watch:{
         data:{
@@ -66,10 +89,16 @@ export default {
     },
     computed:{
         totalHeight(){
-            return '100px'
+            return  this.data.length * this.size +'px'
+        },
+        paddingTop(){
+            let paddingTop =  Math.max(0,this.range.start - this.paddCount )* this.size 
+            
+            return Math.min(this.maxPaddingTop,paddingTop) +'px'
         }
     },
     mounted(){
-        this.calcCount()
+        this.calc()
+        this.bindEvents()
     }
 }

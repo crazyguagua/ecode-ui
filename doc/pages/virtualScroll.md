@@ -24,7 +24,8 @@ export default {
         for(var i=1;i<=5000;i++){
             list.push({
                 title:'标题  '+i,
-                text:'内容  '+i
+                text:'内容  '+i,
+                index:i
             })
         }
         this.list = list
