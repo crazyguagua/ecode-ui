@@ -1,4 +1,5 @@
 import DefItemRender from './itemRender'
+import {debounce } from "throttle-debounce";
 export default {
     props:{
         data:{type:Array},
@@ -50,7 +51,8 @@ export default {
                 start:0,
                 end:10
             },
-            showCount:0
+            showCount:0,
+            paddingTop:0
         }
     },
     methods:{
@@ -64,14 +66,22 @@ export default {
             this.range.end = this.range.start + count
             let maxPaddingTop = this.$refs.wrapper.offsetHeight - this.$el.offsetHeight
             this.maxPaddingTop = maxPaddingTop
+            this.containerHeight = this.$el.offsetHeight
         },
-        handleScroll(){
+        handleScroll:debounce(1,function(index){
             let {scrollTop} = this.$el
             console.log(scrollTop)
-            let topCount = Math.ceil(scrollTop / this.size)
+            let topCount = Math.floor(scrollTop / this.size)
             this.range.start = Math.max(0,topCount - this.paddCount )
             this.range.end = topCount + this.showCount + this.paddCount 
-        },
+            //计算paddingTop
+
+            let paddingTop =0
+            if(scrollTop > this.containerHeight){
+                paddingTop = scrollTop - this.containerHeight
+            }
+            this.paddingTop = paddingTop + 'px'
+        }),
         bindEvents(){
             this.$el.addEventListener("scroll", this.handleScroll, { passive: true });
         }
@@ -91,11 +101,11 @@ export default {
         totalHeight(){
             return  this.data.length * this.size +'px'
         },
-        paddingTop(){
-            let paddingTop =  Math.max(0,this.range.start - this.paddCount )* this.size 
+        // paddingTop(){
+        //     let paddingTop =  Math.max(0,this.range.start - this.paddCount )* this.size 
             
-            return Math.min(this.maxPaddingTop,paddingTop) +'px'
-        }
+        //     return Math.min(this.maxPaddingTop,paddingTop) +'px'
+        // }
     },
     mounted(){
         this.calc()
