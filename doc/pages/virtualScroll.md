@@ -21,7 +21,7 @@ export default {
     },
     created(){
         let list = []
-        for(var i=1;i<=5000;i++){
+        for(var i=0;i<20;i++){
             list.push({
                 title:'标题  '+i,
                 text:'内容  '+i,

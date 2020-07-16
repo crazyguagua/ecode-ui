@@ -1,5 +1,5 @@
 import DefItemRender from './itemRender'
-import {debounce } from "throttle-debounce";
+import {debounce, throttle } from "throttle-debounce";
 export default {
     props:{
         data:{type:Array},
@@ -26,10 +26,11 @@ export default {
             arr.push( h(this.itemRender,{
                props:{
                    obj:item,
-                   index:i
+                   index:item.index
                },
                attrs:{
-                   idx:item.index
+                   idx:item.index,
+                   current:i === this.current
                },
                style:itemStyle
            }))
@@ -52,7 +53,9 @@ export default {
                 end:10
             },
             showCount:0,
-            paddingTop:0
+            paddingTop:0,
+            paddingBottom:0,
+            current:0
         }
     },
     methods:{
@@ -68,20 +71,26 @@ export default {
             this.maxPaddingTop = maxPaddingTop
             this.containerHeight = this.$el.offsetHeight
         },
-        handleScroll:debounce(1,function(index){
+        handleScroll(){//throttle(30,function(index){
+          
             let {scrollTop} = this.$el
+            log(scrollTop)
             console.log(scrollTop)
-            let topCount = Math.floor(scrollTop / this.size)
+            let topCount = Math.floor(scrollTop / this.size) // 130 / 60 2.1 从第二个开始显示
+            this.current = topCount
             this.range.start = Math.max(0,topCount - this.paddCount )
-            this.range.end = topCount + this.showCount + this.paddCount 
+            this.range.end =Math.min(topCount + this.showCount + this.paddCount ,this.data.length-1)
             //计算paddingTop
-
-            let paddingTop =0
-            if(scrollTop > this.containerHeight){
-                paddingTop = scrollTop - this.containerHeight
+            let paddingTop 
+            if(this.range.start == 0){
+                paddingTop = 0 
+            }else {
+                paddingTop = scrollTop - (topCount - this.range.start) * this.size
             }
+           
             this.paddingTop = paddingTop + 'px'
-        }),
+            // this.paddingBottom = paddingBottom +'px'
+        },
         bindEvents(){
             this.$el.addEventListener("scroll", this.handleScroll, { passive: true });
         }
@@ -100,12 +109,7 @@ export default {
     computed:{
         totalHeight(){
             return  this.data.length * this.size +'px'
-        },
-        // paddingTop(){
-        //     let paddingTop =  Math.max(0,this.range.start - this.paddCount )* this.size 
-            
-        //     return Math.min(this.maxPaddingTop,paddingTop) +'px'
-        // }
+        }
     },
     mounted(){
         this.calc()
