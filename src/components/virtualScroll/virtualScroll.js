@@ -74,8 +74,6 @@ export default {
         handleScroll(){//throttle(30,function(index){
           
             let {scrollTop} = this.$el
-            log(scrollTop)
-            console.log(scrollTop)
             let topCount = Math.floor(scrollTop / this.size) // 130 / 60 2.1 从第二个开始显示
             this.current = topCount
             this.range.start = Math.max(0,topCount - this.paddCount )
@@ -109,7 +107,8 @@ export default {
     computed:{
         totalHeight(){
             return  this.data.length * this.size +'px'
-        }
+        },
+        
     },
     mounted(){
         this.calc()
