@@ -11,10 +11,9 @@ config
 
   .plugin('anchor').use(anchorPlugin, [
     {
-      level: 2,
-      // slugify: slugify,
-      permalink: true,
-      permalinkBefore: true
+      permalinkSymbol:'#', //修改默认链接的图案，默认是¶
+      permalink: true, //是否在标题旁添加链接
+      permalinkBefore: true,//将链接放在标题的左边
     }
   ]).end()
 

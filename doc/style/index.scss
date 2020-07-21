@@ -46,12 +46,17 @@ ul,li{
         font-weight: 500;
         line-height: 35px;
         font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
+        a{
+            opacity: .4;
+            text-decoration: none;
+        }
     }
     > h2, > h3{
         font-weight: 400;
         color: #1f2f3d;
         a{
             opacity: .4;
+            text-decoration: none;
         }
         a:hover{
             opacity: .4;

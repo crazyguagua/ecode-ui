@@ -1,4 +1,4 @@
-const { compileTemplate } = require('@vue/component-compiler-utils');
+const { compileTemplate ,parse } = require('@vue/component-compiler-utils');
 const compiler = require('vue-template-compiler');
 
 function stripScript(content) {
@@ -34,7 +34,7 @@ function genInlineComponentText(template, script) {
     filename: 'inline-component', // TODO：这里有待调整
     compiler
   };
-  const compiled = compileTemplate(finalOptions);
+  let compiled = compileTemplate(finalOptions);
   // tips
   if (compiled.tips && compiled.tips.length) {
     compiled.tips.forEach(tip => {
@@ -59,6 +59,8 @@ function genInlineComponentText(template, script) {
   } else {
     script = 'const democomponentExport = {}';
   }
+  // console.log('===========')
+  // console.log(script)
   demoComponentContent = `(function() {
     ${demoComponentContent}
     ${script}

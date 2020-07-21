@@ -2,7 +2,7 @@
 
 
     <e-scrollbar class="doc-nav leftMenu">
-     <div class="wrapper" style="padding-right:10px;">
+     <div class="wrapper" style="">
       <div class="empty"></div>
       <ul class="nav-list">
         <template  v-for="(l,index) in list" >

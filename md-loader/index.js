@@ -82,6 +82,5 @@ module.exports = function(source) {
     ${styleStr}
   `;
 
-  // console.log(pageScript)
   return ret
 };

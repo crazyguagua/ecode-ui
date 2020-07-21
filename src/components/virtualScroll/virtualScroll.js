@@ -6,7 +6,7 @@ export default {
         size:{
             type:Number,
         },
-        paddCount:{type:Number,default:3},
+        paddCount:{type:Number},//前后预留几个
         itemRender:{
             default(){
                 return DefItemRender
@@ -71,24 +71,23 @@ export default {
             this.maxPaddingTop = maxPaddingTop
             this.containerHeight = this.$el.offsetHeight
         },
-        handleScroll(){//throttle(30,function(index){
+        handleScroll:throttle(20,function(index){
           
             let {scrollTop} = this.$el
+           
             let topCount = Math.floor(scrollTop / this.size) // 130 / 60 2.1 从第二个开始显示
             this.current = topCount
-            this.range.start = Math.max(0,topCount - this.paddCount )
-            this.range.end =Math.min(topCount + this.showCount + this.paddCount ,this.data.length-1)
-            //计算paddingTop
-            let paddingTop 
-            if(this.range.start == 0){
-                paddingTop = 0 
-            }else {
-                paddingTop = scrollTop - (topCount - this.range.start) * this.size
-            }
-           
-            this.paddingTop = paddingTop + 'px'
+            let paddCount = this.paddCount?this.paddCount:this.showCount  //默认前后多一屏
+            //扩大start和end的范围
+            let preCount = Math.min(topCount,paddCount) //前面最多预留几个
+            let maxRemain =Math.max(0,this.data.length -(topCount+this.showCount))//后面还剩几个没显示出来的
+            let afterCount = Math.min(maxRemain,paddCount)
+            this.range.start =topCount - preCount
+            this.range.end =Math.min(topCount+this.showCount+afterCount ,this.data.length-1) //这里可能超出
+            this.paddingTop = this.range.start * this.size + 'px'  //预留渲染，页面应该定位到预留的位置
+            // log(this.range.start,this.range.end)
             // this.paddingBottom = paddingBottom +'px'
-        },
+        }),
         bindEvents(){
             this.$el.addEventListener("scroll", this.handleScroll, { passive: true });
         }
