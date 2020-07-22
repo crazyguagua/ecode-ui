@@ -1,7 +1,9 @@
 <template>
   <transition name="ecode-fade">
       <div @click="scrollToTop" class="ecode-back-to-top" v-if="isVisible" :style="{'right':`${right}px`,'bottom':`${bottom}px`}">
-          <EIcon name="ecode-backtotop" />
+          <slot>
+          <EIcon name="ecode-rocket" />
+          </slot>
       </div>
   </transition>
 </template>
