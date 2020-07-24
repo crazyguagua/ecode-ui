@@ -24,9 +24,17 @@
        padding:10px;
    }
    >.listWrapper.horizontal{
-     white-space: nowrap;
+     display: flex;
+     flex-direction: row;
+     flex-wrap: nowrap;
      > div{
+       flex-shrink: 0;
        display: inline-block;
+       margin-right:10px;
+       border:1px solid #ccc;
+       >.title{
+         padding:10px;
+       }
      }
    }
 

@@ -26,3 +26,20 @@ export const binarySearch =(arr,value,key)=>{
 // let arr = [ 30,60,80,90,100,121,312,500,520]
 // let index = binarySearch(arr,85)
 // console.log(index)
+
+export const ATTRMAP = {
+    horizontal:{
+        start:'left',
+        end:'right',
+        size:'width',
+        paddingType:'padding-left',
+        scroll:'scrollLeft'
+    },
+    vertical:{
+        start:'top',
+        end:'bottom',
+        size:'height',
+        paddingType:'padding-top',
+        scroll:'scrollTop'
+    }
+}

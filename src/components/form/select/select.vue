@@ -39,7 +39,7 @@
                 <e-scrollbar ref="scrollbar" class="options"  v-if="$slots.default && $slots.default.length>0 && $slots.default.length<=maxCount">
                     <slot  />
                 </e-scrollbar>
-                <virtual-list  style="height: 360px; overflow-y: auto;" v-if="isVisual"
+                <virtual-list  style="height: 360px; overflow-y: auto;" v-if="isVirtual"
                     data-key="value"
                     :keeps="20"
                     wrapClass="virtual-wrap"
@@ -100,7 +100,7 @@ export default {
         cPlaceholder(){
            return (this.cArrayValue||this.value)?'':this.placeholder
         },
-        isVisual(){
+        isVirtual(){
             
             return this.$slots.default&& this.$slots.default.length>0 && this.$slots.default.length>this.maxCount;
         }
@@ -263,7 +263,7 @@ export default {
         //滚动到选中的option
         scrollToOption(targetEl){
             //如果是大数据就另外处理
-            if(this.isVisual){
+            if(this.isVirtual){
                 this.visualScrollToOption()
                 return
             }
@@ -291,7 +291,6 @@ export default {
         },
         //option created 时通知select
         addOption(option){
-            log(this.options)
             this.options.push(option)
             //设置label
             if(!this.multiple && this.cValue == option.value){
@@ -308,7 +307,9 @@ export default {
         },
     },
     beforeDestroy(){
-       if(this.$refs.selectReference) removeEventListener(this.$refs.selectReference,this.onInputHeightResize)
+       if(this.$refs.selectReference){
+           removeEventListener(this.$refs.selectReference,this.onInputHeightResize)
+       } 
     },
     mounted(){
         if(this.multiple && isArray(this.value)){

@@ -10,13 +10,13 @@ export default {
         },//每一项高度是否固定
         paddCount:{type:Number},//前后预留几个
         itemRender:{
-            type:[Function,Object],
-            default(){
-                return DefItemRender
-            }
+            required:true
         },
         direction:{
             type:String,default:'vertical'
+        },
+        throttle:{
+            type:Number,default:17  //单位毫秒
         }
     },
 }

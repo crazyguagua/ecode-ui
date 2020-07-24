@@ -1,6 +1,6 @@
 
 import {debounce, throttle } from "throttle-debounce";
-import {binarySearch} from './calc'
+import {binarySearch,ATTRMAP} from './calc'
 import Props from './props'
 export default {
     name:'virtualScroll',
@@ -13,13 +13,26 @@ export default {
             }
         })
     },
+    created(){
+        this.handleScroll = throttle(this.throttle,(e)=>{
+          
+            let scroll =  this.$el[ this.attr.scroll]
+           
+             if(this.variable){
+                 this.handleScrollVariable(scroll)
+             }else {
+                 this.handleScrollFixed(scroll)
+             }
+        })
+    },
     render(h){
         let start = this.range.start
         let end = this.range.end
         let arr = []
         const itemStyle = {}
-        if(this.size && !this.variable){
-          itemStyle['height'] = `${this.size}px`
+        let {size,paddingType} =this.attr
+        if(this.size && !this.variable ){
+          itemStyle[size] = `${this.size}px`
         }
         for(let i=start;i<=end;i++){
             let item = this.data[i]
@@ -35,10 +48,14 @@ export default {
                style:itemStyle
            }))
        }
-       let style = {'height':this.totalHeight,'padding-top':this.paddingTop}
+       let style 
        let clazz = ['listWrapper']
        if(this.direction == 'horizontal'){
             clazz = ['listWrapper','horizontal']
+       }
+       style = {
+        [size]:this.totalSize,
+        [paddingType]:this.paddingOffset
        }
         return (
             <div class="virtualScroll">
@@ -57,31 +74,35 @@ export default {
                 end:10
             },
             showCount:0,
-            paddingTop:0,
-            paddingBottom:0,
+            paddingOffset:0,
             current:0
         }
     },
     methods:{
         //根据预估的高度计算所有的列表项的高度
         initPosition(){
+            let {start,end,size} = this.attr
             let positions = this.data.map((item,index)=>{
                 return {
-                    top:index * this.size,
-                    bottom:(index+1) * this.size,
-                    height:this.size
+                    [start]:index * this.size,
+                    [end]:(index+1) * this.size,
+                    [size]:this.size
                 }
             })
             this.positions = positions
         },
-        calc(){
-            
-           let count = Math.ceil(this.$el.offsetHeight / this.size)
+        //计算容器大概显示几条
+        calcShowCount(){
+            let count 
+            if(this.direction === 'horizontal'){
+                count = Math.ceil(this.$el.offsetWidth / this.size)
+  
+            }else{
+                count = Math.ceil(this.$el.offsetHeight / this.size)
+               
+            }   
             this.showCount = count
-            this.range.end = this.range.start + count
-            let maxPaddingTop = this.$refs.wrapper.offsetHeight - this.$el.offsetHeight
-            this.maxPaddingTop = maxPaddingTop
-            this.containerHeight = this.$el.offsetHeight
+         
         },
         //计算真实的dom高度
         calcRealItemHeight(){
@@ -107,16 +128,6 @@ export default {
             //更新总的高度
             wrapper.style.height = this.positions[this.positions.length-1].bottom + 'px'
         },
-        handleScroll:throttle(13,function(index){
-          
-            let {scrollTop} = this.$el
-           
-             if(this.variable){
-                 this.handleScrollVariable(scrollTop)
-             }else {
-                 this.handleScrollFixed(scrollTop)
-             }
-        }),
         //处理固定高度的滚动
         handleScrollFixed(scrollTop){
             let topCount = Math.floor(scrollTop / this.size) // 130 / 60 2.1 从第二个开始显示
@@ -128,12 +139,12 @@ export default {
             let afterCount = Math.min(maxRemain,paddCount)
             this.range.start =topCount - preCount
             this.range.end =Math.min(topCount+this.showCount+afterCount ,this.data.length-1) //这里可能超出
-            this.paddingTop = this.range.start * this.size + 'px'  //预留渲染，页面应该定位到预留的位置
+            this.paddingOffset = this.range.start * this.size + 'px'  //预留渲染，页面应该定位到预留的位置
         },
         //处理高度不固定的情况下的滚动
-        handleScrollVariable(scrollTop){
+        handleScrollVariable(scroll){
             //二分查找显示区域 应该显示的起始index
-            let startIndex = binarySearch(this.positions,scrollTop,'top')
+            let startIndex = binarySearch(this.positions,scroll,this.attr.start)
             this.current = startIndex
             let paddCount = this.paddCount?this.paddCount:this.showCount  //默认前后多一屏
             let preCount = Math.min(startIndex,paddCount) //前面最多预留几个
@@ -141,7 +152,7 @@ export default {
             let afterCount = Math.min(maxRemain,paddCount)
             this.range.start =startIndex - preCount
             this.range.end =Math.min(startIndex+this.showCount+afterCount ,this.data.length-1) //这里可能超出
-            this.paddingTop = this.positions[this.range.start].top+ 'px'  //预留渲染，页面应该定位到预留的位置
+            this.paddingOffset = this.positions[this.range.start][this.attr.end]+ 'px'  //预留渲染，页面应该定位到预留的位置
         },
         bindEvents(){
             this.$el.addEventListener("scroll", this.handleScroll, { passive: true });
@@ -160,18 +171,21 @@ export default {
         }
     },
     computed:{
-        totalHeight(){
+        totalSize(){
             if(this.variable){
-                return this.positions[this.positions.length-1].bottom + 'px'
+                return this.positions[this.positions.length-1][this.attr.end] + 'px'
             }else{
                 return  this.data.length * this.size +'px'
             }
            
         },
+        attr(){
+            return ATTRMAP[this.direction]
+        }
         
     },
     mounted(){
-        this.calc()
+        this.calcShowCount()
         this.bindEvents()
     }
 }
