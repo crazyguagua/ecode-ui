@@ -23,4 +23,11 @@
        border-bottom: 1px solid #ccc;
        padding:10px;
    }
+   >.listWrapper.horizontal{
+     white-space: nowrap;
+     > div{
+       display: inline-block;
+     }
+   }
+
 }

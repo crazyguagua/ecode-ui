@@ -35,10 +35,14 @@ export default {
                style:itemStyle
            }))
        }
-      
+       let style = {'height':this.totalHeight,'padding-top':this.paddingTop}
+       let clazz = ['listWrapper']
+       if(this.direction == 'horizontal'){
+            clazz = ['listWrapper','horizontal']
+       }
         return (
             <div class="virtualScroll">
-                <div ref="wrapper" class="listWrapper" style={{'height':this.totalHeight,'padding-top':this.paddingTop}}>
+                <div ref="wrapper" class={clazz} style={style}>
                 {
                    arr
                 }
@@ -78,8 +82,6 @@ export default {
             let maxPaddingTop = this.$refs.wrapper.offsetHeight - this.$el.offsetHeight
             this.maxPaddingTop = maxPaddingTop
             this.containerHeight = this.$el.offsetHeight
-            // this.containerTop = this.$el.getBoundingClientRect().top
-            // log('container-top:',this.containerTop)
         },
         //计算真实的dom高度
         calcRealItemHeight(){
@@ -102,7 +104,6 @@ export default {
                 position.top = this.positions[j-1].bottom
                 position.bottom = position.top+position.height //像链表一样，一个变了，后面的都要变
             }
-            log(this.positions)
             //更新总的高度
             wrapper.style.height = this.positions[this.positions.length-1].bottom + 'px'
         },

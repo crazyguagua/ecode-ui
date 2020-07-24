@@ -79,3 +79,48 @@ export default {
 </script>
 ```
 :::
+
+### 横向滚动
+:::demo
+```html
+<template>
+    <VirtualScroll  direction="horizontal" :itemRender="horizontalItem" style="height:100px;border:1px solid #ccc;width:500px;" :data="list" :size="50" >
+
+    </VirtualScroll>
+</template>
+<script>
+const  Mock = require('mockjs')
+const horizontalItem = require('../components/horizontalItem').default
+console.log(horizontalItem)
+const Random = Mock.Random;
+let data = []
+    for (let i = 0; i < 1000; i++) {
+
+        let content = Random.cparagraph(0,10);//随机生成0到10段句子
+
+        data.push({
+            index:i,
+            id: i,//固有id
+            title: Random.cword(10,300),//随机长度为在8到20内的汉字字符串
+            desc: content,
+            tag: Random.cword(2,6),//随机长度为2 到 6 的汉字
+            views: Random.integer(100,5000),//100到5000的随机整数
+            time:Random.date()
+        })
+    }
+export default {
+    data(){
+        return {
+            list:[
+               
+            ],
+            horizontalItem:horizontalItem
+        }
+    },
+    created(){
+        this.list = data
+    }
+}
+</script>
+```
+:::
